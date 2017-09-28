@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using WebAPITestApp.Contexts;
 
-namespace WebAPITestApp.DBConnectionFactory
+namespace WebAPITestApp.DBRepository
 {
     public static class ConnectionFactory
     {
