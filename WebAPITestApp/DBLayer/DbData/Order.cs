@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace WebAPITestApp.DbData
+﻿namespace DatabaseLayer.DbData
 {
     public class Order
     {

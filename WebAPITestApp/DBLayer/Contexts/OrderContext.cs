@@ -1,7 +1,7 @@
-﻿using System.Data.Entity;
-using WebAPITestApp.DbData;
+﻿using DatabaseLayer.DbData;
+using System.Data.Entity;
 
-namespace WebAPITestApp.Contexts
+namespace DatabaseLayer.Contexts
 {
     public class OrderContext : DbContext
     {
@@ -11,5 +11,6 @@ namespace WebAPITestApp.Contexts
         }
 
         public DbSet<Order> Orders { get; set; }
+
     }
 }
