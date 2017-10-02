@@ -1,6 +1,8 @@
-﻿using System.Data.Entity;
+﻿using DBLayer.Contexts;
+using DBLayer.DbData;
+using System.Data.Entity;
 
-namespace WebAPITestApp.DBRepository
+namespace DBLayer.DBRepository
 {
     public class SQLRepository<T> : IDBRepository<T>
         where T : class, new()
@@ -8,9 +10,9 @@ namespace WebAPITestApp.DBRepository
         private DbContext context;
         private DbSet<T> dbSet;
 
-        public SQLRepository(string connectionName)
+        public SQLRepository()
         {
-            context = new DbContext(connectionName);
+            context = new DbContext("DBConnection");
             dbSet = context.Set<T>();
         }
 
