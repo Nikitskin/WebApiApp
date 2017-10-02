@@ -1,14 +1,10 @@
-﻿using DBLayer.DbData;
-using DBLayer.DBRepository;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace WebAPITestApp
 {
     public class Program
     {
-        static IDBRepository<Order> rep { get; }
-
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
