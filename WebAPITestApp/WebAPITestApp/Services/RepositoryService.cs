@@ -1,5 +1,4 @@
-﻿using DBLayer.DbData;
-using DBLayer.DBRepository;
+﻿using DBLayer.DBRepository;
 
 namespace WebAPITestApp.Services
 {

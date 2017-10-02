@@ -26,7 +26,7 @@ namespace DBLayer.DBRepository
 
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            context.Dispose();
         }
 
         public T GetItem(int id)
