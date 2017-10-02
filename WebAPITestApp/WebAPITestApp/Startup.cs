@@ -21,7 +21,7 @@ namespace WebAPITestApp
         {
             services.AddMvc();
             services.AddTransient<IDBRepository<Order>, SQLRepository<Order>>();
-            services.AddTransient<RepositoryService>();
+            services.AddTransient<RepositoryService<Order>>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -32,7 +32,7 @@ namespace WebAPITestApp
             }
 
             app.UseMvc();
-            app.UseMiddleware<RepositoryMiddleware>();
+            app.UseMiddleware<RepositoryMiddleware<Order>>();
         }
     }
 }

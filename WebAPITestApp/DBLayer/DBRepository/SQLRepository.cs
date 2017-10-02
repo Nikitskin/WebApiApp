@@ -1,6 +1,4 @@
-﻿using DBLayer.Contexts;
-using DBLayer.DbData;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 
 namespace DBLayer.DBRepository
 {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebAPITestApp.Services
 {
-    public class RepositoryMiddleware
+    public class RepositoryMiddleware<T> where T : class
     {
         private readonly RequestDelegate _next;
 
@@ -14,7 +14,7 @@ namespace WebAPITestApp.Services
             _next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext, IDBRepository<Order> repository, RepositoryService repositoryService)
+        public async Task Invoke(HttpContext httpContext, IDBRepository<Order> repository, RepositoryService<T> repositoryService)
         {
             httpContext.Response.ContentType = "text/html;charset=utf-8";
             repository.Create(new Order
