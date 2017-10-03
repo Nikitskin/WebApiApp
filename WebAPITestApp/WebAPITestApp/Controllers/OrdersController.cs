@@ -7,10 +7,15 @@ namespace WebAPITestApp.Controllers
     public class OrdersController : Controller
     {
         // GET api/values
+        // Return sql values
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return null;
+            List<string> list = new List<string>()
+            {
+                "SQL RETURNS!!!Muhahah"
+            };
+            return list;
         }
 
         // GET api/values/5

@@ -1,4 +1,4 @@
-﻿namespace DatabaseLayer.DbData
+﻿namespace DBLayer.DbData
 {
     public class Order
     {

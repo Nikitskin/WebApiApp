@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace WebAPITestApp.DBRepository
+namespace DBLayer.DBRepository
 {
     public class SQLRepository<T> : IDBRepository<T>
         where T : class, new()
@@ -8,9 +8,9 @@ namespace WebAPITestApp.DBRepository
         private DbContext context;
         private DbSet<T> dbSet;
 
-        public SQLRepository(string connectionName)
+        public SQLRepository()
         {
-            context = new DbContext(connectionName);
+            context = new DbContext("DBConnection");
             dbSet = context.Set<T>();
         }
 
@@ -26,7 +26,7 @@ namespace WebAPITestApp.DBRepository
 
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            context.Dispose();
         }
 
         public T GetItem(int id)

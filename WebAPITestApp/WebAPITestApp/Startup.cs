@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using DBLayer.DBRepository;
+using DBLayer.DbData;
+using WebAPITestApp.Services;
 
 namespace WebAPITestApp
 {
@@ -17,6 +20,8 @@ namespace WebAPITestApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddTransient<IDBRepository<Order>, SQLRepository<Order>>();
+            services.AddTransient<RepositoryService<Order>>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -27,6 +32,7 @@ namespace WebAPITestApp
             }
 
             app.UseMvc();
+            app.UseMiddleware<RepositoryMiddleware<Order>>();
         }
     }
 }

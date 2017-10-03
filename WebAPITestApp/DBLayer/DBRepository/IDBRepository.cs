@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace WebAPITestApp.DBRepository
-{
+namespace DBLayer.DBRepository
+{                      
     public interface IDBRepository<T> :IDisposable where T : class
     {
         T GetItem(int id); 
