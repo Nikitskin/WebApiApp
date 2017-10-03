@@ -84,8 +84,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contexts\UserContext.cs" />
-    <Compile Include="Contexts\ProductContext.cs" />
     <Compile Include="Contexts\OrderContext.cs" />
     <Compile Include="DbData\Order.cs" />
     <Compile Include="DbData\Product.cs" />

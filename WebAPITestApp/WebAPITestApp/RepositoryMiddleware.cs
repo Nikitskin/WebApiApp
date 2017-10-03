@@ -1,4 +1,5 @@
-﻿using DBLayer.DbData;
+﻿using DBLayer.Contexts;
+using DBLayer.DbData;
 using DBLayer.DBRepository;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
@@ -19,8 +20,8 @@ namespace WebAPITestApp.Services
             httpContext.Response.ContentType = "text/html;charset=utf-8";
             repository.Create(new Order
             {
-                ProductName = "test",
-                Value = 22
+                ProductName = "testWithOrderContext1",
+                Value = 233
             });
         }
     }

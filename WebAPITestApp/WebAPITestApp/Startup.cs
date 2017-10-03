@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using DBLayer.DBRepository;
 using DBLayer.DbData;
 using WebAPITestApp.Services;
+using System.Data.Entity;
+using DBLayer.Contexts;
 
 namespace WebAPITestApp
 {
@@ -20,8 +22,9 @@ namespace WebAPITestApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddTransient<IDBRepository<Order>, SQLRepository<Order>>();
+            services.AddTransient<IDBRepository<Order>, DBRepository<Order>>();
             services.AddTransient<RepositoryService<Order>>();
+            services.AddTransient<DbContext, OrderContext>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

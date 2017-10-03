@@ -1,17 +1,17 @@
-﻿using DBLayer.Contexts;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 
 namespace DBLayer.DBRepository
 {
-    public class SQLRepository<T> : IDBRepository<T>
+    public class DBRepository<T> : IDBRepository<T>
         where T : class, new()
     {
-        private OrderContext context;
+        private DbContext context;
         private DbSet<T> dbSet;
 
-        public SQLRepository()
+        public DBRepository(DbContext _context)
         {
-            context = new OrderContext();
+            context = _context;
             dbSet = context.Set<T>();
         }
 
@@ -36,10 +36,18 @@ namespace DBLayer.DBRepository
             return dbSet.Find(id);
         }
 
+        public IEnumerable<T> GetAll()
+        {
+            var list = new List<T>();
+            dbSet.ForEachAsync(item => list.Add(item));
+            return list;
+        }
+
         public void Update(T item, T newItem)
         {
             dbSet.Remove(item);
             dbSet.Add(newItem);
+            context.SaveChanges();
         }
     }
 }
