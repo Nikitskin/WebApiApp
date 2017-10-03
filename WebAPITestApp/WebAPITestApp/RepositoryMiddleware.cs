@@ -19,12 +19,12 @@ namespace WebAPITestApp.Services
         {
             unitOfWork.Orders.Create(new Order
             {
-                ProductName = "testWithOrderContext2",
+                ProductName = "testWith",
                 Value = 233
             });
             unitOfWork.Products.Create(new Product
             {
-                ProductName = "ProductName",
+                ProductName = "ProdName",
                 Description = " somedescr"
             });
             unitOfWork.Users.Create(new User
