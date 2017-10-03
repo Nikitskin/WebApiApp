@@ -1,13 +1,21 @@
-﻿using DBLayer.Contexts;
-using DBLayer.DbData;
+﻿using DBLayer.DbData;
 using DBLayer.DBRepository;
 using System;
+using System.Data.Entity;
 
 namespace DBLayer.UnitOfWork
 {
     public class UnitOfWork : IDisposable
     {
-        OrderContext db = new OrderContext();
+        public UnitOfWork(IDBRepository<Order> _orders, IDBRepository<Product> _products, IDBRepository<User> _users, DbContext _db)
+        {
+            orders = _orders;
+            products = _products;
+            users = _users;
+            db = _db;
+        }
+
+        DbContext db;
         IDBRepository<Order> orders;
         IDBRepository<Product> products;
         IDBRepository<User> users;
@@ -23,10 +31,6 @@ namespace DBLayer.UnitOfWork
         {
             get
             {
-                if (orders == null)
-                {
-                    orders = new DBRepository<Order>(db);
-                }
                 return orders;
             }
         }
@@ -34,10 +38,6 @@ namespace DBLayer.UnitOfWork
         {
             get
             {
-                if (products == null)
-                {
-                    products = new DBRepository<Product>(db);
-                }
                 return products;
             }
         }
@@ -45,10 +45,6 @@ namespace DBLayer.UnitOfWork
         {
             get
             {
-                if (users == null)
-                {
-                    users = new DBRepository<User>(db);
-                }
                 return users;
             }
         }

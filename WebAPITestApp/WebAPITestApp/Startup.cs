@@ -23,9 +23,11 @@ namespace WebAPITestApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddTransient<RepositoryService<Order>>();
-            services.AddTransient<DbContext, OrderContext>();
-            services.AddTransient<UnitOfWork, UnitOfWork>();
+            services.AddScoped<DbContext, OrderContext>();
+            services.AddScoped<IDBRepository<Order>, DBRepository<Order>>();
+            services.AddScoped<IDBRepository<Product>, DBRepository<Product>>();
+            services.AddScoped<IDBRepository<User>, DBRepository<User>>();
+            services.AddScoped<UnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -36,7 +38,7 @@ namespace WebAPITestApp
             }
 
             app.UseMvc();
-            app.UseMiddleware<RepositoryMiddleware<Order>>();
+            app.UseMiddleware<RepositoryMiddleware>();
         }
     }
 }

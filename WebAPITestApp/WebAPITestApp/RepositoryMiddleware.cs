@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebAPITestApp.Services
 {
-    public class RepositoryMiddleware<T> where T : class
+    public class RepositoryMiddleware
     {
         private readonly RequestDelegate _next;
 
@@ -19,17 +19,17 @@ namespace WebAPITestApp.Services
         {
             unitOfWork.Orders.Create(new Order
             {
-                ProductName = "testWith",
+                ProductName = "test1",
                 Value = 233
             });
             unitOfWork.Products.Create(new Product
             {
-                ProductName = "ProdName",
+                ProductName = "Prod2",
                 Description = " somedescr"
             });
             unitOfWork.Users.Create(new User
             {
-                FirstName = "FirstName",
+                FirstName = "First3",
                 SecondName = "SecondName"
             });
             unitOfWork.Save();
