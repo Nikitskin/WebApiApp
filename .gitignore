@@ -259,3 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/WebAPITestApp/DBLayer/Web.Debug.config
+/WebAPITestApp/DBLayer/Web.Release.config
