@@ -27,7 +27,7 @@ namespace DBLayer.DBRepository
 
         public T GetItem(int id)
         {
-            return dbSet.Find(id);
+            return dbSet.FindAsync(id).Result;
         }
 
         public IEnumerable<T> GetAll()
