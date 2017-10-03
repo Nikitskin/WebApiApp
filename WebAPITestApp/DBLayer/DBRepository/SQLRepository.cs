@@ -1,22 +1,24 @@
-﻿using System.Data.Entity;
+﻿using DBLayer.Contexts;
+using System.Data.Entity;
 
 namespace DBLayer.DBRepository
 {
     public class SQLRepository<T> : IDBRepository<T>
         where T : class, new()
     {
-        private DbContext context;
+        private OrderContext context;
         private DbSet<T> dbSet;
 
         public SQLRepository()
         {
-            context = new DbContext("DBConnection");
+            context = new OrderContext();
             dbSet = context.Set<T>();
         }
 
         public void Create(T item)
         {
             dbSet.Add(item);
+            context.SaveChanges();
         }
 
         public void Delete(T item)
