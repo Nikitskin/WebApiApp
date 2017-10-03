@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DBLayer.DBRepository
 {                      
-    public interface IDBRepository<T> :IDisposable 
+    public interface IDBRepository<T> 
         where T : class
     {
         T GetItem(int id); 

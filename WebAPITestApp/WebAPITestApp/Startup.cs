@@ -7,6 +7,7 @@ using DBLayer.DbData;
 using WebAPITestApp.Services;
 using System.Data.Entity;
 using DBLayer.Contexts;
+using DBLayer.UnitOfWork;
 
 namespace WebAPITestApp
 {
@@ -22,9 +23,9 @@ namespace WebAPITestApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddTransient<IDBRepository<Order>, DBRepository<Order>>();
             services.AddTransient<RepositoryService<Order>>();
             services.AddTransient<DbContext, OrderContext>();
+            services.AddTransient<UnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

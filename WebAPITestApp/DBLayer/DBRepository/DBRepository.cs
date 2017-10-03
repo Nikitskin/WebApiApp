@@ -18,17 +18,11 @@ namespace DBLayer.DBRepository
         public void Create(T item)
         {
             dbSet.Add(item);
-            context.SaveChanges();
         }
 
         public void Delete(T item)
         {
             dbSet.Remove(item);
-        }
-
-        public void Dispose()
-        {
-            context.Dispose();
         }
 
         public T GetItem(int id)
@@ -47,7 +41,6 @@ namespace DBLayer.DBRepository
         {
             dbSet.Remove(item);
             dbSet.Add(newItem);
-            context.SaveChanges();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using DBLayer.Contexts;
 using DBLayer.DbData;
-using DBLayer.DBRepository;
+using DBLayer.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
@@ -15,14 +15,24 @@ namespace WebAPITestApp.Services
             _next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext, IDBRepository<Order> repository, RepositoryService<T> repositoryService)
+        public async Task Invoke(HttpContext httpContext, UnitOfWork unitOfWork)
         {
-            httpContext.Response.ContentType = "text/html;charset=utf-8";
-            repository.Create(new Order
+            unitOfWork.Orders.Create(new Order
             {
-                ProductName = "testWithOrderContext1",
+                ProductName = "testWithOrderContext2",
                 Value = 233
             });
+            unitOfWork.Products.Create(new Product
+            {
+                ProductName = "ProductName",
+                Description = " somedescr"
+            });
+            unitOfWork.Users.Create(new User
+            {
+                FirstName = "FirstName",
+                SecondName = "SecondName"
+            });
+            unitOfWork.Save();
         }
     }
 }
