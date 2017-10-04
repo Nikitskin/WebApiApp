@@ -9,7 +9,7 @@ namespace DBLayer.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(DBLayer.Contexts.OrderContext context)
