@@ -30,11 +30,9 @@ namespace DBLayer.DBRepository
             return dbSet.FindAsync(id).Result;
         }
 
-        public IEnumerable<T> GetAll()
+        public List<T> GetAll()
         {
-            var list = new List<T>();
-            dbSet.ForEachAsync(item => list.Add(item));
-            return list;
+            return dbSet.ToListAsync<T>().Result;
         }
 
         public void Update(T item, T newItem)
