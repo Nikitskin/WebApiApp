@@ -10,6 +10,6 @@ namespace DBLayer.DBRepository
         void Create(T item); 
         void Update(T item, T newItem); 
         void Delete(T item);
-        IEnumerable<T> GetAll();
+        List<T> GetAll();
     }
 }

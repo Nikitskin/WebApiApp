@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 
 namespace DBLayer.DBRepository
 {
@@ -37,8 +38,7 @@ namespace DBLayer.DBRepository
 
         public void Update(T item, T newItem)
         {
-            dbSet.Remove(item);
-            dbSet.Add(newItem);
+            dbSet.AddOrUpdate(newItem);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace WebAPITestApp
             services.AddScoped<IDBRepository<Order>, DBRepository<Order>>();
             services.AddScoped<IDBRepository<Product>, DBRepository<Product>>();
             services.AddScoped<IDBRepository<User>, DBRepository<User>>();
-            services.AddScoped<UnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

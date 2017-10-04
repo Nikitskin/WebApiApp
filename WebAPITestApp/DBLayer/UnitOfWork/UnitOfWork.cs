@@ -5,7 +5,7 @@ using System.Data.Entity;
 
 namespace DBLayer.UnitOfWork
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IDisposable, IUnitOfWork
     {
         public UnitOfWork(IDBRepository<Order> _orders, IDBRepository<Product> _products, IDBRepository<User> _users, DbContext _db)
         {
