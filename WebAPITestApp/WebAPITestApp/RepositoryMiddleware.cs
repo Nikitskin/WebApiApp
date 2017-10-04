@@ -20,7 +20,7 @@ namespace WebAPITestApp.Services
         {
             unitOfWork.Orders.Create(new Order
             {
-                OrderedDate = DateTime.Now.ToShortDateString()
+                OrderedDate = DateTime.Now
             });
             unitOfWork.Products.Create(new Product
             {

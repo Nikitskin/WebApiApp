@@ -5,7 +5,7 @@ using System.Data.Entity;
 
 namespace DBLayer.UnitOfWork
 {
-    public class UnitOfWork : IDisposable, IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         public UnitOfWork(IDBRepository<Order> _orders, IDBRepository<Product> _products, IDBRepository<User> _users, DbContext _db)
         {
@@ -15,16 +15,15 @@ namespace DBLayer.UnitOfWork
             db = _db;
         }
 
-        DbContext db;
-        IDBRepository<Order> orders;
-        IDBRepository<Product> products;
-        IDBRepository<User> users;
-
+        private DbContext db;
+        private IDBRepository<Order> orders;
+        private IDBRepository<Product> products;
+        private IDBRepository<User> users;
         private bool disposed = false;
 
         public void Save()
         {
-            db.SaveChanges();
+            db.SaveChangesAsync();
         }
 
         public IDBRepository<Order> Orders
@@ -34,6 +33,7 @@ namespace DBLayer.UnitOfWork
                 return orders;
             }
         }
+
         public IDBRepository<Product> Products
         {
             get
@@ -41,6 +41,7 @@ namespace DBLayer.UnitOfWork
                 return products;
             }
         }
+
         public IDBRepository<User> Users
         {
             get
