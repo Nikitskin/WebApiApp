@@ -85,6 +85,10 @@
     <Compile Include="Migrations\201710040740389_RemoveColumn.Designer.cs">
       <DependentUpon>201710040740389_RemoveColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710041001524_AddRelationship.cs" />
+    <Compile Include="Migrations\201710041001524_AddRelationship.Designer.cs">
+      <DependentUpon>201710041001524_AddRelationship.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
@@ -93,6 +97,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710040740389_RemoveColumn.resx">
       <DependentUpon>201710040740389_RemoveColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710041001524_AddRelationship.resx">
+      <DependentUpon>201710041001524_AddRelationship.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

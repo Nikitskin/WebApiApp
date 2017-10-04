@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DBLayer.DbData
 {
@@ -7,8 +8,7 @@ namespace DBLayer.DbData
         [Key]
         [Required]
         public int Id { get; set; }
-        public string ProductName { get; set; }                   
-        public double Value { get; set; }
+        public ICollection<Product> Products { get; set; }
         public string OrderedDate { get; set; }
     }
 }

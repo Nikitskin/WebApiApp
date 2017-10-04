@@ -2,6 +2,7 @@
 using DBLayer.DbData;
 using DBLayer.UnitOfWork;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Threading.Tasks;
 
 namespace WebAPITestApp.Services
@@ -19,8 +20,7 @@ namespace WebAPITestApp.Services
         {
             unitOfWork.Orders.Create(new Order
             {
-                ProductName = "test1",
-                Value = 233
+                OrderedDate = DateTime.Now.ToShortDateString()
             });
             unitOfWork.Products.Create(new Product
             {
