@@ -1,9 +1,9 @@
 namespace DBLayer.Migrations
 {
+    using System.Collections.Generic;
+    using DbData;
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<DBLayer.Contexts.OrderContext>
     {
@@ -12,20 +12,42 @@ namespace DBLayer.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DBLayer.Contexts.OrderContext context)
+        protected override void Seed(Contexts.OrderContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var user = new User
+            {
+                FirstName = "TestUser",
+                SecondName = "SecondName"
+            };
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Users.AddOrUpdate(user);
+
+            var products = new List<Product>
+            {
+                new Product
+                {
+                    ProductName = "ProdName1",
+                    Description = "Product1",
+                    Costs = 15.9
+                },
+                new Product
+                {
+                ProductName = "ProdName2",
+                Description = "Product2",
+                Costs = 15.9
+            }
+            };
+
+            products.ForEach(item => context.Products.AddOrUpdate(item));
+
+            context.Orders.AddOrUpdate(new Order
+            {
+                OrderedDate = DateTime.Now,
+                Products = products,
+                Users = user,
+                UserId = user.Id
+            });
+
         }
     }
 }
