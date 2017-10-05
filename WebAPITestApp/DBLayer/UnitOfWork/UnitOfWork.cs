@@ -7,6 +7,9 @@ namespace DBLayer.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
+        // TODO read about System.Lazy class. Now all your repositories instatiate every time you create an UnitOfWork object
+        // TODO but if you use smth like _usersRepository = new Lazy<IUserRepository>(() => new UserRepository(context));
+        // Repository will be created only when you call unitOfWork.UserRepository
         public UnitOfWork(IDBRepository<Order> _orders, IDBRepository<Product> _products, IDBRepository<User> _users, DbContext _db)
         {
             orders = _orders;
@@ -42,7 +45,7 @@ namespace DBLayer.UnitOfWork
             }
         }
 
-        public IDBRepository<User> Users
+        public IDBRepository<User> Users // TODO Rename it to UserRepository, because it's not a list of users. The same is about other properties.
         {
             get
             {

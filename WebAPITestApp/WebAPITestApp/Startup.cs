@@ -22,6 +22,7 @@ namespace WebAPITestApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            // TODO As I know, in asp.net core we should register dbContext by calling services.AddDbContext() method
             services.AddScoped<DbContext, OrderContext>();
             services.AddScoped<IDBRepository<Order>, DBRepository<Order>>();
             services.AddScoped<IDBRepository<Product>, DBRepository<Product>>();
