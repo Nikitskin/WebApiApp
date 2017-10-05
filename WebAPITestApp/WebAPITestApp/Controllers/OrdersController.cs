@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using DBLayer.DbData;
+using DBLayer.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPITestApp.Controllers
@@ -6,41 +9,46 @@ namespace WebAPITestApp.Controllers
     [Route("api/[controller]")]
     public class OrdersController : Controller
     {
-        // GET api/values
-        // Return sql values
+        private UnitOfWork _unitOfWork;
+
+        public OrdersController()
+        {
+            
+        }
+
+        public OrdersController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = (UnitOfWork)unitOfWork;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<Order>> Get()
         {
-            List<string> list = new List<string>()
-            {
-                "SQL RETURNS!!!Muhahah"
-            };
-            return list;
+            return await _unitOfWork.Orders.GetAll(); 
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Order> Get(int id)
         {
-            return "value";
+            return await _unitOfWork.Orders.GetItem(id);
         }
 
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Order value)
         {
+            _unitOfWork.Orders.Update(value);
         }
 
-        // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put([FromBody]Order value)
         {
+            _unitOfWork.Orders.Create(value);
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(Order order)
         {
+            _unitOfWork.Orders.Delete(order);
         }
     }
 }

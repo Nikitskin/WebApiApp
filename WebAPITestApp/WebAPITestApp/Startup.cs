@@ -4,14 +4,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DBLayer.DBRepository;
 using DBLayer.DbData;
-using WebAPITestApp.Services;
 using System.Data.Entity;
 using DBLayer.Contexts;
 using DBLayer.UnitOfWork;
 
 namespace WebAPITestApp
 {
-    public class Startup
+    public partial class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -36,9 +35,7 @@ namespace WebAPITestApp
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseMvc();
-            app.UseMiddleware<RepositoryMiddleware>();
         }
     }
 }
