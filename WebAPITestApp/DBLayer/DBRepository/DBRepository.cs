@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DBLayer.DBRepository
@@ -39,7 +38,7 @@ namespace DBLayer.DBRepository
 
         public void Update(T newItem)
         {
-            dbSet.AddOrUpdate(newItem);
+            dbSet.Update(newItem);
         }
     }
 }

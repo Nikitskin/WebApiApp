@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DBLayer.DBRepository;
 using DBLayer.DbData;
-using System.Data.Entity;
 using DBLayer.Contexts;
 using DBLayer.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPITestApp
 {
@@ -22,8 +22,7 @@ namespace WebAPITestApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            // TODO As I know, in asp.net core we should register dbContext by calling services.AddDbContext() method
-            services.AddScoped<DbContext, OrderContext>();
+            services.AddDbContext<OrderContext>();
             services.AddScoped<IDBRepository<Order>, DBRepository<Order>>();
             services.AddScoped<IDBRepository<Product>, DBRepository<Product>>();
             services.AddScoped<IDBRepository<User>, DBRepository<User>>();

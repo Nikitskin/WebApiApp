@@ -1,7 +1,7 @@
 ﻿using DBLayer.DbData;
 using DBLayer.DBRepository;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Data.Entity;
 
 namespace DBLayer.UnitOfWork
 {
@@ -29,7 +29,7 @@ namespace DBLayer.UnitOfWork
             db.SaveChangesAsync();
         }
 
-        public IDBRepository<Order> Orders
+        public IDBRepository<Order> OrdersRepository
         {
             get
             {
@@ -37,7 +37,7 @@ namespace DBLayer.UnitOfWork
             }
         }
 
-        public IDBRepository<Product> Products
+        public IDBRepository<Product> ProductsRepository
         {
             get
             {
@@ -45,7 +45,7 @@ namespace DBLayer.UnitOfWork
             }
         }
 
-        public IDBRepository<User> Users // TODO Rename it to UserRepository, because it's not a list of users. The same is about other properties.
+        public IDBRepository<User> UsersRepository 
         {
             get
             {

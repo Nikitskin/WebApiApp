@@ -9,20 +9,11 @@ namespace WebAPITestApp.Controllers
     [Route("api/[controller]")]
     public class OrdersController : Controller
     {
-        // TODO You should use only interfaces here.
-        //Otherwise what's the point of interfaces if you cast them to their implementations?
-        private UnitOfWork _unitOfWork;
-
-
-        // TODO remove default constructor
-        public OrdersController()
-        {
-
-        }
+        private IUnitOfWork _unitOfWork;
 
         public OrdersController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = (UnitOfWork)unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -31,33 +22,34 @@ namespace WebAPITestApp.Controllers
             // TODO You should understand that it's not good option to work with data in controllers.
             //You should have separate layer for business logic that works with data.
             // TODO It's better to create separate response models and map db data to this models every time. Automapper nuget will help with it.
-            return await _unitOfWork.Orders.GetAll();
+            return await _unitOfWork.OrdersRepository.GetAll();
         }
 
         [HttpGet("{id}")]
         public async Task<Order> Get(int id)
         {
-            return await _unitOfWork.Orders.GetItem(id);
+            return await _unitOfWork.OrdersRepository.GetItem(id);
         }
 
         [HttpPost]
         public void Post([FromBody]Order value)
         {
-            _unitOfWork.Orders.Update(value);
+            _unitOfWork.OrdersRepository.Update(value);
+            _unitOfWork.Save();
         }
 
         [HttpPut("{id}")]
         public void Put([FromBody]Order value)
         {
-            _unitOfWork.Orders.Create(value);
-            // TODO You created an item, but you didn't commit transaction.
-            // You should call SaveChanges method in the end of business transaction
+            _unitOfWork.OrdersRepository.Create(value);
+            _unitOfWork.Save();
         }
 
         [HttpDelete("{id}")]
         public void Delete(Order order)
         {
-            _unitOfWork.Orders.Delete(order);
+            _unitOfWork.OrdersRepository.Delete(order);
+            _unitOfWork.Save();
         }
     }
 }

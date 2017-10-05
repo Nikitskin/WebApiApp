@@ -1,13 +1,13 @@
-﻿
-using DBLayer.DbData;
+﻿using DBLayer.DbData;
 using DBLayer.DBRepository;
 
 namespace DBLayer.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        // TODO Add properties for repositories to this interface
-        IDBRepository<Order> Orders { get; }
+        IDBRepository<Order> OrdersRepository { get; }
+        IDBRepository<Product> ProductsRepository{ get; }
+        IDBRepository<User> UsersRepository { get; }
         void Save();
     }
 }
