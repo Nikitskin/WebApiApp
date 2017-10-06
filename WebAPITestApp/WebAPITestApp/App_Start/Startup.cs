@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using DBLayer.Contexts;
+using DBLayer.DbData;
+using DBLayer.DBRepository;
+using DBLayer.UnitOfWork;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using DBLayer.DBRepository;
-using DBLayer.DbData;
-using DBLayer.Contexts;
-using DBLayer.UnitOfWork;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebAPITestApp
 {
@@ -35,6 +34,7 @@ namespace WebAPITestApp
             {
                 app.UseDeveloperExceptionPage();
             }
+            //ConfigureAuth(app);
             app.UseMvc();
         }
     }

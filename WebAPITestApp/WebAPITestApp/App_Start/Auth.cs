@@ -1,18 +1,26 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
-using System.Web.Http;
+using System;
+using Microsoft.Owin.Security.OAuth;
 
 [assembly: OwinStartup(typeof(WebAPITestApp.Startup))]
-namespace WebAPITestApp.App_Start
+namespace WebAPITestApp
 {
     public partial class Startup
     {
-        public void ConfigureAuth(IApplicationBuilder app)
+        public void ConfigureAuth(IAppBuilder app)
         {
-            HttpConfiguration config = new HttpConfiguration();
-            WebApiConfig.Register(config);
-            //app.UseWebApi(config);
+            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                //Provider = new SimpleAuthorizationServerProvider()
+            };
+
+            // Token Generation
+            app.UseOAuthAuthorizationServer(OAuthServerOptions);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
     }
 }

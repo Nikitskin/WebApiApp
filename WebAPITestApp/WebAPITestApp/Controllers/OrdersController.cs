@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web.Http;
 using DBLayer.DbData;
 using DBLayer.UnitOfWork;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPITestApp.Controllers
 {
-    [Route("api/[controller]")]
-    public class OrdersController : Controller
+    [RoutePrefix("api/[controller]")]
+    public class OrdersController : ApiController
     {
         private IUnitOfWork _unitOfWork;
 
@@ -16,7 +16,8 @@ namespace WebAPITestApp.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet]
+        [Authorize]
+        [Microsoft.AspNetCore.Mvc.HttpGet]
         public async Task<List<Order>> Get()
         {
             // TODO You should understand that it's not good option to work with data in controllers.
@@ -25,27 +26,31 @@ namespace WebAPITestApp.Controllers
             return await _unitOfWork.OrdersRepository.GetAll();
         }
 
-        [HttpGet("{id}")]
+        [Authorize]
+        [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
         public async Task<Order> Get(int id)
         {
             return await _unitOfWork.OrdersRepository.GetItem(id);
         }
 
-        [HttpPost]
-        public void Post([FromBody]Order value)
+        [Authorize]
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        public void Post([Microsoft.AspNetCore.Mvc.FromBody]Order value)
         {
             _unitOfWork.OrdersRepository.Update(value);
             _unitOfWork.Save();
         }
 
-        [HttpPut("{id}")]
-        public void Put([FromBody]Order value)
+        [Authorize]
+        [Microsoft.AspNetCore.Mvc.HttpPut("{id}")]
+        public void Put([Microsoft.AspNetCore.Mvc.FromBody]Order value)
         {
             _unitOfWork.OrdersRepository.Create(value);
             _unitOfWork.Save();
         }
 
-        [HttpDelete("{id}")]
+        [Authorize]
+        [Microsoft.AspNetCore.Mvc.HttpDelete("{id}")]
         public void Delete(Order order)
         {
             _unitOfWork.OrdersRepository.Delete(order);

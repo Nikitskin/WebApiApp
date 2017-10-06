@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json.Serialization;
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
+using Newtonsoft.Json.Serialization;
 
-namespace WebAPITestApp.App_Start
+namespace WebAPITestApp
 {
     public static class WebApiConfig
     {
