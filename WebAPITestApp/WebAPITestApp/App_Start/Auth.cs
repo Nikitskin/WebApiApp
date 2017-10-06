@@ -2,6 +2,7 @@
 using Owin;
 using System;
 using Microsoft.Owin.Security.OAuth;
+using WebAPITestApp.Infrastracture.Authorization;
 
 [assembly: OwinStartup(typeof(WebAPITestApp.Startup))]
 namespace WebAPITestApp
@@ -14,8 +15,8 @@ namespace WebAPITestApp
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                //Provider = new SimpleAuthorizationServerProvider()
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(10),
+                Provider = new AuthorizationServerProvider()
             };
 
             // Token Generation

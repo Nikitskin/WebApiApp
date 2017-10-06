@@ -15,7 +15,6 @@ namespace WebAPITestApp.Infrastracture.Authorization
         public AuthRepository()
         {
             _ctx = new AuthContext();
-            //_userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
             _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
         }
 

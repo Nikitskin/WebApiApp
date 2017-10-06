@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Owin;
 
 namespace WebAPITestApp
 {
@@ -28,14 +29,11 @@ namespace WebAPITestApp
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IAppBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            //ConfigureAuth(app);
-            app.UseMvc();
+            ConfigureAuth(app);
+            //TODO remove this
+            //app.UseMvc();
         }
     }
 }
