@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -39,9 +40,8 @@ namespace WebAPITestApp
                     ValidateIssuerSigningKey = true,
                 };
             });
-            services.AddSingleton(Configuration.GetSection("ShopConnection").Get<ShopConnection>());
-            services.AddDbContext<OrderContext>(opt => 
-                opt.UseSqlServer(Configuration.GetSection("ShopConnection").Get<ShopConnection>().ConnectionString));
+           
+            services.AddDbContext<OrderContext>();
             services.AddScoped<IDBRepository<Order>, DBRepository<Order>>();
             services.AddScoped<IDBRepository<Product>, DBRepository<Product>>();
             services.AddScoped<IDBRepository<User>, DBRepository<User>>();
