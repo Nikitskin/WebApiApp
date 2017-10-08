@@ -30,7 +30,7 @@ namespace DBLayer.Contexts
                 var builder = new DbContextOptionsBuilder<OrderContext>();
                 //TODO think about this string and how to move it
                 builder.UseSqlServer(
-                    "data source=EPUAKHAW1166\\SQLEXPRESS;Initial Catalog=TestDb;Integrated Security=True;");
+                    "data source=EPUAKHAW1166\\SQLEXPRESS;Initial Catalog=ShopConnection;Integrated Security=True;");
                 return new OrderContext(builder.Options);
             }
         }

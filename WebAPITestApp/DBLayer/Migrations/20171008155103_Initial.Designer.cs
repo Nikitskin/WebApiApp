@@ -11,7 +11,7 @@ using System;
 namespace DBLayer.Migrations
 {
     [DbContext(typeof(OrderContext))]
-    [Migration("20171008153753_Initial")]
+    [Migration("20171008155103_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
