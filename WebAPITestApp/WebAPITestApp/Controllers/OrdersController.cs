@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Http;
 using DBLayer.DbData;
 using DBLayer.UnitOfWork;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPITestApp.Controllers
 {
-    [RoutePrefix("api/[controller]")]
-    public class OrdersController : ApiController
+    [Route("api/[controller]")]
+    public class OrdersController : Controller
     {
         private IUnitOfWork _unitOfWork;
 

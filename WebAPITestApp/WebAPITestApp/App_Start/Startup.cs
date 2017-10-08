@@ -2,11 +2,12 @@
 using DBLayer.DbData;
 using DBLayer.DBRepository;
 using DBLayer.UnitOfWork;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Owin;
+using Microsoft.IdentityModel.Tokens;
 
 namespace WebAPITestApp
 {
@@ -22,6 +23,20 @@ namespace WebAPITestApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = AuthOptions.ISSUER,
+                    ValidateAudience = true,
+                    ValidAudience = AuthOptions.AUDIENCE,
+                    ValidateLifetime = true,
+                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                    ValidateIssuerSigningKey = true,
+                };
+            });
             services.AddDbContext<OrderContext>();
             services.AddScoped<IDBRepository<Order>, DBRepository<Order>>();
             services.AddScoped<IDBRepository<Product>, DBRepository<Product>>();
@@ -29,11 +44,10 @@ namespace WebAPITestApp
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
-        public void Configure(IAppBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            ConfigureAuth(app);
-            //TODO remove this
-            //app.UseMvc();
+            app.UseMvc();
+            app.UseAuthentication();
         }
     }
 }
