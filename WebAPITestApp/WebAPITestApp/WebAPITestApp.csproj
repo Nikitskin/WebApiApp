@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastracture\Authorization\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -33,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DBLayer\DBLayer.csproj" />
+    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

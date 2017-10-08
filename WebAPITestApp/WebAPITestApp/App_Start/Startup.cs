@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using ServiceLayer.DatabaseServices;
 using WebAPITestApp.Infrastracture.Settings;
 
 namespace WebAPITestApp
@@ -40,6 +41,7 @@ namespace WebAPITestApp
                     ValidateIssuerSigningKey = true,
                 };
             });
+            services.AddSingleton<IOrderServices, OrdersService>();
            
             services.AddDbContext<OrderContext>();
             services.AddScoped<IDBRepository<Order>, DBRepository<Order>>();

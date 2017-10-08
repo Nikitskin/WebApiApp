@@ -4,58 +4,63 @@ using DBLayer.DbData;
 using DBLayer.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ServiceLayer.DatabaseServices;
 
 namespace WebAPITestApp.Controllers
 {
     [Route("api/[controller]")]
     public class OrdersController : Controller
     {
-        private IUnitOfWork _unitOfWork;
+        private IOrderServices _service;
 
-        public OrdersController(IUnitOfWork unitOfWork)
+        public OrdersController(IOrderServices service)
         {
-            _unitOfWork = unitOfWork;
+            _service = service;
         }
 
         [Authorize]
-        [Microsoft.AspNetCore.Mvc.HttpGet]
-        public async Task<List<Order>> Get()
+        [HttpGet]
+        public ICollection<Order> Get()
         {
             // TODO You should understand that it's not good option to work with data in controllers.
             //You should have separate layer for business logic that works with data.
             // TODO It's better to create separate response models and map db data to this models every time. Automapper nuget will help with it.
-            return await _unitOfWork.OrdersRepository.GetAll();
+            return _service.GetAllOrders();
         }
 
         [Authorize]
-        [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
-        public async Task<Order> Get(int id)
+        [HttpGet("{id}")]
+        public Order Get(int id)
         {
-            return await _unitOfWork.OrdersRepository.GetItem(id);
+            return _service.GetOrder(id);
         }
 
         [Authorize]
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        public void Post([Microsoft.AspNetCore.Mvc.FromBody]Order value)
+        [HttpPost]
+        public void Post([FromBody]Order value)
         {
-            _unitOfWork.OrdersRepository.Update(value);
-            _unitOfWork.Save();
+            _service.Update(value);
         }
 
         [Authorize]
-        [Microsoft.AspNetCore.Mvc.HttpPut("{id}")]
-        public void Put([Microsoft.AspNetCore.Mvc.FromBody]Order value)
+        [HttpPut]
+        public void Put([FromBody]Order value)
         {
-            _unitOfWork.OrdersRepository.Create(value);
-            _unitOfWork.Save();
+            _service.AddOrder(value);
         }
 
         [Authorize]
-        [Microsoft.AspNetCore.Mvc.HttpDelete("{id}")]
-        public void Delete(Order order)
+        [HttpDelete]
+        public void Delete([FromBody]Order order)
         {
-            _unitOfWork.OrdersRepository.Delete(order);
-            _unitOfWork.Save();
+            _service.Remove(order);
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public void Delete(int order)
+        {
+            _service.Remove(order);
         }
     }
 }
