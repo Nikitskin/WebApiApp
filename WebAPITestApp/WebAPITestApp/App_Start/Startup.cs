@@ -5,9 +5,11 @@ using DBLayer.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using WebAPITestApp.Infrastracture.Settings;
 
 namespace WebAPITestApp
 {
@@ -37,7 +39,9 @@ namespace WebAPITestApp
                     ValidateIssuerSigningKey = true,
                 };
             });
-            services.AddDbContext<OrderContext>();
+            services.AddSingleton(Configuration.GetSection("ShopConnection").Get<ShopConnection>());
+            services.AddDbContext<OrderContext>(opt => 
+                opt.UseSqlServer(Configuration.GetSection("ShopConnection").Get<ShopConnection>().ConnectionString));
             services.AddScoped<IDBRepository<Order>, DBRepository<Order>>();
             services.AddScoped<IDBRepository<Product>, DBRepository<Product>>();
             services.AddScoped<IDBRepository<User>, DBRepository<User>>();
