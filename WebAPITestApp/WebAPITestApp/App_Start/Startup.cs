@@ -5,17 +5,14 @@ using DBLayer.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using ServiceLayer.DatabaseServices;
-using WebAPITestApp.Infrastracture.Settings;
 
 namespace WebAPITestApp
 {
-    public partial class Startup
+    public class Startup
     {
         public Startup(IConfiguration configuration)
         {

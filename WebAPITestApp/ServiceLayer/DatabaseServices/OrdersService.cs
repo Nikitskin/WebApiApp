@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DBLayer.DbData;
 using DBLayer.UnitOfWork;
 
@@ -12,34 +13,35 @@ namespace ServiceLayer.DatabaseServices
         {
             _unitOfWork = unitOfWork;
         }
-        public bool AddOrder(Order order)
+        public void AddOrder(Order order)
         {
-            throw new NotImplementedException();
+            _unitOfWork.OrdersRepository.Create(order);
         }
 
-        public Order GetOrder(int id)
+        public async Task<Order> GetOrder(int id)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.OrdersRepository.GetItem(id);
         }
 
-        public bool Remove(int id)
+        public void Remove(int id)
         {
-            throw new NotImplementedException();
+            var order =_unitOfWork.OrdersRepository.GetItem(id);
+            _unitOfWork.OrdersRepository.Delete(order.Result);
         }
 
-        public bool Remove(Order order)
+        public void Remove(Order order)
         {
-            throw new NotImplementedException();
+            _unitOfWork.OrdersRepository.Delete(order);
         }
 
-        public ICollection<Order> GetAllOrders()
+        public Task<List<Order>> GetAllOrders()
         {
-            throw new NotImplementedException();
+            return _unitOfWork.OrdersRepository.GetAll();
         }
 
-        public bool Update(Order order)
+        public void Update(Order order)
         {
-            throw new NotImplementedException();
+            _unitOfWork.OrdersRepository.Update(order);
         }
 
         private void Save()

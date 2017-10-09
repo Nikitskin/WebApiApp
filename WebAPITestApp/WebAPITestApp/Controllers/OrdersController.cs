@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DBLayer.DbData;
-using DBLayer.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DatabaseServices;
@@ -20,7 +19,7 @@ namespace WebAPITestApp.Controllers
 
         [Authorize]
         [HttpGet]
-        public ICollection<Order> Get()
+        public Task<List<Order>> Get()
         {
             // TODO You should understand that it's not good option to work with data in controllers.
             //You should have separate layer for business logic that works with data.
@@ -30,7 +29,7 @@ namespace WebAPITestApp.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public Order Get(int id)
+        public Task<Order> Get(int id)
         {
             return _service.GetOrder(id);
         }
@@ -58,9 +57,9 @@ namespace WebAPITestApp.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
-        public void Delete(int order)
+        public void Delete(int id)
         {
-            _service.Remove(order);
+            _service.Remove(id);
         }
     }
 }

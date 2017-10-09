@@ -1,17 +1,18 @@
 ﻿
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DBLayer.DbData;
 
 namespace ServiceLayer.DatabaseServices
 {
     public interface IOrderServices
     {
-        bool AddOrder(Order order);
-        Order GetOrder(int id);
-        bool Remove(int id);
-        bool Remove(Order order);
-        ICollection<Order> GetAllOrders();
-        bool Update(Order order);
+        void AddOrder(Order order);
+        Task<Order> GetOrder(int id);
+        void Remove(int id);
+        void Remove(Order order);
+        Task<List<Order>> GetAllOrders();
+        void Update(Order order);
     }
     
 }
