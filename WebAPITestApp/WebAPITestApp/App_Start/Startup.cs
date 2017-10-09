@@ -27,15 +27,12 @@ namespace WebAPITestApp
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
+                options.Audience = AuthOptions.AUDIENCE;
+                options.Authority = AuthOptions.AUDIENCE;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,
-                    ValidIssuer = AuthOptions.ISSUER,
-                    ValidateAudience = true,
-                    ValidAudience = AuthOptions.AUDIENCE,
-                    ValidateLifetime = true,
                     IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                    ValidateIssuerSigningKey = true,
+                    ValidateIssuerSigningKey = true
                 };
             });
             services.AddSingleton<IOrderServices, OrdersService>();
@@ -49,6 +46,8 @@ namespace WebAPITestApp
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseStaticFiles();
+            app.UseDefaultFiles();
             app.UseMvc();
             app.UseAuthentication();
         }

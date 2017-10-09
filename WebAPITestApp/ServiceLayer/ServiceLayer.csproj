@@ -20,4 +20,8 @@
     <ProjectReference Include="..\DBLayer\DBLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.IdentityModel" />
+  </ItemGroup>
+
 </Project>

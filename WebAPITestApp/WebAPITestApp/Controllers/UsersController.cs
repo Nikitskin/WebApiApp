@@ -12,7 +12,6 @@ using WebAPITestApp.Models;
 
 namespace WebAPITestApp.Controllers
 {
-    [Route("api/[controller]")]
     public class UsersController : Controller
     {
         private List<UserModel> people = new List<UserModel>
@@ -36,11 +35,9 @@ namespace WebAPITestApp.Controllers
 
             var now = DateTime.UtcNow;
             var jwt = new JwtSecurityToken(
-                issuer: AuthOptions.ISSUER,
-                audience: AuthOptions.AUDIENCE,
                 notBefore: now,
                 claims: identity.Claims,
-                expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                expires: now.Add(TimeSpan.FromHours(AuthOptions.LIFETIME)),
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
