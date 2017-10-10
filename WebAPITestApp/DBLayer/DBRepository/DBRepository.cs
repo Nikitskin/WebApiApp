@@ -7,13 +7,13 @@ namespace DBLayer.DBRepository
     public class DbRepository<T> : IDbRepository<T>
         where T : class, new()
     {
-        private DbContext context;
+        private DbContext _context;
         private DbSet<T> dbSet;
 
         public DbRepository(DbContext context)
         {
-            this.context = context;
-            this.dbSet = this.context.Set<T>();
+            _context = context;
+            dbSet = _context.Set<T>();
         }
 
         public void Create(T item)

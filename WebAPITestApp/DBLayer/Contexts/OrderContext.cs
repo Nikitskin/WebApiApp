@@ -18,20 +18,5 @@ namespace DBLayer.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }
-
-        public class OrderContextFactory : IDesignTimeDbContextFactory<OrderContext>
-        {
-            public OrderContext CreateDbContext(string[] args)
-            {
-                // TODO You can move it to startup class: services.AddDbContext<OrderContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connection string app setting name")) );
-                var builder = new DbContextOptionsBuilder<OrderContext>();
-                //TODO think about this string and how to move it
-                builder.UseSqlServer(
-                    "data source=EPUAKHAW1166\\SQLEXPRESS;Initial Catalog=ShopConnection;Integrated Security=True;");
-                return new OrderContext(builder.Options);
-            }
-        }
     }
-
-
 }

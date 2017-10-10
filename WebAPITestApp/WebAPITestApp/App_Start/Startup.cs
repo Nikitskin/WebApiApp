@@ -5,6 +5,7 @@ using DBLayer.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -35,10 +36,11 @@ namespace WebAPITestApp
                     ValidateIssuerSigningKey = true
                 };
             });
-            services.AddSingleton<IOrderServices, OrdersService>();
-            // TODO I wouldn't use Singleton because it creates one instance and use it all the time, what means that this instance won't die.
+            services.AddScoped<IOrderServices, OrdersService>();
 
-            services.AddDbContext<OrderContext>();
+            services.AddDbContext<OrderContext>(opt =>
+                opt.UseSqlServer(Configuration.GetSection("ShopConnection:ConnectionString").Value));
+
             services.AddScoped<IDbRepository<Order>, DbRepository<Order>>();
             services.AddScoped<IDbRepository<Product>, DbRepository<Product>>();
             services.AddScoped<IDbRepository<User>, DbRepository<User>>();

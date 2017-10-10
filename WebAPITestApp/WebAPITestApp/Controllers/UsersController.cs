@@ -16,17 +16,13 @@ namespace WebAPITestApp.Controllers
     {
         private List<UserModel> people = new List<UserModel>
         {
-            new UserModel {UserName= "admin@gmail.com", Password="12345", Role = "admin" },
+            new UserModel {UserName= "admin@gmail.com", Password="12345"},
         };
 
         [HttpPost("/token")]
-        public async Task Token()
+        public async Task Token([FromForm]UserModel userModel)
         {
-            // TODO why do you use Request.Form?
-            var username = Request.Form["username"];
-            var password = Request.Form["password"];
-
-            var identity = GetIdentity(username, password);
+            var identity = GetIdentity(userModel.UserName, userModel.Password);
             if (identity == null)
             {
                 Response.StatusCode = 400;
@@ -41,7 +37,6 @@ namespace WebAPITestApp.Controllers
                 expires: now.Add(TimeSpan.FromHours(AuthOptions.LIFETIME)),
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
             var response = new
             {
                 access_token = encodedJwt,
@@ -62,7 +57,6 @@ namespace WebAPITestApp.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.UserName),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role)
                 };
                 ClaimsIdentity claimsIdentity =
                     new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,

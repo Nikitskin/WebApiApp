@@ -1,15 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPITestApp.Models
 {
-    public class UserModel
+    public class UserModel 
     {
-        [Required]
         public string UserName { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
         public string Password { get; set; }
-        public string Role { get; set; }
+
+      
     }
 }

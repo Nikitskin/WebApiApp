@@ -7,21 +7,15 @@ namespace DBLayer.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        // TODO read about System.Lazy class. Now all your repositories instatiate every time you create an UnitOfWork object
-        // TODO but if you use smth like _usersRepository = new Lazy<IUserRepository>(() => new UserRepository(context));
-        // Repository will be created only when you call unitOfWork.UserRepository
-        public UnitOfWork(IDbRepository<Order> _orders, IDbRepository<Product> _products, IDbRepository<User> _users, DbContext _db)
+        public UnitOfWork(DbContext _db)
         {
-            orders = _orders;
-            products = _products;
-            users = _users;
             db = _db;
         }
 
         private DbContext db;
-        private IDbRepository<Order> orders;
-        private IDbRepository<Product> products;
-        private IDbRepository<User> users;
+        private Lazy<IDbRepository<Order>> orders = new Lazy<IDbRepository<Order>>();
+        private Lazy<IDbRepository<Product>> products = new Lazy<IDbRepository<Product>>();
+        private Lazy<IDbRepository<User>> users = new Lazy<IDbRepository<User>>();
         private bool disposed = false;
 
         public void Save()
@@ -29,33 +23,15 @@ namespace DBLayer.UnitOfWork
             db.SaveChangesAsync();
         }
 
-        public IDbRepository<Order> OrdersRepository
-        {
-            get
-            {
-                return orders;
-            }
-        }
+        public IDbRepository<Order> OrdersRepository => orders.Value;
 
-        public IDbRepository<Product> ProductsRepository
-        {
-            get
-            {
-                return products;
-            }
-        }
+        public IDbRepository<Product> ProductsRepository => products.Value; 
 
-        public IDbRepository<User> UsersRepository 
-        {
-            get
-            {
-                return users;
-            }
-        }
+        public IDbRepository<User> UsersRepository => users.Value; 
 
         public void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
