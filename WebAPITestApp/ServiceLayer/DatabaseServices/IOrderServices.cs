@@ -14,5 +14,4 @@ namespace ServiceLayer.DatabaseServices
         Task<List<Order>> GetAllOrders();
         void Update(Order order);
     }
-    
 }

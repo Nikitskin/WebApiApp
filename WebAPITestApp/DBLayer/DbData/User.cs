@@ -10,7 +10,7 @@ namespace DBLayer.DbData
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
-        [NotMapped]
+        [NotMapped] //TODO Why do you use this attribute?
         public ICollection<Order> Orders { get; set; }
     }
 }

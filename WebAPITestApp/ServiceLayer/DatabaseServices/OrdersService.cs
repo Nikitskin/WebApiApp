@@ -9,10 +9,13 @@ namespace ServiceLayer.DatabaseServices
     public class OrdersService : IOrderServices
     {
         private IUnitOfWork _unitOfWork;
+
         public OrdersService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
+
+        // TODO Every property, method and constructor should be followed and preceded by empty line.
         public void AddOrder(Order order)
         {
             _unitOfWork.OrdersRepository.Create(order);
@@ -25,7 +28,7 @@ namespace ServiceLayer.DatabaseServices
 
         public void Remove(int id)
         {
-            var order =_unitOfWork.OrdersRepository.GetItem(id);
+            var order = _unitOfWork.OrdersRepository.GetItem(id);
             _unitOfWork.OrdersRepository.Delete(order.Result);
         }
 
@@ -41,6 +44,7 @@ namespace ServiceLayer.DatabaseServices
 
         public void Update(Order order)
         {
+            // TODO You still don't save changes into DB. Call dbContext.SaveChanges() after update.
             _unitOfWork.OrdersRepository.Update(order);
         }
 

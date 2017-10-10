@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 
 namespace DBLayer.DBRepository
 {
-    public class DBRepository<T> : IDBRepository<T>
+    public class DbRepository<T> : IDbRepository<T>
         where T : class, new()
     {
         private DbContext context;
         private DbSet<T> dbSet;
 
-        public DBRepository(DbContext _context)
+        public DbRepository(DbContext context)
         {
-            context = _context;
-            dbSet = context.Set<T>();
+            this.context = context;
+            this.dbSet = this.context.Set<T>();
         }
 
         public void Create(T item)
@@ -36,9 +36,9 @@ namespace DBLayer.DBRepository
             return await dbSet.ToListAsync();
         }
 
-        public void Update(T newItem)
+        public void Update(T item)
         {
-            dbSet.Update(newItem);
+            dbSet.Update(item);
         }
     }
 }

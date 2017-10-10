@@ -22,6 +22,7 @@ namespace WebAPITestApp.Controllers
         [HttpPost("/token")]
         public async Task Token()
         {
+            // TODO why do you use Request.Form?
             var username = Request.Form["username"];
             var password = Request.Form["password"];
 
@@ -53,6 +54,8 @@ namespace WebAPITestApp.Controllers
 
         private ClaimsIdentity GetIdentity(string username, string password)
         {
+            // TODO Your password in db should be encoded, so in this case you can't just compare password User entered and password from db.
+            // You can either use EF identity db context to store users or find some nuget package and encode password by yourself.
             UserModel person = people.FirstOrDefault(x => x.UserName == username && x.Password == password);
             if (person != null)
             {

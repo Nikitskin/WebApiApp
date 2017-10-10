@@ -10,7 +10,7 @@ namespace DBLayer.UnitOfWork
         // TODO read about System.Lazy class. Now all your repositories instatiate every time you create an UnitOfWork object
         // TODO but if you use smth like _usersRepository = new Lazy<IUserRepository>(() => new UserRepository(context));
         // Repository will be created only when you call unitOfWork.UserRepository
-        public UnitOfWork(IDBRepository<Order> _orders, IDBRepository<Product> _products, IDBRepository<User> _users, DbContext _db)
+        public UnitOfWork(IDbRepository<Order> _orders, IDbRepository<Product> _products, IDbRepository<User> _users, DbContext _db)
         {
             orders = _orders;
             products = _products;
@@ -19,9 +19,9 @@ namespace DBLayer.UnitOfWork
         }
 
         private DbContext db;
-        private IDBRepository<Order> orders;
-        private IDBRepository<Product> products;
-        private IDBRepository<User> users;
+        private IDbRepository<Order> orders;
+        private IDbRepository<Product> products;
+        private IDbRepository<User> users;
         private bool disposed = false;
 
         public void Save()
@@ -29,7 +29,7 @@ namespace DBLayer.UnitOfWork
             db.SaveChangesAsync();
         }
 
-        public IDBRepository<Order> OrdersRepository
+        public IDbRepository<Order> OrdersRepository
         {
             get
             {
@@ -37,7 +37,7 @@ namespace DBLayer.UnitOfWork
             }
         }
 
-        public IDBRepository<Product> ProductsRepository
+        public IDbRepository<Product> ProductsRepository
         {
             get
             {
@@ -45,7 +45,7 @@ namespace DBLayer.UnitOfWork
             }
         }
 
-        public IDBRepository<User> UsersRepository 
+        public IDbRepository<User> UsersRepository 
         {
             get
             {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace DBLayer.DBRepository
 {                      
-    public interface IDBRepository<T> 
+    public interface IDbRepository<T> 
         where T : class
     {
         Task<T> GetItem(int id); 

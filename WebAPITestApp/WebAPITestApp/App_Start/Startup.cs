@@ -36,11 +36,12 @@ namespace WebAPITestApp
                 };
             });
             services.AddSingleton<IOrderServices, OrdersService>();
-           
+            // TODO I wouldn't use Singleton because it creates one instance and use it all the time, what means that this instance won't die.
+
             services.AddDbContext<OrderContext>();
-            services.AddScoped<IDBRepository<Order>, DBRepository<Order>>();
-            services.AddScoped<IDBRepository<Product>, DBRepository<Product>>();
-            services.AddScoped<IDBRepository<User>, DBRepository<User>>();
+            services.AddScoped<IDbRepository<Order>, DbRepository<Order>>();
+            services.AddScoped<IDbRepository<Product>, DbRepository<Product>>();
+            services.AddScoped<IDbRepository<User>, DbRepository<User>>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 

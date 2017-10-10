@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using DBLayer.DbData;
+﻿using DBLayer.DbData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.Extensions.Configuration;
 
 namespace DBLayer.Contexts
 {
@@ -15,6 +10,7 @@ namespace DBLayer.Contexts
             : base(options)
         {
         }
+
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
@@ -27,6 +23,7 @@ namespace DBLayer.Contexts
         {
             public OrderContext CreateDbContext(string[] args)
             {
+                // TODO You can move it to startup class: services.AddDbContext<OrderContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connection string app setting name")) );
                 var builder = new DbContextOptionsBuilder<OrderContext>();
                 //TODO think about this string and how to move it
                 builder.UseSqlServer(
@@ -36,5 +33,5 @@ namespace DBLayer.Contexts
         }
     }
 
-   
+
 }

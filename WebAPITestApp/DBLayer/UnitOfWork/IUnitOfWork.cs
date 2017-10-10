@@ -5,9 +5,9 @@ namespace DBLayer.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        IDBRepository<Order> OrdersRepository { get; }
-        IDBRepository<Product> ProductsRepository{ get; }
-        IDBRepository<User> UsersRepository { get; }
+        IDbRepository<Order> OrdersRepository { get; }
+        IDbRepository<Product> ProductsRepository{ get; }
+        IDbRepository<User> UsersRepository { get; }
         void Save();
     }
 }
