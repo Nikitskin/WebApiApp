@@ -25,13 +25,19 @@ namespace WebAPITestApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
                 options.Audience = AuthOptions.AUDIENCE;
                 options.Authority = AuthOptions.AUDIENCE;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
+                    ValidateIssuer = true,
+                    ValidIssuer = AuthOptions.ISSUER,
+                    ValidateAudience = true,
+                    ValidAudience = AuthOptions.AUDIENCE,
+                    ValidateLifetime = true,
                     IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
                     ValidateIssuerSigningKey = true
                 };
@@ -45,6 +51,8 @@ namespace WebAPITestApp
             services.AddScoped<IDbRepository<Product>, DbRepository<Product>>();
             services.AddScoped<IDbRepository<User>, DbRepository<User>>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddMvc();
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
