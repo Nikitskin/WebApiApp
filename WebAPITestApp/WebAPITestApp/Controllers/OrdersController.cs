@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DBLayer.DbData;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DatabaseServices;
@@ -17,7 +19,7 @@ namespace WebAPITestApp.Controllers
             _service = service;
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         public Task<List<Order>> Get()
         {
@@ -29,6 +31,7 @@ namespace WebAPITestApp.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public Task<Order> Get(int id)
         {
             return _service.GetOrder(id);

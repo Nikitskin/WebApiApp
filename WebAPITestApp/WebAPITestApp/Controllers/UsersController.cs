@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using Newtonsoft.Json;
+using System.Security.Claims;
 using WebAPITestApp.Models;
 
 namespace WebAPITestApp.Controllers
@@ -19,6 +19,7 @@ namespace WebAPITestApp.Controllers
             new UserModel {UserName= "admin@gmail.com", Password="12345"},
         };
 
+        //todo refactor, as it's very low-level
         [HttpPost("/token")]
         public async Task Token([FromForm]UserModel userModel)
         {

@@ -5,9 +5,11 @@ using DBLayer.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using ServiceLayer.DatabaseServices;
 
@@ -27,23 +29,32 @@ namespace WebAPITestApp
             services.AddMvc();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.Audience = AuthOptions.AUDIENCE;
-                options.Authority = AuthOptions.AUDIENCE;
-                options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,
-                    ValidIssuer = AuthOptions.ISSUER,
-                    ValidateAudience = true,
-                    ValidAudience = AuthOptions.AUDIENCE,
-                    ValidateLifetime = true,
-                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                    ValidateIssuerSigningKey = true
-                };
-            });
+                    options.Configuration = new OpenIdConnectConfiguration();
+                    options.RequireHttpsMetadata = false;
+                    options.Audience = AuthOptions.AUDIENCE;
+                    options.Authority = AuthOptions.AUDIENCE;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false,
+                        ValidateIssuer = false,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true
+                    };
+
+                    options.IncludeErrorDetails = true;
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = f =>
+                        {
+                            return f.Response.WriteAsync(f.Exception.ToString());
+                        }
+                    };
+                });
             services.AddScoped<IOrderServices, OrdersService>();
 
+            services.AddScoped<DbContext, OrderContext>();
             services.AddDbContext<OrderContext>(opt =>
                 opt.UseSqlServer(Configuration.GetSection("ShopConnection:ConnectionString").Value));
 
@@ -52,15 +63,14 @@ namespace WebAPITestApp
             services.AddScoped<IDbRepository<User>, DbRepository<User>>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddMvc();
-
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseStaticFiles();
             app.UseDefaultFiles();
-            app.UseMvc();
             app.UseAuthentication();
+            app.UseMvc();
         }
     }
 }
