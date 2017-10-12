@@ -7,37 +7,67 @@ namespace DBLayer.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        public UnitOfWork(DbContext _db)
+        public UnitOfWork(DbContext db)
         {
-            db = _db;
+            _db = db;
         }
 
-        private DbContext db;
-        private Lazy<IDbRepository<Order>> orders = new Lazy<IDbRepository<Order>>();
-        private Lazy<IDbRepository<Product>> products = new Lazy<IDbRepository<Product>>();
-        private Lazy<IDbRepository<User>> users = new Lazy<IDbRepository<User>>();
-        private bool disposed = false;
+        private readonly DbContext _db;
+        private Lazy<IDbRepository<Order>> orders;
+        private Lazy<IDbRepository<Product>> products;
+        private Lazy<IDbRepository<User>> users;
+        private bool _disposed;
 
         public void Save()
         {
-            db.SaveChangesAsync();
+            _db.SaveChangesAsync();
         }
 
-        public IDbRepository<Order> OrdersRepository => orders.Value;
+        public IDbRepository<Order> OrdersRepository
+        {
+            get
+            {
+                if (orders == null)
+                {
+                    orders = new Lazy<IDbRepository<Order>>(() => new DbRepository<Order>(_db));
+                }
+                return orders.Value;
+            }
+        }
 
-        public IDbRepository<Product> ProductsRepository => products.Value; 
+        public IDbRepository<Product> ProductsRepository
+        {
+            get
+            {
+                if (products == null)
+                {
+                    products = new Lazy<IDbRepository<Product>>(() => new DbRepository<Product>(_db));
+                }
+                return products.Value;
+            }
+        }
 
-        public IDbRepository<User> UsersRepository => users.Value; 
+        public IDbRepository<User> UsersRepository
+        {
+            get
+            {
+                if (users == null)
+                {
+                    users = new Lazy<IDbRepository<User>>(() => new DbRepository<User>(_db));
+                }
+                return users.Value;
+            }
+        }
 
         public void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
-                    db.Dispose();
+                    _db.Dispose();
                 }
-                disposed = true;
+                _disposed = true;
             }
         }
        
