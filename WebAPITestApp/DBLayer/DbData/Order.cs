@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DBLayer.DbData
 {
@@ -12,7 +11,6 @@ namespace DBLayer.DbData
         public DateTime OrderedDate { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-        [NotMapped]
-        public ICollection<Product> Products { get; set; } 
+        public ICollection<OrderProduct> OrderProduct { get; set; }
     }
 }
