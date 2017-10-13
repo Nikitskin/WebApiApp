@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using ServiceLayer.DatabaseServices;
+using ServiceLayer.WebServices.AuthorizationService;
+using ServiceLayer.WebServices.AuthorizationService.AuthorizationConfig;
 
 namespace WebAPITestApp
 {
@@ -46,13 +48,11 @@ namespace WebAPITestApp
                     options.IncludeErrorDetails = true;
                     options.Events = new JwtBearerEvents
                     {
-                        OnAuthenticationFailed = f =>
-                        {
-                            return f.Response.WriteAsync(f.Exception.ToString());
-                        }
+                        OnAuthenticationFailed = f => f.Response.WriteAsync(f.Exception.ToString())
                     };
                 });
             services.AddScoped<IOrderServices, OrdersService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<DbContext, OrderContext>();
             services.AddDbContext<OrderContext>(opt =>

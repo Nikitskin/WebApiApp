@@ -23,8 +23,6 @@ namespace WebAPITestApp.Controllers
         [HttpGet]
         public Task<List<Order>> Get()
         {
-            // TODO You should understand that it's not good option to work with data in controllers.
-            //You should have separate layer for business logic that works with data.
             // TODO It's better to create separate response models and map db data to this models every time. Automapper nuget will help with it.
             return _service.GetAllOrders();
         }
