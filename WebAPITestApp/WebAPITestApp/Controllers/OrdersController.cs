@@ -1,20 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DBLayer.DbData;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.DatabaseServices;
+using ServiceLayer.DatabaseServices.Orders;
 
 namespace WebAPITestApp.Controllers
 {
     [Route("api/[controller]")]
     public class OrdersController : Controller
     {
-        private IOrderServices _service;
+        private IOrdersService _service;
 
-        public OrdersController(IOrderServices service)
+        public OrdersController(IOrdersService service)
         {
             _service = service;
         }

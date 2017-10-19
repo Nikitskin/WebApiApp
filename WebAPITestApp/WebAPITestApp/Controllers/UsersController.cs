@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using ServiceLayer.WebServices.AuthorizationService;
 using WebAPITestApp.Models;
+using WebAPITestApp.Infrastructure.WebServices.AuthorizationService;
 
 namespace WebAPITestApp.Controllers
 {

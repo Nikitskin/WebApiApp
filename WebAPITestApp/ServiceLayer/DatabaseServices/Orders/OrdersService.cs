@@ -5,7 +5,7 @@ using DBLayer.UnitOfWork;
 
 namespace ServiceLayer.DatabaseServices.Orders
 {
-    public class OrdersService : IOrderServices
+    public class OrdersService : IOrdersService
     {
         private IUnitOfWork _unitOfWork;
 

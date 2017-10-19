@@ -11,9 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
-using ServiceLayer.DatabaseServices;
-using ServiceLayer.WebServices.AuthorizationService;
-using ServiceLayer.WebServices.AuthorizationService.AuthorizationConfig;
+using ServiceLayer.DatabaseServices.Orders;
+using WebAPITestApp.Infrastructure.WebServices.AuthorizationService;
+using WebAPITestApp.Infrastructure.WebServices.AuthorizationService.AuthorizationConfig;
 
 namespace WebAPITestApp
 {
@@ -51,7 +51,7 @@ namespace WebAPITestApp
                         OnAuthenticationFailed = f => f.Response.WriteAsync(f.Exception.ToString())
                     };
                 });
-            services.AddScoped<IOrderServices, OrdersService>();
+            services.AddScoped<IOrdersService, OrdersService>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<DbContext, OrderContext>();

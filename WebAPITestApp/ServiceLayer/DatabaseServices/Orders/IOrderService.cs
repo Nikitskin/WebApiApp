@@ -1,11 +1,10 @@
-﻿
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DBLayer.DbData;
+using System.Collections.Generic;
 
 namespace ServiceLayer.DatabaseServices.Orders
 {
-    public interface IOrderServices
+    public interface IOrdersService
     {
         void AddOrder(Order order);
         Task<Order> GetOrder(int id);
