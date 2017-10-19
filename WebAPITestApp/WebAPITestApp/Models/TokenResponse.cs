@@ -1,5 +1,5 @@
 ﻿
-namespace ServiceLayer.Models
+namespace WebAPITestApp.Models
 {
     public class TokenResponse
     {

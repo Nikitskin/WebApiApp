@@ -1,6 +1,6 @@
-﻿using ServiceLayer.Models;
+﻿using WebAPITestApp.Models;
 
-namespace ServiceLayer.WebServices.AuthorizationService
+namespace WebAPITestApp.Infrastructure.WebServices.AuthorizationService
 {
     public interface IUserService
     {

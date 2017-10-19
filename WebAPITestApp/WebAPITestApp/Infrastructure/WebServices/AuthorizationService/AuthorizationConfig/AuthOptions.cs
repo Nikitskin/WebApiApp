@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ServiceLayer.WebServices.AuthorizationService.AuthorizationConfig
+namespace WebAPITestApp.Infrastructure.WebServices.AuthorizationService.AuthorizationConfig
 {
     public class AuthOptions
     {

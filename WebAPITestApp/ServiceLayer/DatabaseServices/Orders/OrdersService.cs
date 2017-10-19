@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using DBLayer.DbData;
 using DBLayer.UnitOfWork;
 
-namespace ServiceLayer.DatabaseServices
+namespace ServiceLayer.DatabaseServices.Orders
 {
     public class OrdersService : IOrderServices
     {

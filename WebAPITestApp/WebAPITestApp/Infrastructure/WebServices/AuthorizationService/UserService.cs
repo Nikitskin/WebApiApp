@@ -5,11 +5,11 @@ using System.Linq;
 using System.Security.Claims;
 using DBLayer.DbData;
 using DBLayer.UnitOfWork;
-using ServiceLayer.Models;
-using ServiceLayer.WebServices.AuthorizationService.AuthorizationConfig;
+using WebAPITestApp.Models;
+using WebAPITestApp.Infrastructure.WebServices.AuthorizationService.AuthorizationConfig;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace ServiceLayer.WebServices.AuthorizationService
+namespace WebAPITestApp.Infrastructure.WebServices.AuthorizationService
 {
     public class UserService : IUserService
     {

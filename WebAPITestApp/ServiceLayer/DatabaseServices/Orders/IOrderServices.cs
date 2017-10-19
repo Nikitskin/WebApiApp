@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DBLayer.DbData;
 
-namespace ServiceLayer.DatabaseServices
+namespace ServiceLayer.DatabaseServices.Orders
 {
     public interface IOrderServices
     {
