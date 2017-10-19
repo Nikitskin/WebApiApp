@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using DBLayer.DbData;
 using DBLayer.UnitOfWork;
 using ServiceLayer.Models;
 using ServiceLayer.WebServices.AuthorizationService.AuthorizationConfig;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ServiceLayer.WebServices.AuthorizationService
 {
@@ -20,9 +20,9 @@ namespace ServiceLayer.WebServices.AuthorizationService
             _unitOfWork = unitOfWork;
         }
 
-        public TokenResponse GetToken(string firstName, string secondName)
+        public TokenResponse GetToken(string firstName, string password)
         {
-            var identity = GetIdentity(firstName, secondName);
+            var identity = GetIdentity(firstName, password);
 
             if (identity == null)
             {
@@ -30,7 +30,7 @@ namespace ServiceLayer.WebServices.AuthorizationService
                 {
                     StatusCode = 200,
                     AccessToken = "Invalid username or password."
-            }; 
+                }; 
             }
 
             var now = DateTime.UtcNow;
@@ -46,11 +46,11 @@ namespace ServiceLayer.WebServices.AuthorizationService
             };
         }
 
-        private ClaimsIdentity GetIdentity(string firstName, string secondName)
+        private ClaimsIdentity GetIdentity(string firstName, string password)
         {
             // TODO Your password in db should be encoded, so in this case you can't just compare password User entered and password from db.
             // You can either use EF identity db context to store users or find some nuget package and encode password by yourself.
-            User person = _unitOfWork.UsersRepository.GetAll().Result.FirstOrDefault(x => x.FirstName == firstName && x.SecondName == secondName);
+            User person = _unitOfWork.UsersRepository.GetAll().Result.FirstOrDefault(x => x.FirstName == firstName && x.SecondName == password);
             if (person != null)
             {
             var claims = new List<Claim>

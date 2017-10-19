@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace WebAPITestApp.Models
+﻿namespace WebAPITestApp.Models
 {
     public class UserModel 
     {
