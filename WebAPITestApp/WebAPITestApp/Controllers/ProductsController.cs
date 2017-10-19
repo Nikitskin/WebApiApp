@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DatabaseServices.Products;
 using System.Threading.Tasks;
 using DBLayer.DbData;
+using ServiceLayer.Models;
 
 namespace WebAPITestApp.Controllers
 {
@@ -19,28 +20,28 @@ namespace WebAPITestApp.Controllers
 
         [HttpGet]
         [Authorize]
-        public Task<List<Product>> Get()
+        public Task<List<ProductControllerModel>> Get()
         {
             return _service.GetAllProducts();
         }
 
         [Authorize]
         [HttpGet("{id}")]
-        public Task<Product> Get(int id)
+        public Task<ProductControllerModel> Get(int id)
         {
             return _service.GetProduct(id);
         }
 
         [Authorize]
         [HttpPost]
-        public void Post([FromBody]Product value)
+        public void Post([FromBody]ProductControllerModel value)
         {
             _service.Update(value);
         }
 
         [Authorize]
         [HttpPut("{id}")]
-        public void Put([FromBody]Product value)
+        public void Put([FromBody]ProductControllerModel value)
         {
             _service.AddProduct(value);
         }

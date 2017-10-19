@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using DBLayer.DbData;
 using DBLayer.UnitOfWork;
+using ServiceLayer.Models;
+using AutoMapper;
 
 namespace ServiceLayer.DatabaseServices.Products
 {
@@ -14,15 +16,20 @@ namespace ServiceLayer.DatabaseServices.Products
             _unitOfWork = unitOfWork;
         }
 
-        public void AddProduct(Product product)
+        public void AddProduct(ProductControllerModel product)
         {
-            _unitOfWork.ProductsRepository.Create(product);
+            Mapper.Initialize(cfg => cfg.CreateMap<ProductControllerModel, Product>());
+            var dbProduct = Mapper.Map<ProductControllerModel, Product>(product);
+            _unitOfWork.ProductsRepository.Create(dbProduct);
             Save();
         }
 
-        public async Task<Product> GetProduct(int id)
+        public async Task<ProductControllerModel> GetProduct(int id)
         {
-            return await _unitOfWork.ProductsRepository.GetItem(id);
+            Mapper.Initialize(cfg => cfg.CreateMap<Task<ProductControllerModel>, Task<Product>>());
+            var productItem = _unitOfWork.ProductsRepository.GetItem(id);
+            var product = Mapper.Map<Task<Product>, Task<ProductControllerModel>>(productItem);
+            return await product;
         }
 
         public void Remove(int id)
@@ -32,14 +39,18 @@ namespace ServiceLayer.DatabaseServices.Products
             Save();
         }
 
-        public Task<List<Product>> GetAllProducts()
+        public async Task<List<ProductControllerModel>> GetAllProducts()
         {
-            return _unitOfWork.ProductsRepository.GetAll();
+            Mapper.Initialize(cfg => cfg.CreateMap<Task<List<ProductControllerModel>>, Task<List<Product>>>());
+            var list = _unitOfWork.ProductsRepository.GetAll();
+            return await Mapper.Map<Task<List<Product>>, Task<List<ProductControllerModel>>>(list);
         }
 
-        public void Update(Product product)
+        public void Update(ProductControllerModel product)
         {
-            _unitOfWork.ProductsRepository.Update(product);
+            Mapper.Initialize(cfg => cfg.CreateMap<ProductControllerModel, Product>());
+            var dbProduct = Mapper.Map<ProductControllerModel, Product>(product);
+            _unitOfWork.ProductsRepository.Update(dbProduct);
             Save();
         }
 

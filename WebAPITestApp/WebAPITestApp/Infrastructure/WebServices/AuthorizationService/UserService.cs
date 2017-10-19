@@ -50,7 +50,7 @@ namespace WebAPITestApp.Infrastructure.WebServices.AuthorizationService
         {
             // TODO Your password in db should be encoded, so in this case you can't just compare password User entered and password from db.
             // You can either use EF identity db context to store users or find some nuget package and encode password by yourself.
-            User person = _unitOfWork.UsersRepository.GetAll().Result.FirstOrDefault(x => x.FirstName == firstName && x.SecondName == password);
+            User person = _unitOfWork.UsersRepository.GetAll().Result.FirstOrDefault(x => x.FirstName == firstName && x.Password == password);
             if (person != null)
             {
             var claims = new List<Claim>

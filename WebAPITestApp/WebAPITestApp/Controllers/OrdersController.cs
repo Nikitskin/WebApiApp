@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DatabaseServices.Orders;
+using ServiceLayer.Models;
 
 namespace WebAPITestApp.Controllers
 {
@@ -20,29 +21,28 @@ namespace WebAPITestApp.Controllers
 
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public Task<List<Order>> Get()
+        public Task<List<OrderControllerModel>> Get()
         {
-            // TODO It's better to create separate response models and map db data to this models every time. Automapper nuget will help with it.
             return _service.GetAllOrders();
         }
 
         [HttpGet("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public Task<Order> Get(int id)
+        public Task<OrderControllerModel> Get(int id)
         {
             return _service.GetOrder(id);
         }
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public void Post([FromBody]Order value)
+        public void Post([FromBody]OrderControllerModel value)
         {
             _service.Update(value);
         }
 
         [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public void Put([FromBody]Order value)
+        public void Put([FromBody]OrderControllerModel value)
         {
             _service.AddOrder(value);
         }
