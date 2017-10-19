@@ -18,15 +18,14 @@ namespace WebAPITestApp.Controllers
             _service = service;
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public Task<List<Order>> Get()
         {
             // TODO It's better to create separate response models and map db data to this models every time. Automapper nuget will help with it.
             return _service.GetAllOrders();
         }
 
-        [Authorize]
         [HttpGet("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public Task<Order> Get(int id)
@@ -34,29 +33,22 @@ namespace WebAPITestApp.Controllers
             return _service.GetOrder(id);
         }
 
-        [Authorize]
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public void Post([FromBody]Order value)
         {
             _service.Update(value);
         }
 
-        [Authorize]
         [HttpPut]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public void Put([FromBody]Order value)
         {
             _service.AddOrder(value);
         }
 
-        [Authorize]
-        [HttpDelete]
-        public void Delete([FromBody]Order order)
-        {
-            _service.Remove(order);
-        }
-
-        [Authorize]
         [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public void Delete(int id)
         {
             _service.Remove(id);

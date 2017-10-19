@@ -32,11 +32,6 @@ namespace ServiceLayer.DatabaseServices.Orders
             Save();
         }
 
-        public void Remove(Order order)
-        {
-            _unitOfWork.OrdersRepository.Delete(order);
-        }
-
         public Task<List<Order>> GetAllOrders()
         {
             return _unitOfWork.OrdersRepository.GetAll();

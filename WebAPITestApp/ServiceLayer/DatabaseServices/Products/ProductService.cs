@@ -32,11 +32,6 @@ namespace ServiceLayer.DatabaseServices.Products
             Save();
         }
 
-        public void Remove(Product product)
-        {
-            _unitOfWork.ProductsRepository.Delete(product);
-        }
-
         public Task<List<Product>> GetAllProducts()
         {
             return _unitOfWork.ProductsRepository.GetAll();

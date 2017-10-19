@@ -9,7 +9,6 @@ namespace ServiceLayer.DatabaseServices.Orders
         void AddOrder(Order order);
         Task<Order> GetOrder(int id);
         void Remove(int id);
-        void Remove(Order order);
         Task<List<Order>> GetAllOrders();
         void Update(Order order);
     }

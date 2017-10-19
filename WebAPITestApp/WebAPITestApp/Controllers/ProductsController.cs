@@ -1,52 +1,55 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ServiceLayer.DatabaseServices.Products;
+using System.Threading.Tasks;
+using DBLayer.DbData;
 
 namespace WebAPITestApp.Controllers
 {
     [Route("api/[controller]")]
     public class ProductsController : Controller
     {
-        // GET api/values
-        // Return sql values
-        [Authorize]
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private IProductService _service;
+
+        public ProductsController(IProductService service)
         {
-            List<string> list = new List<string>()
-            {
-                "SQL RETURNS!!!Muhahah"
-            };
-            return list;
+            _service = service;
         }
 
-        // GET api/values/5
+        [HttpGet]
+        [Authorize]
+        public Task<List<Product>> Get()
+        {
+            return _service.GetAllProducts();
+        }
+
         [Authorize]
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Task<Product> Get(int id)
         {
-            return "value";
+            return _service.GetProduct(id);
         }
 
-        // POST api/values
         [Authorize]
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Product value)
         {
+            _service.Update(value);
         }
 
-        // PUT api/values/5
         [Authorize]
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put([FromBody]Product value)
         {
+            _service.AddProduct(value);
         }
 
-        // DELETE api/values/5
         [Authorize]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _service.Remove(id);
         }
     }
 }
