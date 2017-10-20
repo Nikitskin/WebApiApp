@@ -37,14 +37,20 @@ namespace WebAPITestApp.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public void Post([FromBody]OrderDto value)
         {
-            _service.Update(value);
+            if (ModelState.IsValid)
+            {
+                _service.Update(value);
+            }
         }
 
         [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public void Put([FromBody]OrderDto value)
         {
-            _service.AddOrder(value);
+            if (ModelState.IsValid)
+            {
+                _service.AddOrder(value);
+            }
         }
 
         [HttpDelete("{id}")]

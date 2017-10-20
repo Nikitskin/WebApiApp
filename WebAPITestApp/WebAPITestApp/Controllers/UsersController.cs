@@ -18,9 +18,12 @@ namespace WebAPITestApp.Controllers
         [HttpPost("/token")]
         public async Task Token([FromForm]UserModel userModel)
         {
-            var tokenResponse = _userService.GetToken(userModel.UserName, userModel.Password);
-            Response.StatusCode = tokenResponse.StatusCode;
-            await Response.WriteAsync(tokenResponse.AccessToken);
+            if (ModelState.IsValid)
+            {
+                var tokenResponse = _userService.GetToken(userModel.UserName, userModel.Password);
+                Response.StatusCode = tokenResponse.StatusCode;
+                await Response.WriteAsync(tokenResponse.AccessToken);
+            }
         }
     }
 }

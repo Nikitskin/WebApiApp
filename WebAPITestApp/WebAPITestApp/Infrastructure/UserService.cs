@@ -8,12 +8,15 @@ using DBLayer.UnitOfWork;
 using WebAPITestApp.Models;
 using WebAPITestApp.Infrastructure.WebServices.AuthorizationService.AuthorizationConfig;
 using System.IdentityModel.Tokens.Jwt;
+using Logger;
 
 namespace WebAPITestApp.Infrastructure.WebServices.AuthorizationService
 {
     public class UserService : IUserService
     {
         private IUnitOfWork _unitOfWork;
+        
+        public ILoggerService Logger { get; set; }
 
         public UserService(IUnitOfWork unitOfWork)
         {
@@ -26,6 +29,7 @@ namespace WebAPITestApp.Infrastructure.WebServices.AuthorizationService
 
             if (identity == null)
             {
+                Logger.Info("User inputed incorrect credentials");
                 return new TokenResponse
                 {
                     StatusCode = 200,

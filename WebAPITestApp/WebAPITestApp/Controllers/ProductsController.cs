@@ -36,14 +36,20 @@ namespace WebAPITestApp.Controllers
         [HttpPost]
         public void Post([FromBody]ProductDto value)
         {
-            _service.Update(value);
+            if (ModelState.IsValid)
+            {
+                _service.Update(value);
+            }
         }
 
         [Authorize]
         [HttpPut("{id}")]
         public void Put([FromBody]ProductDto value)
         {
-            _service.AddProduct(value);
+            if (ModelState.IsValid)
+            {
+                _service.AddProduct(value);
+            }
         }
 
         [Authorize]
