@@ -1,4 +1,5 @@
-﻿using DBLayer.Contexts;
+﻿using AutoMapper;
+using DBLayer.Contexts;
 using DBLayer.DbData;
 using DBLayer.DBRepository;
 using DBLayer.UnitOfWork;
@@ -28,7 +29,6 @@ namespace WebAPITestApp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -63,6 +63,7 @@ namespace WebAPITestApp
             services.AddScoped<IDbRepository<User>, DbRepository<User>>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddMvc();
+            services.AddAutoMapper();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

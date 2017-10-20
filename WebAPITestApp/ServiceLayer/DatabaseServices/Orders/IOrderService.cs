@@ -7,10 +7,10 @@ namespace ServiceLayer.DatabaseServices.Orders
 {
     public interface IOrdersService
     {
-        void AddOrder(OrderControllerModel order);
-        Task<OrderControllerModel> GetOrder(int id);
+        void AddOrder(OrderDto order);
+        Task<OrderDto> GetOrder(int id);
         void Remove(int id);
-        Task<List<OrderControllerModel>> GetAllOrders();
-        void Update(OrderControllerModel order);
+        Task<List<OrderDto>> GetAllOrders();
+        void Update(OrderDto order);
     }
 }

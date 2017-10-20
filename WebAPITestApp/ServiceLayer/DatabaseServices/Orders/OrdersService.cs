@@ -10,25 +10,25 @@ namespace ServiceLayer.DatabaseServices.Orders
     public class OrdersService : IOrdersService
     {
         private IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public OrdersService(IUnitOfWork unitOfWork)
+        public OrdersService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public void AddOrder(OrderControllerModel order)
+        public void AddOrder(OrderDto order)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<OrderControllerModel, Order>());
-            var dbOrder = Mapper.Map<OrderControllerModel, Order>(order);
+            var dbOrder = Mapper.Map<OrderDto, Order>(order);
             _unitOfWork.OrdersRepository.Create(dbOrder);
             Save();
         }
 
-        public async Task<OrderControllerModel> GetOrder(int id)
+        public async Task<OrderDto> GetOrder(int id)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<Task<OrderControllerModel>, Task<Order>>());
             var orderItem = _unitOfWork.OrdersRepository.GetItem(id);
-            var order = Mapper.Map<Task<Order>, Task<OrderControllerModel>>(orderItem);
+            var order = Mapper.Map<Task<Order>, Task<OrderDto>>(orderItem);
             return await order;
         }
 
@@ -39,17 +39,15 @@ namespace ServiceLayer.DatabaseServices.Orders
             Save();
         }
 
-        public async Task<List<OrderControllerModel>> GetAllOrders()
+        public async Task<List<OrderDto>> GetAllOrders()
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<Task<List<OrderControllerModel>>, Task<List<Order>>>());
             var list = _unitOfWork.OrdersRepository.GetAll(); 
-            return await Mapper.Map<Task<List<Order>>, Task<List<OrderControllerModel>>>(list);
+            return await Mapper.Map<Task<List<Order>>, Task<List<OrderDto>>>(list);
         }
 
-        public void Update(OrderControllerModel order)
+        public void Update(OrderDto order)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<OrderControllerModel, Order>());
-            var dbOrder = Mapper.Map<OrderControllerModel, Order>(order);
+            var dbOrder = Mapper.Map<OrderDto, Order>(order);
             _unitOfWork.OrdersRepository.Update(dbOrder);
             Save();
         }

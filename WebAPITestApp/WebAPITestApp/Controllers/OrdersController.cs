@@ -21,28 +21,28 @@ namespace WebAPITestApp.Controllers
 
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public Task<List<OrderControllerModel>> Get()
+        public Task<List<OrderDto>> Get()
         {
             return _service.GetAllOrders();
         }
 
         [HttpGet("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public Task<OrderControllerModel> Get(int id)
+        public Task<OrderDto> Get(int id)
         {
             return _service.GetOrder(id);
         }
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public void Post([FromBody]OrderControllerModel value)
+        public void Post([FromBody]OrderDto value)
         {
             _service.Update(value);
         }
 
         [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public void Put([FromBody]OrderControllerModel value)
+        public void Put([FromBody]OrderDto value)
         {
             _service.AddOrder(value);
         }

@@ -7,10 +7,10 @@ namespace ServiceLayer.DatabaseServices.Products
 {
     public interface IProductService
     {
-        void AddProduct(ProductControllerModel product);
-        Task<ProductControllerModel> GetProduct(int id);
+        void AddProduct(ProductDto product);
+        Task<ProductDto> GetProduct(int id);
         void Remove(int id);
-        Task<List<ProductControllerModel>> GetAllProducts();
-        void Update(ProductControllerModel product);
+        Task<List<ProductDto>> GetAllProducts();
+        void Update(ProductDto product);
     }
 }

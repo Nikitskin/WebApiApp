@@ -20,28 +20,28 @@ namespace WebAPITestApp.Controllers
 
         [HttpGet]
         [Authorize]
-        public Task<List<ProductControllerModel>> Get()
+        public Task<List<ProductDto>> Get()
         {
             return _service.GetAllProducts();
         }
 
         [Authorize]
         [HttpGet("{id}")]
-        public Task<ProductControllerModel> Get(int id)
+        public Task<ProductDto> Get(int id)
         {
             return _service.GetProduct(id);
         }
 
         [Authorize]
         [HttpPost]
-        public void Post([FromBody]ProductControllerModel value)
+        public void Post([FromBody]ProductDto value)
         {
             _service.Update(value);
         }
 
         [Authorize]
         [HttpPut("{id}")]
-        public void Put([FromBody]ProductControllerModel value)
+        public void Put([FromBody]ProductDto value)
         {
             _service.AddProduct(value);
         }
