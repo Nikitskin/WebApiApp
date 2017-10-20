@@ -75,7 +75,7 @@ namespace WebAPITestApp
                 Logger.Info("Services initialized.");
             }catch(Exception e)
             {
-                Logger.Error("Services initializing failed");
+                Logger.Error("Services initializing failed, because of {0}", e.ToString());
             }
         }
 
