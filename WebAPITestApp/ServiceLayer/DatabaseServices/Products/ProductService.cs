@@ -27,7 +27,9 @@ namespace ServiceLayer.DatabaseServices.Products
 
         public async Task<ProductDto> GetProduct(int id)
         {
+            // TODO GetItem is async method so use await and after awaiting map to dto model
             var productItem = _unitOfWork.ProductsRepository.GetItem(id);
+            // TODO You have added _mapper field, but still don't use it.
             var product = Mapper.Map<Task<Product>, Task<ProductDto>>(productItem);
             return await product;
         }

@@ -18,6 +18,7 @@ namespace WebAPITestApp.Controllers
         [HttpPost("/token")]
         public async Task Token([FromForm]UserModel userModel)
         {
+            // TODO You can write if(...) { return; } and you will lose one nesting level
             if (ModelState.IsValid)
             {
                 var tokenResponse = _userService.GetToken(userModel.UserName, userModel.Password);

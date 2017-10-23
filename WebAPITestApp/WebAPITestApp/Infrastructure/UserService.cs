@@ -15,7 +15,8 @@ namespace WebAPITestApp.Infrastructure.WebServices.AuthorizationService
     public class UserService : IUserService
     {
         private IUnitOfWork _unitOfWork;
-        
+
+        // TODO Why Logger is a property? I suppose it should be private as UnitOfWork and should be initialized from constructor as well. 
         public ILoggerService Logger { get; set; }
 
         public UserService(IUnitOfWork unitOfWork)
@@ -55,6 +56,7 @@ namespace WebAPITestApp.Infrastructure.WebServices.AuthorizationService
             // TODO Your password in db should be encoded, so in this case you can't just compare password User entered and password from db.
             // You can either use EF identity db context to store users or find some nuget package and encode password by yourself.
             User person = _unitOfWork.UsersRepository.GetAll().Result.FirstOrDefault(x => x.FirstName == firstName && x.Password == password);
+            // TODO Fix indents! It's not readable. Besides if you invert this if, you will lose one nesting level.
             if (person != null)
             {
             var claims = new List<Claim>

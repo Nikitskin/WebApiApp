@@ -13,6 +13,7 @@ namespace ServiceLayer.Model.MappingProfile
             CreateMap<ProductDto, Product>();
             CreateMap<Product, ProductDto>();
             CreateMap<Task<List<Product>>, Task<List<ProductDto>>>();
+            // TODO You can simply map List<Product> to List<ProductDto> or Product to ProductDto. Do not map Tasks
             CreateMap<Task<Product>, Task<ProductDto>>();
             CreateMap<OrderDto, Order>();
             CreateMap<Order, OrderDto>();

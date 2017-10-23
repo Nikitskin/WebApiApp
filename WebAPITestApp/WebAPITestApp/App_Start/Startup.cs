@@ -31,6 +31,7 @@ namespace WebAPITestApp
             Logger = logger;
         }
 
+        // TODO it's better to split this method into multiple with one responsibility (e.g. RegisterServices, RegisterDatabase, ConfigureAuthentication
         public void ConfigureServices(IServiceCollection services)
         {
             Logger.Info("Starting services..");
