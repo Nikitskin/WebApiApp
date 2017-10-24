@@ -15,7 +15,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using ServiceLayer.DatabaseServices.Orders;
 using System;
-using WebAPITestApp.Infrastructure.WebServices.AuthorizationService;
+using WebAPITestApp.Infrastructure;
 using WebAPITestApp.Infrastructure.WebServices.AuthorizationService.AuthorizationConfig;
 
 namespace WebAPITestApp
@@ -31,45 +31,13 @@ namespace WebAPITestApp
             Logger = logger;
         }
 
-        // TODO it's better to split this method into multiple with one responsibility (e.g. RegisterServices, RegisterDatabase, ConfigureAuthentication
         public void ConfigureServices(IServiceCollection services)
         {
-            Logger.Info("Starting services..");
             try
             {
-                services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
-                    {
-                        options.Configuration = new OpenIdConnectConfiguration();
-                        options.RequireHttpsMetadata = false;
-                        options.Audience = AuthOptions.AUDIENCE;
-                        options.Authority = AuthOptions.AUDIENCE;
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            ValidateAudience = false,
-                            ValidateIssuer = false,
-                            ValidateLifetime = true,
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                            ValidateIssuerSigningKey = true
-                        };
-
-                        options.IncludeErrorDetails = true;
-                        options.Events = new JwtBearerEvents
-                        {
-                            OnAuthenticationFailed = f => f.Response.WriteAsync(f.Exception.ToString())
-                        };
-                    });
-                services.AddScoped<IOrdersService, OrdersService>();
-                services.AddScoped<IUserService, UserService>();
-
-                services.AddScoped<DbContext, OrderContext>();
-                services.AddDbContext<OrderContext>(opt =>
-                    opt.UseSqlServer(Configuration.GetSection("ShopConnection:ConnectionString").Value));
-
-                services.AddScoped<IDbRepository<Order>, DbRepository<Order>>();
-                services.AddScoped<IDbRepository<Product>, DbRepository<Product>>();
-                services.AddScoped<IDbRepository<User>, DbRepository<User>>();
-                services.AddScoped<IUnitOfWork, UnitOfWork>();
+                Logger.Info("Starting services..");
+                RegisterAuthorization(services);
+                RegisterDatabase(services);
                 services.AddMvc();
                 services.AddAutoMapper();
                 services.AddSingleton<ILoggerService, LoggerService>();
@@ -86,6 +54,47 @@ namespace WebAPITestApp
             app.UseDefaultFiles();
             app.UseAuthentication();
             app.UseMvc();
+        }
+
+        private void RegisterAuthorization(IServiceCollection services)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Configuration = new OpenIdConnectConfiguration();
+                    options.RequireHttpsMetadata = false;
+                    options.Audience = AuthOptions.AUDIENCE;
+                    options.Authority = AuthOptions.AUDIENCE;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false,
+                        ValidateIssuer = false,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true
+                    };
+
+                    options.IncludeErrorDetails = true;
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = f => f.Response.WriteAsync(f.Exception.ToString())
+                    };
+                });
+        }
+
+        private void RegisterDatabase(IServiceCollection services)
+        {
+            services.AddScoped<IOrdersService, OrdersService>();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<DbContext, OrderContext>();
+            services.AddDbContext<OrderContext>(opt =>
+                opt.UseSqlServer(Configuration.GetSection("ShopConnection:ConnectionString").Value));
+
+            services.AddScoped<IDbRepository<Order>, DbRepository<Order>>();
+            services.AddScoped<IDbRepository<Product>, DbRepository<Product>>();
+            services.AddScoped<IDbRepository<User>, DbRepository<User>>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }

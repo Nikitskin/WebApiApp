@@ -9,13 +9,11 @@ namespace ServiceLayer.DatabaseServices.Orders
 {
     public class OrdersService : IOrdersService
     {
-        private IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public OrdersService(IUnitOfWork unitOfWork, IMapper mapper)
+        public OrdersService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public void AddOrder(OrderDto order)
@@ -27,9 +25,9 @@ namespace ServiceLayer.DatabaseServices.Orders
 
         public async Task<OrderDto> GetOrder(int id)
         {
-            var orderItem = _unitOfWork.OrdersRepository.GetItem(id);
-            var order = Mapper.Map<Task<Order>, Task<OrderDto>>(orderItem);
-            return await order;
+            var orderItem = await _unitOfWork.OrdersRepository.GetItem(id);
+            var order = Mapper.Map<Order, OrderDto>(orderItem);
+            return order;
         }
 
         public void Remove(int id)
@@ -41,8 +39,8 @@ namespace ServiceLayer.DatabaseServices.Orders
 
         public async Task<List<OrderDto>> GetAllOrders()
         {
-            var list = _unitOfWork.OrdersRepository.GetAll(); 
-            return await Mapper.Map<Task<List<Order>>, Task<List<OrderDto>>>(list);
+            var list = await _unitOfWork.OrdersRepository.GetAll(); 
+            return Mapper.Map<List<Order>, List<OrderDto>>(list);
         }
 
         public void Update(OrderDto order)

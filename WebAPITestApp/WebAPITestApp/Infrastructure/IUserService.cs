@@ -1,10 +1,9 @@
 ﻿using WebAPITestApp.Models;
 
-namespace WebAPITestApp.Infrastructure.WebServices.AuthorizationService
+namespace WebAPITestApp.Infrastructure
 {
     public interface IUserService
     {
-        // TODO fix naming
-        TokenResponse GetToken(string userName, string Password);
+        TokenResponse GetToken(string userName, string password);
     }
 }

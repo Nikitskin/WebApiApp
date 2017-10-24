@@ -1,27 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using DBLayer.DbData;
 using DBLayer.UnitOfWork;
-using WebAPITestApp.Models;
-using WebAPITestApp.Infrastructure.WebServices.AuthorizationService.AuthorizationConfig;
-using System.IdentityModel.Tokens.Jwt;
 using Logger;
+using Microsoft.IdentityModel.Tokens;
+using WebAPITestApp.Infrastructure.WebServices.AuthorizationService.AuthorizationConfig;
+using WebAPITestApp.Models;
 
-namespace WebAPITestApp.Infrastructure.WebServices.AuthorizationService
+namespace WebAPITestApp.Infrastructure
 {
     public class UserService : IUserService
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        // TODO Why Logger is a property? I suppose it should be private as UnitOfWork and should be initialized from constructor as well. 
-        public ILoggerService Logger { get; set; }
+        private readonly ILoggerService _logger;
 
-        public UserService(IUnitOfWork unitOfWork)
+        public UserService(IUnitOfWork unitOfWork, ILoggerService logger)
         {
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         public TokenResponse GetToken(string firstName, string password)
@@ -30,12 +30,12 @@ namespace WebAPITestApp.Infrastructure.WebServices.AuthorizationService
 
             if (identity == null)
             {
-                Logger.Info("User inputed incorrect credentials");
+                _logger.Info("User inputed incorrect credentials");
                 return new TokenResponse
                 {
                     StatusCode = 200,
                     AccessToken = "Invalid username or password."
-                }; 
+                };
             }
 
             var now = DateTime.UtcNow;
@@ -55,20 +55,16 @@ namespace WebAPITestApp.Infrastructure.WebServices.AuthorizationService
         {
             // TODO Your password in db should be encoded, so in this case you can't just compare password User entered and password from db.
             // You can either use EF identity db context to store users or find some nuget package and encode password by yourself.
-            User person = _unitOfWork.UsersRepository.GetAll().Result.FirstOrDefault(x => x.FirstName == firstName && x.Password == password);
-            // TODO Fix indents! It's not readable. Besides if you invert this if, you will lose one nesting level.
-            if (person != null)
-            {
+            var person = _unitOfWork.UsersRepository.GetAll().Result.FirstOrDefault(x => x.FirstName == firstName && x.Password == password);
+            if (person == null) return null;
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, person.FirstName),
             };
-            ClaimsIdentity claimsIdentity =
-                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+            var claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
                     ClaimsIdentity.DefaultRoleClaimType);
             return claimsIdentity;
-            }
-            return null;
         }
     }
 }

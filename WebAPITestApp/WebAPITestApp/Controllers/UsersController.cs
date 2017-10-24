@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using WebAPITestApp.Infrastructure;
 using WebAPITestApp.Models;
 using WebAPITestApp.Infrastructure.WebServices.AuthorizationService;
 
@@ -18,13 +19,13 @@ namespace WebAPITestApp.Controllers
         [HttpPost("/token")]
         public async Task Token([FromForm]UserModel userModel)
         {
-            // TODO You can write if(...) { return; } and you will lose one nesting level
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var tokenResponse = _userService.GetToken(userModel.UserName, userModel.Password);
-                Response.StatusCode = tokenResponse.StatusCode;
-                await Response.WriteAsync(tokenResponse.AccessToken);
+                return;
             }
+            var tokenResponse = _userService.GetToken(userModel.UserName, userModel.Password);
+            Response.StatusCode = tokenResponse.StatusCode;
+            await Response.WriteAsync(tokenResponse.AccessToken);
         }
     }
 }

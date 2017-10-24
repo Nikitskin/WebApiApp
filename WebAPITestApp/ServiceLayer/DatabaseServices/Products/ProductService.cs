@@ -9,13 +9,11 @@ namespace ServiceLayer.DatabaseServices.Products
 {
     public class ProductService : IProductService
     {
-        private IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProductService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ProductService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public void AddProduct(ProductDto product)
@@ -27,11 +25,9 @@ namespace ServiceLayer.DatabaseServices.Products
 
         public async Task<ProductDto> GetProduct(int id)
         {
-            // TODO GetItem is async method so use await and after awaiting map to dto model
-            var productItem = _unitOfWork.ProductsRepository.GetItem(id);
-            // TODO You have added _mapper field, but still don't use it.
-            var product = Mapper.Map<Task<Product>, Task<ProductDto>>(productItem);
-            return await product;
+            var productItem = await _unitOfWork.ProductsRepository.GetItem(id);
+            var product = Mapper.Map<Product, ProductDto>(productItem);
+            return product;
         }
 
         public void Remove(int id)
@@ -43,8 +39,8 @@ namespace ServiceLayer.DatabaseServices.Products
 
         public async Task<List<ProductDto>> GetAllProducts()
         {
-            var list = _unitOfWork.ProductsRepository.GetAll();
-            return await Mapper.Map<Task<List<Product>>, Task<List<ProductDto>>>(list);
+            var list = await _unitOfWork.ProductsRepository.GetAll();
+            return Mapper.Map<List<Product>, List<ProductDto>>(list);
         }
 
         public void Update(ProductDto product)
