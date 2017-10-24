@@ -38,11 +38,15 @@ namespace WebAPITestApp
                 Logger.Info("Starting services..");
                 RegisterAuthorization(services);
                 RegisterDatabase(services);
-                services.AddMvc();
+                services.AddMvc(options =>
+                {
+                    options.Filters.Add(typeof(GlobalNLogExceptionFilter));
+                });
                 services.AddAutoMapper();
                 services.AddSingleton<ILoggerService, LoggerService>();
                 Logger.Info("Services initialized.");
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Logger.Error("Services initializing failed, because of {0}", e.ToString());
             }
