@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Logger
+namespace Logger.Filters
 {
     public class GlobalNLogExceptionFilter : IExceptionFilter
     {
