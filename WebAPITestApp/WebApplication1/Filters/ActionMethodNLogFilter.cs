@@ -18,7 +18,7 @@ namespace Logger.Filters
             var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
             if (controllerActionDescriptor != null)
             {
-                _logger.Info(string.Format("Action finished for controller {0} started with method {1} at {2}", context.Controller,
+                _logger.Trace(string.Format("Action finished for controller {0} started with method {1} at {2}", context.Controller,
                     controllerActionDescriptor.MethodInfo.Name, DateTime.Now.ToShortDateString()));
             }
         }
@@ -29,7 +29,7 @@ namespace Logger.Filters
             //TODO Implement user tracking from attribute
             if (controllerActionDescriptor != null)
             {
-                _logger.Info(string.Format("Controller {0} started with method {1} at {2}", context.Controller, 
+                _logger.Trace(string.Format("Controller {0} started with method {1} at {2}", context.Controller, 
                     controllerActionDescriptor.MethodInfo.Name, DateTime.Now.ToShortDateString()));
             }
         }
