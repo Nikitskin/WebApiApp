@@ -26,7 +26,6 @@ namespace NLogger.Filters
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            //TODO It will be better to move models in separeted project for me
             if (context.ActionDescriptor is ControllerActionDescriptor controllerActionDescriptor)
             {
                 _logger.Trace(string.Format("Controller {0} started for user {1} with method {2} ", context.Controller,
