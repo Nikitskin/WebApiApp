@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
-using ServiceLayer.Models;
+using DTOLib.DatabaseModels;
 
 namespace ServiceLayer.DatabaseServices.Orders
 {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DBLayer.UnitOfWork;
-using ServiceLayer.Models;
 using DBLayer.DbData;
 using AutoMapper;
+using DTOLib.DatabaseModels;
 
 namespace ServiceLayer.DatabaseServices.Orders
 {

@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using DBLayer.DbData;
 using DBLayer.UnitOfWork;
-using ServiceLayer.Models;
 using AutoMapper;
+using DTOLib.DatabaseModels;
 
 namespace ServiceLayer.DatabaseServices.Products
 {

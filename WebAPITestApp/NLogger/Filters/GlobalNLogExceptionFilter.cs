@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Logger.Filters
+namespace NLogger.Filters
 {
     public class GlobalNLogExceptionFilter : IExceptionFilter
     {
@@ -13,7 +13,7 @@ namespace Logger.Filters
 
         public void OnException(ExceptionContext context)
         {
-            _logger.Error("Global error appeared during execution ",context.Exception);
+            _logger.Error("Global error appeared during execution ", context.Exception);
         }
     }
 }

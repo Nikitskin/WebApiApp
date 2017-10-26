@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
+using DTOLib.AuthModels;
 
-namespace Logger.Filters
+namespace NLogger.Filters
 {
     public class ActionMethodNLogFilter : IActionFilter
     {
@@ -25,11 +26,11 @@ namespace Logger.Filters
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
-            //TODO Implement user tracking from attribute
-            if (controllerActionDescriptor != null)
+            //TODO It will be better to move models in separeted project for me
+            if (context.ActionDescriptor is ControllerActionDescriptor controllerActionDescriptor)
             {
-                _logger.Trace(string.Format("Controller {0} started with method {1} at {2}", context.Controller, 
+                _logger.Trace(string.Format("Controller {0} started for user {1} with method {2} at {3}", context.Controller,
+                    ((UserModel)context.ActionArguments["UserModel"]).UserName,
                     controllerActionDescriptor.MethodInfo.Name, DateTime.Now.ToShortDateString()));
             }
         }

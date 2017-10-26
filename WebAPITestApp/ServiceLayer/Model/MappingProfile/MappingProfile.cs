@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DBLayer.DbData;
-using ServiceLayer.Models;
+using DTOLib.DatabaseModels;
 
 namespace ServiceLayer.Model.MappingProfile
 {

@@ -1,4 +1,4 @@
-﻿using WebAPITestApp.Models;
+﻿using DTOLib.AuthModels;
 
 namespace WebAPITestApp.Infrastructure
 {

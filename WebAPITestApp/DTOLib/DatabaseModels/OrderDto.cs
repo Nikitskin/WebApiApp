@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ServiceLayer.Models
+namespace DTOLib.DatabaseModels
 {
     public class OrderDto
     {

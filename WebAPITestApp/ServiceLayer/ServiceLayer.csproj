@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DBLayer\DBLayer.csproj" />
+    <ProjectReference Include="..\DTOLib\DTOLib.csproj" />
   </ItemGroup>
 
   <ItemGroup>

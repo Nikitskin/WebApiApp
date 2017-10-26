@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
+using DTOLib.AuthModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using WebAPITestApp.Infrastructure;
-using WebAPITestApp.Models;
-using WebAPITestApp.Infrastructure.WebServices.AuthorizationService;
 
 namespace WebAPITestApp.Controllers
 {

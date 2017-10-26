@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DBLayer.DbData;
-using ServiceLayer.Models;
+using DTOLib.DatabaseModels;
 
 namespace ServiceLayer.DatabaseServices.Products
 {

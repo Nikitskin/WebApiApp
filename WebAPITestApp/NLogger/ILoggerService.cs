@@ -1,4 +1,4 @@
-﻿namespace Logger
+﻿namespace NLogger
 {
     public interface ILoggerService
     {

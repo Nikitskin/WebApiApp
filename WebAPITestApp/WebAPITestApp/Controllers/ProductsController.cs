@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DatabaseServices.Products;
 using System.Threading.Tasks;
-using DBLayer.DbData;
-using ServiceLayer.Models;
+using DTOLib.DatabaseModels;
 
 namespace WebAPITestApp.Controllers
 {
