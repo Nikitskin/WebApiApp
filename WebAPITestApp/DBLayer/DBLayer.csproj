@@ -146,6 +146,7 @@
     <Compile Include="DbData\User.cs" />
     <Compile Include="DBRepository\IDBRepository.cs" />
     <Compile Include="DBRepository\DBRepository.cs" />
+    <Compile Include="DBRepository\ProductRepository.cs" />
     <Compile Include="DBRepository\OrderRepository.cs" />
     <Compile Include="Migrations\20171008155103_Initial.cs" />
     <Compile Include="Migrations\20171008155103_Initial.designer.cs">
@@ -158,6 +159,10 @@
     <Compile Include="Migrations\20171026141633_refactoredBase.cs" />
     <Compile Include="Migrations\20171026141633_refactoredBase.designer.cs">
       <DependentUpon>20171026141633_refactoredBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20171026184532_removeId.cs" />
+    <Compile Include="Migrations\20171026184532_removeId.designer.cs">
+      <DependentUpon>20171026184532_removeId.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\OrderContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

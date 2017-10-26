@@ -13,7 +13,7 @@ namespace DBLayer.UnitOfWork
         }
 
         private readonly DbContext _db;
-        private Lazy<OrderRepository> _orders;
+        private Lazy<IDbRepository<Order>> _orders;
         private Lazy<IDbRepository<Product>> _products;
         private Lazy<IDbRepository<User>> _users;
         private bool _disposed;
@@ -29,7 +29,7 @@ namespace DBLayer.UnitOfWork
             {
                 if (_orders == null)
                 {
-                    _orders = new Lazy<OrderRepository>(() => new OrderRepository(_db));
+                    _orders = new Lazy<IDbRepository<Order>>(() => new OrderRepository(_db));
                 }
                 return _orders.Value;
             }
@@ -41,7 +41,7 @@ namespace DBLayer.UnitOfWork
             {
                 if (_products == null)
                 {
-                    _products = new Lazy<IDbRepository<Product>>(() => new DbRepository<Product>(_db));
+                    _products = new Lazy<IDbRepository<Product>>(() => new ProductRepository(_db));
                 }
                 return _products.Value;
             }

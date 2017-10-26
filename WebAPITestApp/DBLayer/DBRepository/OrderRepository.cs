@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using DBLayer.DbData;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Extensions.Internal;
 
 namespace DBLayer.DBRepository
 {

@@ -5,6 +5,7 @@ using DBLayer.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceLayer.DatabaseServices.Orders;
+using ServiceLayer.DatabaseServices.Products;
 using WebAPITestApp.Infrastructure;
 
 namespace WebAPITestApp.App_Start
@@ -14,6 +15,7 @@ namespace WebAPITestApp.App_Start
         public static void RegisterDatabase(this IServiceCollection services, string sqlServerConnetcionString)
         {
             services.AddScoped<IOrdersService, OrdersService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<DbContext, OrderContext>();

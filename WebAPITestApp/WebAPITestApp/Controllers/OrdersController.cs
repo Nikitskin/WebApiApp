@@ -18,15 +18,16 @@ namespace WebAPITestApp.Controllers
             _service = service;
         }
 
+        //TODO remove comments as they were used for debug
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public Task<List<OrderDto>> Get()
         {
             return _service.GetAllOrders();
         }
 
         [HttpGet("{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public Task<OrderDto> Get(int id)
         {
             return _service.GetOrder(id);
