@@ -13,9 +13,9 @@ namespace DBLayer.UnitOfWork
         }
 
         private readonly DbContext _db;
-        private Lazy<IDbRepository<Order>> orders;
-        private Lazy<IDbRepository<Product>> products;
-        private Lazy<IDbRepository<User>> users;
+        private Lazy<OrderRepository> _orders;
+        private Lazy<IDbRepository<Product>> _products;
+        private Lazy<IDbRepository<User>> _users;
         private bool _disposed;
 
         public void Save()
@@ -27,11 +27,11 @@ namespace DBLayer.UnitOfWork
         {
             get
             {
-                if (orders == null)
+                if (_orders == null)
                 {
-                    orders = new Lazy<IDbRepository<Order>>(() => new DbRepository<Order>(_db));
+                    _orders = new Lazy<OrderRepository>(() => new OrderRepository(_db));
                 }
-                return orders.Value;
+                return _orders.Value;
             }
         }
 
@@ -39,11 +39,11 @@ namespace DBLayer.UnitOfWork
         {
             get
             {
-                if (products == null)
+                if (_products == null)
                 {
-                    products = new Lazy<IDbRepository<Product>>(() => new DbRepository<Product>(_db));
+                    _products = new Lazy<IDbRepository<Product>>(() => new DbRepository<Product>(_db));
                 }
-                return products.Value;
+                return _products.Value;
             }
         }
 
@@ -51,11 +51,11 @@ namespace DBLayer.UnitOfWork
         {
             get
             {
-                if (users == null)
+                if (_users == null)
                 {
-                    users = new Lazy<IDbRepository<User>>(() => new DbRepository<User>(_db));
+                    _users = new Lazy<IDbRepository<User>>(() => new DbRepository<User>(_db));
                 }
-                return users.Value;
+                return _users.Value;
             }
         }
 

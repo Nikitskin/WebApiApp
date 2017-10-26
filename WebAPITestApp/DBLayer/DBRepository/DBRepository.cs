@@ -7,38 +7,38 @@ namespace DBLayer.DBRepository
     public class DbRepository<T> : IDbRepository<T>
         where T : class, new()
     {
-        private DbContext _context;
-        private DbSet<T> dbSet;
+        protected DbContext Context;
+        protected DbSet<T> DbSet;
 
         public DbRepository(DbContext context)
         {
-            _context = context;
-            dbSet = _context.Set<T>();
+            Context = context;
+            DbSet = Context.Set<T>();
         }
 
-        public void Create(T item)
+        public virtual void Create(T item)
         {
-            dbSet.Add(item);
+            DbSet.Add(item);
         }
 
-        public void Delete(T item)
+        public virtual void Delete(T item)
         {
-            dbSet.Remove(item);
+            DbSet.Remove(item);
         }
 
-        public async Task<T> GetItem(int id)
+        public virtual async Task<T> GetItem(int id)
         {
-            return await dbSet.FindAsync(id);
+            return await DbSet.FindAsync(id);
         }
 
-        public async Task<List<T>> GetAll()
+        public virtual async Task<List<T>> GetAll()
         {
-            return await dbSet.ToListAsync();
+            return await DbSet.ToListAsync();
         }
 
-        public void Update(T item)
+        public virtual void Update(T item)
         {
-            dbSet.Update(item);
+            DbSet.Update(item);
         }
     }
 }
