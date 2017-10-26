@@ -29,9 +29,9 @@ namespace NLogger.Filters
             //TODO It will be better to move models in separeted project for me
             if (context.ActionDescriptor is ControllerActionDescriptor controllerActionDescriptor)
             {
-                _logger.Trace(string.Format("Controller {0} started for user {1} with method {2} at {3}", context.Controller,
-                    ((UserModel)context.ActionArguments["UserModel"]).UserName,
-                    controllerActionDescriptor.MethodInfo.Name, DateTime.Now.ToShortDateString()));
+                _logger.Trace(string.Format("Controller {0} started for user {1} with method {2} ", context.Controller,
+                    context.HttpContext.User.Identity.Name ?? ((UserModel)context.ActionArguments["UserModel"]).UserName,
+                    controllerActionDescriptor.MethodInfo.Name));
             }
         }
     }
