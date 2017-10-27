@@ -2,12 +2,13 @@
 using System.Threading.Tasks;
 using DBLayer.DbData;
 using Microsoft.EntityFrameworkCore;
+using NLogger;
 
 namespace DBLayer.DBRepository
 {
     public class OrderRepository : DbRepository<Order>
     {
-        public OrderRepository(DbContext context) : base(context)
+        public OrderRepository(DbContext context, ILoggerService logger) : base(context, logger)
         {
 
         }

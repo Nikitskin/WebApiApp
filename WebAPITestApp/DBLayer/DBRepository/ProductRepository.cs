@@ -1,12 +1,13 @@
 ﻿using System.Threading.Tasks;
 using DBLayer.DbData;
 using Microsoft.EntityFrameworkCore;
+using NLogger;
 
 namespace DBLayer.DBRepository
 {
     public class ProductRepository : DbRepository<Product>
     {
-        public ProductRepository(DbContext context) : base(context)
+        public ProductRepository(DbContext context, ILoggerService logger) : base(context, logger)
         {
 
         }

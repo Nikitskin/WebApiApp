@@ -14,18 +14,16 @@ namespace WebAPITestApp
     public class Startup
     {
         private IConfiguration Configuration { get; }
-        private ILoggerService _logger;
 
-        public Startup(IConfiguration configuration, ILoggerService logger)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _logger = logger;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterAuthorization();
-            services.RegisterDatabase(Configuration.GetSection("ShopConnection:ConnectionString").Value, _logger);
+            services.RegisterDatabase(Configuration.GetSection("ShopConnection:ConnectionString").Value);
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(GlobalNLogExceptionFilter));
@@ -33,7 +31,6 @@ namespace WebAPITestApp
             });
             services.AddAutoMapper();
             services.AddSingleton<ILoggerService, LoggerService>();
-            
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

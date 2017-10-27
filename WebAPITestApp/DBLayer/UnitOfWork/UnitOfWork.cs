@@ -35,7 +35,7 @@ namespace DBLayer.UnitOfWork
             {
                 if (_orders == null)
                 {
-                    _orders = new Lazy<IDbRepository<Order>>(() => new OrderRepository(_db));
+                    _orders = new Lazy<IDbRepository<Order>>(() => new OrderRepository(_db, _logger));
                 }
                 return _orders.Value;
             }
@@ -47,7 +47,7 @@ namespace DBLayer.UnitOfWork
             {
                 if (_products == null)
                 {
-                    _products = new Lazy<IDbRepository<Product>>(() => new ProductRepository(_db));
+                    _products = new Lazy<IDbRepository<Product>>(() => new ProductRepository(_db, _logger));
                 }
                 return _products.Value;
             }
@@ -59,7 +59,7 @@ namespace DBLayer.UnitOfWork
             {
                 if (_users == null)
                 {
-                    _users = new Lazy<IDbRepository<User>>(() => new DbRepository<User>(_db));
+                    _users = new Lazy<IDbRepository<User>>(() => new DbRepository<User>(_db, _logger));
                 }
                 return _users.Value;
             }
