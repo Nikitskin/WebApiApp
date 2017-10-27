@@ -10,10 +10,10 @@ namespace ServiceLayer.Model.MappingProfile
         public MappingProfile()
         {
             CreateMap<ProductDto, Product>();
-            CreateMap<Product, ProductDto>().ForMember(dto => dto.OrderProduct,
+            CreateMap<Product, ProductDto>().ForMember(dto => dto.Orders,
                 opt => opt.MapFrom(x => x.OrderProduct.Select(y => y.Order).ToList())); ;
             CreateMap<OrderDto, Order>();
-            CreateMap<Order, OrderDto>().ForMember(dto => dto.OrderProduct,
+            CreateMap<Order, OrderDto>().ForMember(dto => dto.Products,
                 opt => opt.MapFrom(x=>x.OrderProduct.Select(y=>y.Product).ToList())); 
         }
     }
