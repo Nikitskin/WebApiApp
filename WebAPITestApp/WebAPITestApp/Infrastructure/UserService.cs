@@ -4,10 +4,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using DBLayer.UnitOfWork;
-using DTOLib.AuthModels;
 using Microsoft.IdentityModel.Tokens;
 using NLogger;
-using WebAPITestApp.Infrastructure.WebServices.AuthorizationService.AuthorizationConfig;
+using WebAPITestApp.Models.AuthModels;
 
 namespace WebAPITestApp.Infrastructure
 {

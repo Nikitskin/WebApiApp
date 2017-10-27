@@ -7,8 +7,8 @@ using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using NLogger;
-using NLogger.Filters;
 using WebAPITestApp.App_Start;
+using WebAPITestApp.Filters;
 
 namespace WebAPITestApp
 {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
-using WebAPITestApp.Infrastructure.WebServices.AuthorizationService.AuthorizationConfig;
+using WebAPITestApp.Infrastructure;
 
 namespace WebAPITestApp.App_Start
 {

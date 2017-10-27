@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DatabaseServices.Products;
 using System.Threading.Tasks;
 using DTOLib.DatabaseModels;
+using NLogger;
+using WebAPITestApp.Models;
 
 namespace WebAPITestApp.Controllers
 {
@@ -11,17 +13,20 @@ namespace WebAPITestApp.Controllers
     public class ProductsController : Controller
     {
         private IProductService _service;
+        private readonly ILoggerService _logger;
 
-        public ProductsController(IProductService service)
+        public ProductsController(IProductService service, ILoggerService logger)
         {
             _service = service;
+            _logger = logger;
         }
 
         [HttpGet]
         [Authorize]
-        public Task<List<ProductDto>> Get()
+        public async Task<List<ProductModel>> Get()
         {
-            return _service.GetAllProducts();
+            var list = await _service.GetAllProducts();
+            return AutoMapper.Mapper.Map<List<ProductDto>, List<ProductModel>>(list);
         }
 
         [Authorize]
@@ -33,22 +38,26 @@ namespace WebAPITestApp.Controllers
 
         [Authorize]
         [HttpPost]
-        public void Post([FromBody]ProductDto value)
+        public void Post([FromBody]ProductModel value)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _service.Update(value);
+                _logger.Info("User entered incorrect model in ProductController model - ", value);
+                return;
             }
+            _service.AddProduct(AutoMapper.Mapper.Map<ProductModel, ProductDto>(value));
         }
 
         [Authorize]
         [HttpPut("{id}")]
-        public void Put([FromBody]ProductDto value)
+        public void Put([FromBody]ProductModel value)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _service.AddProduct(value);
+                _logger.Info("User entered incorrect model in ProductController model - ", value);
+                return;
             }
+            _service.Update(AutoMapper.Mapper.Map<ProductModel, ProductDto>(value));
         }
 
         [Authorize]

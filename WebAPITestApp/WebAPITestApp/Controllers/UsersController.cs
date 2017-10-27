@@ -1,18 +1,21 @@
 ﻿using System.Threading.Tasks;
-using DTOLib.AuthModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using NLogger;
 using WebAPITestApp.Infrastructure;
+using WebAPITestApp.Models.AuthModels;
 
 namespace WebAPITestApp.Controllers
 {
     public class UsersController : Controller
     {
         private IUserService _userService;
+        private readonly ILoggerService _logger;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, ILoggerService logger)
         {
             _userService = userService;
+            _logger = logger;
         }
         
         [HttpPost("/token")]
@@ -20,6 +23,7 @@ namespace WebAPITestApp.Controllers
         {
             if (!ModelState.IsValid)
             {
+                _logger.Info("User entered incorect model for token action method model - ", userModel);
                 return;
             }
             var tokenResponse = _userService.GetToken(userModel.UserName, userModel.Password);

@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.Controllers;
+﻿using System;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using DTOLib.AuthModels;
+using NLogger;
+using WebAPITestApp.Models.AuthModels;
 
-namespace NLogger.Filters
+namespace WebAPITestApp.Filters
 {
     public class ActionMethodNLogFilter : IActionFilter
     {

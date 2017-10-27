@@ -73,8 +73,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthModels\TokenResponse.cs" />
-    <Compile Include="AuthModels\UserModel.cs" />
     <Compile Include="DatabaseModels\OrderDto.cs" />
     <Compile Include="DatabaseModels\ProductDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

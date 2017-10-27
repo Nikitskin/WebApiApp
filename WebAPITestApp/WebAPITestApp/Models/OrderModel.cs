@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DTOLib.DatabaseModels
+namespace WebAPITestApp.Models
 {
-    public class OrderDto
+    public class OrderModel
     {
         public int Id { get; set; }
         public DateTime OrderedDate { get; set; }
-        public ICollection<ProductDto> Products { get; set; }
+        public ICollection<ProductModel> Products { get; set; }
     }
 }

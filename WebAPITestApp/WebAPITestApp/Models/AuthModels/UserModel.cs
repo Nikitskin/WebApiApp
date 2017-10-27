@@ -1,4 +1,4 @@
-﻿namespace DTOLib.AuthModels
+﻿namespace WebAPITestApp.Models.AuthModels
 {
     public class UserModel
     {

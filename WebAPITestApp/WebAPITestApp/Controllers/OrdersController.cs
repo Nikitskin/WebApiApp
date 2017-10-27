@@ -4,7 +4,9 @@ using DTOLib.DatabaseModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NLogger;
 using ServiceLayer.DatabaseServices.Orders;
+using WebAPITestApp.Models;
 
 namespace WebAPITestApp.Controllers
 {
@@ -12,45 +14,54 @@ namespace WebAPITestApp.Controllers
     public class OrdersController : Controller
     {
         private IOrdersService _service;
+        private ILoggerService _logger;
 
-        public OrdersController(IOrdersService service)
+        public OrdersController(IOrdersService service, ILoggerService logger)
         {
             _service = service;
+            _logger = logger;
         }
 
         //TODO remove comments as they were used for debug
         [HttpGet]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public Task<List<OrderDto>> Get()
+        public async Task<List<OrderModel>> Get()
         {
-            return _service.GetAllOrders();
+            var list = await _service.GetAllOrders();
+            var order = AutoMapper.Mapper.Map<List<OrderDto>,List<OrderModel>> (list);
+            return order;
         }
 
         [HttpGet("{id}")]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public Task<OrderDto> Get(int id)
+        public async Task<OrderModel> Get(int id)
         {
-            return _service.GetOrder(id);
+            var order = await _service.GetOrder(id);
+            return AutoMapper.Mapper.Map<OrderDto, OrderModel>(order);
         }
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public void Post([FromBody]OrderDto value)
+        public void Post([FromBody]OrderModel value)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _service.Update(value);
+                _logger.Info("User entered incorrect model in OrderController model - ", value);
+                return;
             }
+            _service.Update(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
         }
 
         [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public void Put([FromBody]OrderDto value)
+        public void Put([FromBody]OrderModel value)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _service.AddOrder(value);
+                _logger.Info("User entered incorrect model in OrderController model - ", value);
+                return;
             }
+            _service.AddOrder(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
         }
 
         [HttpDelete("{id}")]

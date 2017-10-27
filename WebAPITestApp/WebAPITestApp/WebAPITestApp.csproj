@@ -39,7 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DBLayer\DBLayer.csproj" />
     <ProjectReference Include="..\DTOLib\DTOLib.csproj" />
     <ProjectReference Include="..\NLogger\NLogger.csproj" />
     <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
