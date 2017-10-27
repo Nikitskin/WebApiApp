@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using NLogger;
-using WebAPITestApp.App_Start;
 using WebAPITestApp.Filters;
 
 namespace WebAPITestApp
@@ -15,15 +14,18 @@ namespace WebAPITestApp
     public class Startup
     {
         private IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration)
+        private ILoggerService _logger;
+
+        public Startup(IConfiguration configuration, ILoggerService logger)
         {
             Configuration = configuration;
+            _logger = logger;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterAuthorization();
-            services.RegisterDatabase(Configuration.GetSection("ShopConnection:ConnectionString").Value);
+            services.RegisterDatabase(Configuration.GetSection("ShopConnection:ConnectionString").Value, _logger);
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(GlobalNLogExceptionFilter));

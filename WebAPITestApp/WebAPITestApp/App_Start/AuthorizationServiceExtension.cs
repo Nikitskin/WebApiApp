@@ -5,9 +5,9 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using WebAPITestApp.Infrastructure;
 
-namespace WebAPITestApp.App_Start
+namespace WebAPITestApp
 {
-    public static class AuthorizationRegister
+    public static class AuthorizationServiceExtension
     {
         public static void RegisterAuthorization(this IServiceCollection services)
         {

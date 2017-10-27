@@ -49,7 +49,7 @@ namespace WebAPITestApp.Controllers
                 _logger.Info("User entered incorrect model in OrderController model - ", value);
                 return;
             }
-            _service.Update(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
+            _service.AddOrder(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
         }
 
         [HttpPut]
@@ -61,7 +61,7 @@ namespace WebAPITestApp.Controllers
                 _logger.Info("User entered incorrect model in OrderController model - ", value);
                 return;
             }
-            _service.AddOrder(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
+            _service.Update(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
         }
 
         [HttpDelete("{id}")]

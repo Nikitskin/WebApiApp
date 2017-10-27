@@ -2,14 +2,18 @@
 using DBLayer.DBRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
+using NLogger;
 
 namespace DBLayer.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        public UnitOfWork(DbContext db)
+        private readonly ILoggerService _logger;
+
+        public UnitOfWork(DbContext db, ILoggerService logger)
         {
             _db = db;
+            _logger = logger;
         }
 
         private readonly DbContext _db;
@@ -20,7 +24,9 @@ namespace DBLayer.UnitOfWork
 
         public void Save()
         {
+            _logger.Trace("Saving changes to db..");
             _db.SaveChangesAsync();
+            _logger.Trace("Saving finished for db.");
         }
 
         public IDbRepository<Order> OrdersRepository
@@ -73,8 +79,10 @@ namespace DBLayer.UnitOfWork
        
         public void Dispose()
         {
+            _logger.Trace("Disposing unit of work");
             Dispose(true);
             GC.SuppressFinalize(this);
+            _logger.Trace("Disposin finished for unit of work");
         }
     }
 }

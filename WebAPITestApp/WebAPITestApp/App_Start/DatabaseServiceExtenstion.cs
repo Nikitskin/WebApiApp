@@ -4,21 +4,26 @@ using DBLayer.DBRepository;
 using DBLayer.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using NLogger;
 using ServiceLayer.DatabaseServices.Orders;
 using ServiceLayer.DatabaseServices.Products;
 using WebAPITestApp.Infrastructure;
 
-namespace WebAPITestApp.App_Start
+namespace WebAPITestApp
 {
-    public static class DatabaseRegister
+    public static class DatabaseServiceExtenstion
     {
-        public static void RegisterDatabase(this IServiceCollection services, string sqlServerConnetcionString)
+        public static void RegisterDatabase(this IServiceCollection services, string sqlServerConnetcionString, ILoggerService logger)
         {
             services.AddScoped<IOrdersService, OrdersService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<DbContext, OrderContext>();
+            if (string.IsNullOrEmpty(sqlServerConnetcionString))
+            {
+                logger.Warn("There was no sql connection string provided");
+            }
             services.AddDbContext<OrderContext>(opt =>
                 opt.UseSqlServer(sqlServerConnetcionString));
 

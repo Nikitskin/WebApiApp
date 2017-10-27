@@ -42,6 +42,7 @@ namespace WebAPITestApp.Infrastructure
                 claims: identity.Claims,
                 expires: now.Add(TimeSpan.FromHours(AuthOptions.LIFETIME)),
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            _logger.Trace(string.Format("Authorization for {0}, passed ", firstName));
             return new TokenResponse
             {
                 StatusCode = 200,
@@ -54,7 +55,11 @@ namespace WebAPITestApp.Infrastructure
             // TODO Your password in db should be encoded, so in this case you can't just compare password User entered and password from db.
             // You can either use EF identity db context to store users or find some nuget package and encode password by yourself.
             var person = _unitOfWork.UsersRepository.GetAll().Result.FirstOrDefault(x => x.FirstName == firstName && x.Password == password);
-            if (person == null) return null;
+            if (person == null)
+            {
+                _logger.Info(string.Format("{0} is not exists", firstName));
+                return null;
+            }
 
             var claims = new List<Claim>
             {
