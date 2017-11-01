@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NLogger;
 using ServiceLayer.DatabaseServices.Orders;
+using WebAPITestApp.Attributes;
 using WebAPITestApp.Models;
 
 namespace WebAPITestApp.Controllers
@@ -28,7 +29,7 @@ namespace WebAPITestApp.Controllers
         public async Task<List<OrderModel>> Get()
         {
             var list = await _service.GetAllOrders();
-            return AutoMapper.Mapper.Map<List<OrderDto>, List<OrderModel>>(list); 
+            return AutoMapper.Mapper.Map<List<OrderDto>, List<OrderModel>>(list);
         }
 
         [HttpGet("{id}")]
@@ -41,25 +42,17 @@ namespace WebAPITestApp.Controllers
 
         [HttpPost]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [ValidateModel]
         public void Post([FromBody]OrderModel value)
         {
-            if (!ModelState.IsValid)
-            {
-                _logger.Info("User entered incorrect model in OrderController model - ", value);
-                return;
-            }
             _service.AddOrder(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
         }
 
         [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [ValidateModel]
         public void Put([FromBody]OrderModel value)
         {
-            if (!ModelState.IsValid)
-            {
-                _logger.Info("User entered incorrect model in OrderController model - ", value);
-                return;
-            }
             _service.Update(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
         }
 

@@ -9,6 +9,7 @@ using Newtonsoft.Json.Serialization;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using NLogger;
+using WebAPITestApp.Attributes;
 using WebAPITestApp.Filters;
 
 namespace WebAPITestApp
@@ -28,8 +29,9 @@ namespace WebAPITestApp
             services.RegisterDatabase(Configuration.GetSection("ShopConnection:ConnectionString").Value);
             services.AddMvc(options =>
             {
-                options.Filters.Add(typeof(ExceptionLoggerFilter));
-                options.Filters.Add(typeof(LoggingActionFilter));
+                options.Filters.Add(typeof(GlobalNLogExceptionFilter));
+                options.Filters.Add(typeof(ActionMethodNLogFilter));
+                options.Filters.Add(typeof(ValidateModelAttribute));
             }).AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

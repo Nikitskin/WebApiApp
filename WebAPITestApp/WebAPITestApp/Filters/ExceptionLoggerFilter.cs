@@ -3,11 +3,11 @@ using NLogger;
 
 namespace WebAPITestApp.Filters
 {
-    public class ExceptionLoggerFilter : IExceptionFilter
+    public class GlobalNLogExceptionFilter : IExceptionFilter
     {
         private readonly ILoggerService _logger;
 
-        public ExceptionLoggerFilter(ILoggerService logger)
+        public GlobalNLogExceptionFilter(ILoggerService logger)
         {
             _logger = logger;
         }

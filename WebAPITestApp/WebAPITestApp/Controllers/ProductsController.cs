@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DatabaseServices.Products;
 using System.Threading.Tasks;
 using DTOLib.DatabaseModels;
+using Microsoft.AspNetCore.Http;
 using NLogger;
+using WebAPITestApp.Attributes;
 using WebAPITestApp.Models;
 
 namespace WebAPITestApp.Controllers
@@ -12,7 +14,7 @@ namespace WebAPITestApp.Controllers
     [Route("api/[controller]")]
     public class ProductsController : Controller
     {
-        private IProductService _service;
+        private readonly IProductService _service;
         private readonly ILoggerService _logger;
 
         public ProductsController(IProductService service, ILoggerService logger)
@@ -31,32 +33,24 @@ namespace WebAPITestApp.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public Task<ProductDto> Get(int id)
+        public async Task<ProductDto> Get(int id)
         {
-            return _service.GetProduct(id);
+            return await _service.GetProduct(id);
         }
 
         [Authorize]
         [HttpPost]
-        public void Post([FromBody]ProductModel value)
+        [ValidateModel]
+        public async void Post([FromBody]ProductModel value)
         {
-            if (!ModelState.IsValid)
-            {
-                _logger.Info("User entered incorrect model in ProductController model - ", value);
-                return;
-            }
             _service.AddProduct(AutoMapper.Mapper.Map<ProductModel, ProductDto>(value));
         }
 
         [Authorize]
         [HttpPut("{id}")]
-        public void Put([FromBody]ProductModel value)
+        [ValidateModel]
+        public async void Put([FromBody]ProductModel value)
         {
-            if (!ModelState.IsValid)
-            {
-                _logger.Info("User entered incorrect model in ProductController model - ", value);
-                return;
-            }
             _service.Update(AutoMapper.Mapper.Map<ProductModel, ProductDto>(value));
         }
 

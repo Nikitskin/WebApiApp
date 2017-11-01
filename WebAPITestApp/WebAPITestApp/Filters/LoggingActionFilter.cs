@@ -6,19 +6,18 @@ using WebAPITestApp.Models.AuthModels;
 
 namespace WebAPITestApp.Filters
 {
-    public class LoggingActionFilter : IActionFilter
+    public class ActionMethodNLogFilter : IActionFilter
     {
         private readonly ILoggerService _logger;
 
-        public LoggingActionFilter(ILoggerService logger)
+        public ActionMethodNLogFilter(ILoggerService logger)
         {
             _logger = logger;
         }
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
-            if (controllerActionDescriptor != null)
+            if (context.ActionDescriptor is ControllerActionDescriptor controllerActionDescriptor)
             {
                 _logger.Trace(string.Format("Action finished for controller {0} started with method {1} at {2}", context.Controller,
                     controllerActionDescriptor.MethodInfo.Name, DateTime.Now.ToShortDateString()));
@@ -29,9 +28,9 @@ namespace WebAPITestApp.Filters
         {
             if (context.ActionDescriptor is ControllerActionDescriptor controllerActionDescriptor)
             {
-                _logger.Trace(string.Format("Controller {0} started for user {1} with method {2} ", context.Controller,
-                    context.HttpContext.User.Identity.Name ?? ((UserModel)context.ActionArguments["UserModel"]).UserName,
-                    controllerActionDescriptor.MethodInfo.Name));
+                //_logger.Trace(string.Format("Controller {0} started for user {1} with method {2} ", context.Controller,
+                //    context.HttpContext.User.Identity.Name ?? ((UserModel)context.ActionArguments["UserModel"]).UserName,
+                //    controllerActionDescriptor.MethodInfo.Name));
             }
         }
     }
