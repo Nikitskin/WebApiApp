@@ -30,10 +30,10 @@ namespace ServiceLayer.DatabaseServices.Orders
             return order;
         }
 
-        public void Remove(int id)
+        public async void Remove(int id)
         {
-            var order = _unitOfWork.OrdersRepository.GetItem(id);
-            _unitOfWork.OrdersRepository.Delete(order.Result);
+            var order = await _unitOfWork.OrdersRepository.GetItem(id);
+            _unitOfWork.OrdersRepository.Delete(order);
             Save();
         }
 

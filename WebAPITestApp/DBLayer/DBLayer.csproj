@@ -146,6 +146,7 @@
     <Compile Include="DbData\User.cs" />
     <Compile Include="DBRepository\IDBRepository.cs" />
     <Compile Include="DBRepository\DBRepository.cs" />
+    <Compile Include="DBRepository\UserRepository.cs" />
     <Compile Include="DBRepository\ProductRepository.cs" />
     <Compile Include="DBRepository\OrderRepository.cs" />
     <Compile Include="Migrations\20171008155103_Initial.cs" />

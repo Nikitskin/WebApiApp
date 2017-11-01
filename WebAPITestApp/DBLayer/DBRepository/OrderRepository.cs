@@ -14,7 +14,8 @@ namespace DBLayer.DBRepository
         }
         public override async Task<Order> GetItem(int id)
         {
-            return await DbSet.Include(order => order.OrderProduct).ThenInclude(product=>product.Product).FirstAsync(p => p.Id == id);
+            return await DbSet.Include(order => order.OrderProduct).
+                ThenInclude(product=>product.Product).FirstAsync(p => p.Id == id);
         }
     }
 }

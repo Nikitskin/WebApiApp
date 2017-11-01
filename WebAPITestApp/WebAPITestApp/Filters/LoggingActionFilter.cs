@@ -6,11 +6,11 @@ using WebAPITestApp.Models.AuthModels;
 
 namespace WebAPITestApp.Filters
 {
-    public class ActionMethodNLogFilter : IActionFilter
+    public class LoggingActionFilter : IActionFilter
     {
         private readonly ILoggerService _logger;
 
-        public ActionMethodNLogFilter(ILoggerService logger)
+        public LoggingActionFilter(ILoggerService logger)
         {
             _logger = logger;
         }

@@ -30,10 +30,10 @@ namespace ServiceLayer.DatabaseServices.Products
             return product;
         }
 
-        public void Remove(int id)
+        public async void Remove(int id)
         {
-            var product = _unitOfWork.ProductsRepository.GetItem(id);
-            _unitOfWork.ProductsRepository.Delete(product.Result);
+            var product = await _unitOfWork.ProductsRepository.GetItem(id);
+            _unitOfWork.ProductsRepository.Delete(product);
             Save();
         }
 

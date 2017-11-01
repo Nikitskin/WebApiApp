@@ -59,7 +59,7 @@ namespace DBLayer.UnitOfWork
             {
                 if (_users == null)
                 {
-                    _users = new Lazy<IDbRepository<User>>(() => new DbRepository<User>(_db, _logger));
+                    _users = new Lazy<IDbRepository<User>>(() => new UserRepository(_db, _logger));
                 }
                 return _users.Value;
             }
@@ -67,14 +67,14 @@ namespace DBLayer.UnitOfWork
 
         public void Dispose(bool disposing)
         {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    _db.Dispose();
-                }
-                _disposed = true;
-            }
+            //    if (!_disposed)
+            //    {
+            //        if (disposing)
+            //        {
+            _db.Dispose();
+            //    }
+            //    _disposed = true;
+            //}
         }
        
         public void Dispose()

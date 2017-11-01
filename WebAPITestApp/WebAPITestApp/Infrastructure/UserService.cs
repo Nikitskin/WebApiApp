@@ -7,6 +7,7 @@ using DBLayer.UnitOfWork;
 using Microsoft.IdentityModel.Tokens;
 using NLogger;
 using WebAPITestApp.Models.AuthModels;
+using System.Threading.Tasks;
 
 namespace WebAPITestApp.Infrastructure
 {
@@ -22,9 +23,9 @@ namespace WebAPITestApp.Infrastructure
             _logger = logger;
         }
 
-        public TokenResponse GetToken(string firstName, string password)
+        public async Task<TokenResponse> GetToken(string firstName, string password)
         {
-            var identity = GetIdentity(firstName, password);
+            var identity = await GetIdentity(firstName, password);
 
             if (identity == null)
             {
@@ -50,11 +51,12 @@ namespace WebAPITestApp.Infrastructure
             };
         }
 
-        private ClaimsIdentity GetIdentity(string firstName, string password)
+        private async Task<ClaimsIdentity> GetIdentity(string firstName, string password)
         {
             // TODO Your password in db should be encoded, so in this case you can't just compare password User entered and password from db.
             // You can either use EF identity db context to store users or find some nuget package and encode password by yourself.
-            var person = _unitOfWork.UsersRepository.GetAll().Result.FirstOrDefault(x => x.FirstName == firstName && x.Password == password);
+            var list = await _unitOfWork.UsersRepository.GetAll();
+            var person = list.FirstOrDefault(user => user.FirstName == firstName && user.Password == password);
             if (person == null)
             {
                 _logger.Info(string.Format("{0} is not exists", firstName));

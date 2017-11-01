@@ -26,7 +26,7 @@ namespace WebAPITestApp.Controllers
                 _logger.Info("User entered incorect model for token action method model - ", userModel);
                 return;
             }
-            var tokenResponse = _userService.GetToken(userModel.UserName, userModel.Password);
+            var tokenResponse = await _userService.GetToken(userModel.UserName, userModel.Password);
             Response.StatusCode = tokenResponse.StatusCode;
             await Response.WriteAsync(tokenResponse.AccessToken);
         }

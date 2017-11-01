@@ -28,8 +28,7 @@ namespace WebAPITestApp.Controllers
         public async Task<List<OrderModel>> Get()
         {
             var list = await _service.GetAllOrders();
-            var order = AutoMapper.Mapper.Map<List<OrderDto>,List<OrderModel>> (list);
-            return order;
+            return AutoMapper.Mapper.Map<List<OrderDto>, List<OrderModel>>(list); 
         }
 
         [HttpGet("{id}")]
@@ -41,7 +40,7 @@ namespace WebAPITestApp.Controllers
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public void Post([FromBody]OrderModel value)
         {
             if (!ModelState.IsValid)
