@@ -15,12 +15,10 @@ namespace WebAPITestApp.Controllers
     public class OrdersController : Controller
     {
         private IOrdersService _service;
-        private ILoggerService _logger;
 
         public OrdersController(IOrdersService service, ILoggerService logger)
         {
             _service = service;
-            _logger = logger;
         }
 
         [HttpGet]

@@ -21,6 +21,7 @@ namespace ServiceLayer.DatabaseServices.Orders
         {
             var dbOrder = Mapper.Map<OrderDto, Order>(order);
             var users = await _unitOfWork.UsersRepository.GetAll();
+            dbOrder.User = users.FirstOrDefault(name => name.FirstName.Equals(order.UserName));
             _unitOfWork.OrdersRepository.Create(dbOrder);
             await Save();
         }
