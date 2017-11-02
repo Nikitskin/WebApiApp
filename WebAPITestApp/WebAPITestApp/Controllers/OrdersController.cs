@@ -23,9 +23,8 @@ namespace WebAPITestApp.Controllers
             _logger = logger;
         }
 
-        //TODO remove comments as they were used for debug
         [HttpGet]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<List<OrderModel>> Get()
         {
             var list = await _service.GetAllOrders();
@@ -33,7 +32,7 @@ namespace WebAPITestApp.Controllers
         }
 
         [HttpGet("{id}")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<OrderModel> Get(int id)
         {
             var order = await _service.GetOrder(id);
@@ -41,10 +40,11 @@ namespace WebAPITestApp.Controllers
         }
 
         [HttpPost]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ValidateModel]
-        public async Task Post([Bind("ordered_date")]OrderModel value)
+        public async Task Post([FromBody]OrderModel value)
         {
+            value.UserName = User.Identity.Name;
             await _service.AddOrder(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
         }
 
@@ -53,6 +53,7 @@ namespace WebAPITestApp.Controllers
         [ValidateModel]
         public async Task Put([FromBody]OrderModel value)
         {
+            value.UserName = User.Identity.Name;
             await _service.Update(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
         }
 

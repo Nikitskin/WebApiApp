@@ -28,9 +28,8 @@ namespace WebAPITestApp.Filters
         {
             if (context.ActionDescriptor is ControllerActionDescriptor controllerActionDescriptor)
             {
-                //_logger.Trace(string.Format("Controller {0} started for user {1} with method {2} ", context.Controller,
-                //    context.HttpContext.User.Identity.Name ?? ((UserModel)context.ActionArguments["UserModel"]).UserName,
-                //    controllerActionDescriptor.MethodInfo.Name));
+                _logger.Trace(string.Format("Controller {0} started for user {1} with method {2} ", context.Controller,
+                    context.HttpContext.User.Identity.Name ?? "anonymous", controllerActionDescriptor.MethodInfo.Name));
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DBLayer.UnitOfWork;
 using DBLayer.DbData;
@@ -19,6 +20,7 @@ namespace ServiceLayer.DatabaseServices.Orders
         public async Task AddOrder(OrderDto order)
         {
             var dbOrder = Mapper.Map<OrderDto, Order>(order);
+            var users = await _unitOfWork.UsersRepository.GetAll();
             _unitOfWork.OrdersRepository.Create(dbOrder);
             await Save();
         }
