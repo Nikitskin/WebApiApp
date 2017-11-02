@@ -16,11 +16,11 @@ namespace ServiceLayer.DatabaseServices.Orders
             _unitOfWork = unitOfWork;
         }
 
-        public void AddOrder(OrderDto order)
+        public async Task AddOrder(OrderDto order)
         {
             var dbOrder = Mapper.Map<OrderDto, Order>(order);
             _unitOfWork.OrdersRepository.Create(dbOrder);
-            Save();
+            await Save();
         }
 
         public async Task<OrderDto> GetOrder(int id)
@@ -30,11 +30,11 @@ namespace ServiceLayer.DatabaseServices.Orders
             return order;
         }
 
-        public async void Remove(int id)
+        public async Task Remove(int id)
         {
             var order = await _unitOfWork.OrdersRepository.GetItem(id);
             _unitOfWork.OrdersRepository.Delete(order);
-            Save();
+            await Save();
         }
 
         public async Task<List<OrderDto>> GetAllOrders()
@@ -43,11 +43,11 @@ namespace ServiceLayer.DatabaseServices.Orders
             return Mapper.Map<List<Order>, List<OrderDto>>(list);
         }
 
-        public void Update(OrderDto order)
+        public async Task Update(OrderDto order)
         {
             var dbOrder = Mapper.Map<OrderDto, Order>(order);
             _unitOfWork.OrdersRepository.Update(dbOrder);
-            Save();
+            await Save();
         }
 
         private async Task Save()

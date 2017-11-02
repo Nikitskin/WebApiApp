@@ -4,10 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DatabaseServices.Products;
 using System.Threading.Tasks;
 using DTOLib.DatabaseModels;
-using Microsoft.AspNetCore.Http;
 using NLogger;
 using WebAPITestApp.Attributes;
-using WebAPITestApp.Models;
 using WebAPITestApp.Models.ProductControllers;
 
 namespace WebAPITestApp.Controllers
@@ -39,27 +37,28 @@ namespace WebAPITestApp.Controllers
             return await _service.GetProduct(id);
         }
 
-        [Authorize]
+        //TODO Remove comment
+        //[Authorize]
         [HttpPost]
         [ValidateModel]
-        public async void Post([FromBody]ProductModel value)
+        public async Task Post([FromBody]ProductModel value)
         {
-            _service.AddProduct(AutoMapper.Mapper.Map<ProductModel, ProductDto>(value));
+            await _service.AddProduct(AutoMapper.Mapper.Map<ProductModel, ProductDto>(value));
         }
 
         [Authorize]
         [HttpPut("{id}")]
         [ValidateModel]
-        public async void Put([FromBody]ProductModel value)
+        public async Task Put([FromBody]ProductModel value)
         {
-            _service.Update(AutoMapper.Mapper.Map<ProductModel, ProductDto>(value));
+            await _service.Update(AutoMapper.Mapper.Map<ProductModel, ProductDto>(value));
         }
 
         [Authorize]
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            _service.Remove(id);
+            await _service.Remove(id);
         }
     }
 }

@@ -4,11 +4,9 @@ using DTOLib.DatabaseModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using NLogger;
 using ServiceLayer.DatabaseServices.Orders;
 using WebAPITestApp.Attributes;
-using WebAPITestApp.Models;
 using WebAPITestApp.Models.OrderControllers;
 
 namespace WebAPITestApp.Controllers
@@ -45,24 +43,24 @@ namespace WebAPITestApp.Controllers
         [HttpPost]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ValidateModel]
-        public async void Post([Bind("ordered_date")]OrderModel value)
+        public async Task Post([Bind("ordered_date")]OrderModel value)
         {
-            _service.AddOrder(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
+            await _service.AddOrder(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
         }
 
         [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ValidateModel]
-        public void Put([FromBody]OrderModel value)
+        public async Task Put([FromBody]OrderModel value)
         {
-            _service.Update(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
+            await _service.Update(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
         }
 
         [HttpDelete("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            _service.Remove(id);
+            await _service.Remove(id);
         }
     }
 }

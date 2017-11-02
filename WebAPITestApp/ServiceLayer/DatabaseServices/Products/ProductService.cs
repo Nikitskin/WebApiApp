@@ -16,11 +16,11 @@ namespace ServiceLayer.DatabaseServices.Products
             _unitOfWork = unitOfWork;
         }
 
-        public void AddProduct(ProductDto product)
+        public async Task AddProduct(ProductDto product)
         {
             var dbProduct = Mapper.Map<ProductDto, Product>(product);
             _unitOfWork.ProductsRepository.Create(dbProduct);
-            Save();
+            await Save();
         }
 
         public async Task<ProductDto> GetProduct(int id)
@@ -30,11 +30,11 @@ namespace ServiceLayer.DatabaseServices.Products
             return product;
         }
 
-        public async void Remove(int id)
+        public async Task Remove(int id)
         {
             var product = await _unitOfWork.ProductsRepository.GetItem(id);
             _unitOfWork.ProductsRepository.Delete(product);
-            Save();
+            await Save();
         }
 
         public async Task<List<ProductDto>> GetAllProducts()
@@ -43,11 +43,11 @@ namespace ServiceLayer.DatabaseServices.Products
             return Mapper.Map<List<Product>, List<ProductDto>>(list);
         }
 
-        public void Update(ProductDto product)
+        public async Task Update(ProductDto product)
         {
             var dbProduct = Mapper.Map<ProductDto, Product>(product);
             _unitOfWork.ProductsRepository.Update(dbProduct);
-            Save();
+            await Save();
         }
 
         private async Task Save()
