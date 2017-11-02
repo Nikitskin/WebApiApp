@@ -2,6 +2,7 @@
 using DBLayer.DBRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Threading.Tasks;
 using NLogger;
 
 namespace DBLayer.UnitOfWork
@@ -22,10 +23,10 @@ namespace DBLayer.UnitOfWork
         private Lazy<IDbRepository<User>> _users;
         private bool _disposed;
 
-        public void Save()
+        public async Task Save()
         {
             _logger.Trace("Saving changes to db..");
-            _db.SaveChangesAsync();
+            await _db.SaveChangesAsync();
             _logger.Trace("Saving finished for db.");
         }
 

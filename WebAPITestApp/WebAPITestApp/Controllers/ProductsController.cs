@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using NLogger;
 using WebAPITestApp.Attributes;
 using WebAPITestApp.Models;
+using WebAPITestApp.Models.ProductControllers;
 
 namespace WebAPITestApp.Controllers
 {

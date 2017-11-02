@@ -4,10 +4,12 @@ using DTOLib.DatabaseModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using NLogger;
 using ServiceLayer.DatabaseServices.Orders;
 using WebAPITestApp.Attributes;
 using WebAPITestApp.Models;
+using WebAPITestApp.Models.OrderControllers;
 
 namespace WebAPITestApp.Controllers
 {
@@ -43,7 +45,7 @@ namespace WebAPITestApp.Controllers
         [HttpPost]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ValidateModel]
-        public void Post([FromBody]OrderModel value)
+        public async void Post([Bind("ordered_date")]OrderModel value)
         {
             _service.AddOrder(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
         }

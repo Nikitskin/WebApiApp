@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using AutoMapper;
 using DTOLib.DatabaseModels;
+using WebAPITestApp.Models.OrderControllers;
+using WebAPITestApp.Models.ProductControllers;
 
-namespace WebAPITestApp.Models
+namespace WebAPITestApp.MappingProfilers
 {
     public class MappingProfile : Profile
     {

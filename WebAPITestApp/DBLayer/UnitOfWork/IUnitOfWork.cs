@@ -1,4 +1,5 @@
-﻿using DBLayer.DbData;
+﻿using System.Threading.Tasks;
+using DBLayer.DbData;
 using DBLayer.DBRepository;
 
 namespace DBLayer.UnitOfWork
@@ -8,6 +9,6 @@ namespace DBLayer.UnitOfWork
         IDbRepository<Order> OrdersRepository { get; }
         IDbRepository<Product> ProductsRepository{ get; }
         IDbRepository<User> UsersRepository { get; }
-        void Save();
+        Task Save();
     }
 }

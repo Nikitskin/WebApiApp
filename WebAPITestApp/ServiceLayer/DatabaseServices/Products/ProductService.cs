@@ -50,9 +50,9 @@ namespace ServiceLayer.DatabaseServices.Products
             Save();
         }
 
-        private void Save()
+        private async Task Save()
         {
-            _unitOfWork.Save();
+            await _unitOfWork.Save();
         }
     }
 }

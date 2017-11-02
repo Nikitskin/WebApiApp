@@ -20,11 +20,11 @@ namespace DBLayer.DBRepository
             _logger = logger;
         }
 
-        public virtual void Create(T item)
+        public virtual async void Create(T item)
         {
             try
             {
-                DbSet.Add(item);
+                await DbSet.AddAsync(item);
             }
             catch (Exception e)
             {
@@ -36,6 +36,7 @@ namespace DBLayer.DBRepository
         {
             try
             {
+                //TODO no async?
                 DbSet.Remove(item);
             }
             catch (Exception e)
@@ -74,6 +75,7 @@ namespace DBLayer.DBRepository
         {
             try
             {
+                //TODO No async?
                 DbSet.Update(item);
             }
             catch (Exception e)
