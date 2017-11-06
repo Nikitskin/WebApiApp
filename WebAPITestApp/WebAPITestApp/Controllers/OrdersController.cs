@@ -23,36 +23,36 @@ namespace WebAPITestApp.Controllers
 
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<List<OrderModel>> Get()
+        public async Task<List<OrderFullModel>> Get()
         {
             var list = await _service.GetAllOrders();
-            return AutoMapper.Mapper.Map<List<OrderDto>, List<OrderModel>>(list);
+            return AutoMapper.Mapper.Map<List<OrderDto>, List<OrderFullModel>>(list);
         }
 
         [HttpGet("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<OrderModel> Get(int id)
+        public async Task<OrderCoreModel> Get(int id)
         {
             var order = await _service.GetOrder(id);
-            return AutoMapper.Mapper.Map<OrderDto, OrderModel>(order);
+            return AutoMapper.Mapper.Map<OrderDto, OrderCoreModel>(order);
         }
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ValidateModel]
-        public async Task Post([FromBody]OrderModel value)
+        public async Task Post([FromBody]OrderCoreModel value)
         {
             value.UserName = User.Identity.Name;
-            await _service.AddOrder(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
+            await _service.AddOrder(AutoMapper.Mapper.Map<OrderCoreModel, OrderDto>(value));
         }
 
         [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ValidateModel]
-        public async Task Put([FromBody]OrderModel value)
+        public async Task Put([FromBody]OrderFullModel value)
         {
             value.UserName = User.Identity.Name;
-            await _service.Update(AutoMapper.Mapper.Map<OrderModel, OrderDto>(value));
+            await _service.Update(AutoMapper.Mapper.Map<OrderFullModel, OrderDto>(value));
         }
 
         [HttpDelete("{id}")]

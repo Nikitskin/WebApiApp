@@ -6,10 +6,8 @@ using WebAPITestApp.Models.ProductControllers;
 
 namespace WebAPITestApp.Models.OrderControllers
 {
-    public class OrderModel
+    public class OrderCoreModel
     {
-        public int Id { get; set; }
-
         [JsonProperty("ordered_date")]
         [JsonRequired, DisplayName("ordered_date")]
         public DateTime OrderedDate { get; set; }
@@ -17,7 +15,6 @@ namespace WebAPITestApp.Models.OrderControllers
         [JsonIgnore]
         public string UserName { get; set; }
 
-        //todo shall i create a buffer class ProducetOrder that will not contain link to itself?
-        public ICollection<ProductModel> Products { get; set; }
+        public ICollection<ProductFullModel> Products { get; set; }
     }
 }

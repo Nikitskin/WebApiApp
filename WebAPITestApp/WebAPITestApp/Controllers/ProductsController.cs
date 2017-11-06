@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DatabaseServices.Products;
 using System.Threading.Tasks;
 using DTOLib.DatabaseModels;
-using NLogger;
 using WebAPITestApp.Attributes;
 using WebAPITestApp.Models.ProductControllers;
 
@@ -14,44 +13,43 @@ namespace WebAPITestApp.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService _service;
-        private readonly ILoggerService _logger;
 
-        public ProductsController(IProductService service, ILoggerService logger)
+        public ProductsController(IProductService service)
         {
             _service = service;
-            _logger = logger;
         }
 
         [HttpGet]
         [Authorize]
-        public async Task<List<ProductModel>> Get()
+        public async Task<List<ProductFullModel>> Get()
         {
             var list = await _service.GetAllProducts();
-            return AutoMapper.Mapper.Map<List<ProductDto>, List<ProductModel>>(list);
+            return AutoMapper.Mapper.Map<List<ProductDto>, List<ProductFullModel>>(list);
         }
 
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<ProductDto> Get(int id)
+        public async Task<ProductFullModel> Get(int id)
         {
-            return await _service.GetProduct(id);
+            var product = await _service.GetProduct(id);
+            return AutoMapper.Mapper.Map<ProductDto, ProductFullModel> (product);
         }
 
         //TODO Remove comment
         //[Authorize]
         [HttpPost]
         [ValidateModel]
-        public async Task Post([FromBody]ProductModel value)
+        public async Task Post([FromBody]ProductCoreModel value)
         {
-            await _service.AddProduct(AutoMapper.Mapper.Map<ProductModel, ProductDto>(value));
+            await _service.AddProduct(AutoMapper.Mapper.Map<ProductCoreModel, ProductDto>(value));
         }
 
         [Authorize]
-        [HttpPut("{id}")]
+        [HttpPut]
         [ValidateModel]
-        public async Task Put([FromBody]ProductModel value)
+        public async Task Put([FromBody]ProductFullModel value)
         {
-            await _service.Update(AutoMapper.Mapper.Map<ProductModel, ProductDto>(value));
+            await _service.Update(AutoMapper.Mapper.Map<ProductFullModel, ProductDto>(value));
         }
 
         [Authorize]
