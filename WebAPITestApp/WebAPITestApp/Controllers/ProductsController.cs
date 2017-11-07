@@ -35,8 +35,7 @@ namespace WebAPITestApp.Controllers
             return AutoMapper.Mapper.Map<ProductDto, ProductFullModel> (product);
         }
 
-        //TODO Remove comment
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [ValidateModel]
         public async Task Post([FromBody]ProductCoreModel value)
