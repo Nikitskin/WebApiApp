@@ -73,8 +73,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseModels\OrderDto.cs" />
-    <Compile Include="DatabaseModels\ProductDto.cs" />
+    <Compile Include="OrderDto.cs" />
+    <Compile Include="ProductDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup>

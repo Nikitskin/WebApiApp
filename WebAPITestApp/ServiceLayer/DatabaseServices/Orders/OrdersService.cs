@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using DBLayer.UnitOfWork;
 using DBLayer.DbData;
 using AutoMapper;
-using DTOLib.DatabaseModels;
+using DTOLib;
 
 namespace ServiceLayer.DatabaseServices.Orders
 {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using DBLayer.DbData;
 using DBLayer.UnitOfWork;
 using AutoMapper;
-using DTOLib.DatabaseModels;
+using DTOLib;
 
 namespace ServiceLayer.DatabaseServices.Products
 {

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
 using DBLayer.DbData;
-using DTOLib.DatabaseModels;
+using DTOLib;
 
 namespace ServiceLayer.Model.MappingProfile
 {
@@ -10,11 +10,12 @@ namespace ServiceLayer.Model.MappingProfile
         public MappingProfile()
         {
             CreateMap<ProductDto, Product>();
-            CreateMap<Product, ProductDto>().ForMember(dto => dto.Orders,
-                opt => opt.MapFrom(x => x.OrderProduct.Select(y => y.Order).ToList())); ;
+            CreateMap<Product, ProductDto>();
             CreateMap<OrderDto, Order>();
-            CreateMap<Order, OrderDto>().ForMember(dto => dto.Products,
-                opt => opt.MapFrom(x=>x.OrderProduct.Select(y=>y.Product).ToList())); 
+            CreateMap<Order, OrderDto>().ForMember(dto => dto.ProductsDto,
+                opt => opt.MapFrom(
+                    x => x.OrderProduct.Select(
+                        y=>y.Product).ToList())); 
         }
     }
 }

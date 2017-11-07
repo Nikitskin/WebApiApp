@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using NLogger;
-using WebAPITestApp.Attributes;
+using WebAPITestApp.Infrastructure.Attributes;
 using WebAPITestApp.Infrastructure;
 using WebAPITestApp.Models.AuthModels;
 

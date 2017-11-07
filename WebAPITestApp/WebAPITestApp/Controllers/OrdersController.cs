@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DTOLib.DatabaseModels;
+using DTOLib;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NLogger;
 using ServiceLayer.DatabaseServices.Orders;
-using WebAPITestApp.Attributes;
-using WebAPITestApp.Models.OrderControllers;
+using WebAPITestApp.Infrastructure.Attributes;
+using WebAPITestApp.Models.Order;
 
 namespace WebAPITestApp.Controllers
 {
     [Route("api/[controller]")]
     public class OrdersController : Controller
     {
-        private IOrdersService _service;
+        private readonly IOrdersService _service;
 
         public OrdersController(IOrdersService service, ILoggerService logger)
         {
@@ -42,17 +42,20 @@ namespace WebAPITestApp.Controllers
         [ValidateModel]
         public async Task Post([FromBody]OrderCoreModel value)
         {
-            value.UserName = User.Identity.Name;
-            await _service.AddOrder(AutoMapper.Mapper.Map<OrderCoreModel, OrderDto>(value));
+            var order = AutoMapper.Mapper.Map<OrderCoreModel, OrderDto>(value);
+            order.UserName = User.Identity.Name;
+            await _service.AddOrder(order);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ValidateModel]
-        public async Task Put([FromBody]OrderFullModel value)
+        public async Task Put(int id, [FromBody]OrderCoreModel value)
         {
-            value.UserName = User.Identity.Name;
-            await _service.Update(AutoMapper.Mapper.Map<OrderFullModel, OrderDto>(value));
+            var order = AutoMapper.Mapper.Map<OrderCoreModel, OrderDto>(value);
+            order.UserName = User.Identity.Name;
+            order.Id = id;
+            await _service.Update(order);
         }
 
         [HttpDelete("{id}")]

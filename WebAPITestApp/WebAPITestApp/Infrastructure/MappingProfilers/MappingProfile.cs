@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using AutoMapper;
-using DTOLib.DatabaseModels;
-using WebAPITestApp.Models.OrderControllers;
-using WebAPITestApp.Models.ProductControllers;
+using DTOLib;
+using WebAPITestApp.Models.Order;
+using WebAPITestApp.Models.Product;
 
 namespace WebAPITestApp.Infrastructure.MappingProfilers
 {
@@ -10,16 +10,28 @@ namespace WebAPITestApp.Infrastructure.MappingProfilers
     {
         public MappingProfile()
         {
-            CreateMap<ProductDto, ProductFullModel>().ForMember(fullmodel => fullmodel.OrderIds, 
-                dto=>dto.MapFrom(d=>d.Orders.Select(y=>y.Id).ToList()));
+            CreateMap<ProductDto, ProductFullModel>();
+            CreateMap<ProductDto, ProductCoreModel>();
             CreateMap<ProductCoreModel, ProductDto>();
             CreateMap<ProductFullModel, ProductDto>();
 
-            //TODO refactor as neede when have time
-            CreateMap<OrderDto, OrderFullModel>();
-            CreateMap<OrderCoreModel, OrderDto>();
-            CreateMap<OrderFullModel, OrderDto>().ForMember(dto => dto.Products,
-                opt => opt.MapFrom(x => x.Products.Select(y => y).ToList()));
+            CreateMap<OrderDto, OrderCoreModel>().ForMember(dto =>
+                dto.ProductsIds, opt => 
+                opt.MapFrom(x => 
+                     x.ProductsDto.Select(product => 
+                         product.Id).ToList()));
+            CreateMap<OrderDto, OrderFullModel>().ForMember(dto => 
+                dto.ProductsIds, opt => 
+                    opt.MapFrom(x => 
+                        x.ProductsDto.Select(product => 
+                            product.Id).ToList()));
+            CreateMap<OrderCoreModel, OrderDto>().ForMember(dto =>
+             dto.ProductsDto, opt =>
+                opt.MapFrom(x =>
+                 x.ProductsIds.ToList())).AfterMap((src, dst) =>
+                    Mapper.Map(src.ProductsIds, dst.ProductsDto.Select(prod =>
+                     prod.Id)));
+            CreateMap<OrderFullModel, OrderDto>();
         }
     }
 }

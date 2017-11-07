@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using NLogger;
-using WebAPITestApp.Models.AuthModels;
 
-namespace WebAPITestApp.Filters
+namespace WebAPITestApp.Infrastructure.Filters
 {
     public class ActionMethodNLogFilter : IActionFilter
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DTOLib.DatabaseModels
+namespace DTOLib
 {
     public class OrderDto
     {
@@ -11,6 +11,6 @@ namespace DTOLib.DatabaseModels
 
         public string UserName { get; set; }
 
-        public ICollection<ProductDto> Products { get; set; }
+        public ICollection<ProductDto> ProductsDto { get; set; }
     }
 }

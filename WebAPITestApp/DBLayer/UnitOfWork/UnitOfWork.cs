@@ -68,14 +68,14 @@ namespace DBLayer.UnitOfWork
 
         public void Dispose(bool disposing)
         {
-            //    if (!_disposed)
-            //    {
-            //        if (disposing)
-            //        {
-            _db.Dispose();
-            //    }
-            //    _disposed = true;
-            //}
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _db.Dispose();
+                }
+                _disposed = true;
+            }
         }
        
         public void Dispose()

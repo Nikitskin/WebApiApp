@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DatabaseServices.Products;
 using System.Threading.Tasks;
-using DTOLib.DatabaseModels;
-using WebAPITestApp.Attributes;
-using WebAPITestApp.Models.ProductControllers;
+using DTOLib;
+using WebAPITestApp.Infrastructure.Attributes;
+using WebAPITestApp.Models.Product;
 
 namespace WebAPITestApp.Controllers
 {
@@ -29,10 +29,10 @@ namespace WebAPITestApp.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<ProductFullModel> Get(int id)
+        public async Task<ProductCoreModel> Get(int id)
         {
             var product = await _service.GetProduct(id);
-            return AutoMapper.Mapper.Map<ProductDto, ProductFullModel> (product);
+            return AutoMapper.Mapper.Map<ProductDto, ProductCoreModel> (product);
         }
 
         [Authorize]
@@ -44,11 +44,13 @@ namespace WebAPITestApp.Controllers
         }
 
         [Authorize]
-        [HttpPut]
+        [HttpPut("{id}")]
         [ValidateModel]
-        public async Task Put([FromBody]ProductFullModel value)
+        public async Task Put(int id, [FromBody]ProductCoreModel value)
         {
-            await _service.Update(AutoMapper.Mapper.Map<ProductFullModel, ProductDto>(value));
+            var product = AutoMapper.Mapper.Map<ProductCoreModel, ProductDto>(value);
+            product.Id = id;
+            await _service.Update(product);
         }
 
         [Authorize]

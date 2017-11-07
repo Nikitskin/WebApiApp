@@ -9,8 +9,8 @@ using Newtonsoft.Json.Serialization;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using NLogger;
-using WebAPITestApp.Attributes;
-using WebAPITestApp.Filters;
+using WebAPITestApp.Infrastructure.Attributes;
+using WebAPITestApp.Infrastructure.Filters;
 
 namespace WebAPITestApp
 {

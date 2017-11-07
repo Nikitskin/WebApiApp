@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using NLogger;
 
-namespace WebAPITestApp.Filters
+namespace WebAPITestApp.Infrastructure.Filters
 {
     public class GlobalNLogExceptionFilter : IExceptionFilter
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DTOLib.DatabaseModels
+namespace DTOLib
 {
     public class ProductDto
     {
@@ -8,6 +8,5 @@ namespace DTOLib.DatabaseModels
         public string ProductName { get; set; }
         public string Description { get; set; }
         public double Costs { get; set; }
-        public ICollection<OrderDto> Orders { get; set; }
     }
 }
