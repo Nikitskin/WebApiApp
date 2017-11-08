@@ -18,7 +18,7 @@ namespace WebAPITestApp.Infrastructure.MappingProfilers
             CreateMap<OrderDto, OrderResponseModel>().ForMember(dst => dst.ProductModels,
                 opt => opt.MapFrom(src => src.ProductsDto));
             CreateMap<OrderCoreModel, OrderDto>();
-            CreateMap<OrderEditModel, OrderDto>().ForMember(dst => dst.ProductsDto,
+            CreateMap<OrderEditModel, OrderDto>().ForMember(dst => dst.ProductsDtoIds,
                 opt => opt.ResolveUsing((src,dst) => src.ProductIds));
         }
     }

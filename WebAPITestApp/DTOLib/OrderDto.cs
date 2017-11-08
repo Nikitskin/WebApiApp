@@ -12,5 +12,8 @@ namespace DTOLib
         public string UserName { get; set; }
 
         public ICollection<ProductDto> ProductsDto { get; set; }
+
+        public ICollection<int> ProductsDtoIds { get; set; }
+
     }
 }
