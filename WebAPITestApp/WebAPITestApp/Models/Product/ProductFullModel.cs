@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
+﻿
 namespace WebAPITestApp.Models.Product
 {
     public class ProductFullModel : ProductCoreModel

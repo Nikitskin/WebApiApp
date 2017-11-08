@@ -15,7 +15,7 @@ namespace ServiceLayer.Model.MappingProfile
             CreateMap<Order, OrderDto>().ForMember(dto => dto.ProductsDto,
                 opt => opt.MapFrom(
                     x => x.OrderProduct.Select(
-                        y=>y.Product).ToList())); 
+                        y=> y.Product).ToList())); 
         }
     }
 }

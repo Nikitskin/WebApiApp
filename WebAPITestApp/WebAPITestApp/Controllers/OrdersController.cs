@@ -23,26 +23,26 @@ namespace WebAPITestApp.Controllers
 
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<List<OrderFullModel>> Get()
+        public async Task<List<OrderResponseModel>> Get()
         {
             var list = await _service.GetAllOrders();
-            return AutoMapper.Mapper.Map<List<OrderDto>, List<OrderFullModel>>(list);
+            return AutoMapper.Mapper.Map<List<OrderDto>, List<OrderResponseModel>>(list);
         }
 
         [HttpGet("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<OrderCoreModel> Get(int id)
+        public async Task<OrderResponseModel> Get(int id)
         {
             var order = await _service.GetOrder(id);
-            return AutoMapper.Mapper.Map<OrderDto, OrderCoreModel>(order);
+            return AutoMapper.Mapper.Map<OrderDto, OrderResponseModel>(order);
         }
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ValidateModel]
-        public async Task Post([FromBody]OrderCoreModel value)
+        public async Task Post([FromBody]OrderEditModel value)
         {
-            var order = AutoMapper.Mapper.Map<OrderCoreModel, OrderDto>(value);
+            var order = AutoMapper.Mapper.Map<OrderEditModel, OrderDto>(value);
             order.UserName = User.Identity.Name;
             await _service.AddOrder(order);
         }
@@ -50,9 +50,9 @@ namespace WebAPITestApp.Controllers
         [HttpPut("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ValidateModel]
-        public async Task Put(int id, [FromBody]OrderCoreModel value)
+        public async Task Put(int id, [FromBody]OrderEditModel value)
         {
-            var order = AutoMapper.Mapper.Map<OrderCoreModel, OrderDto>(value);
+            var order = AutoMapper.Mapper.Map<OrderEditModel, OrderDto>(value);
             order.UserName = User.Identity.Name;
             order.Id = id;
             await _service.Update(order);
