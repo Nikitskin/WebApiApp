@@ -29,7 +29,7 @@ namespace DBLayer.DBRepository
             catch (Exception e)
             {
                 _logger.Error("Was unable to add item {0} because of error {1}", item, e);
-                throw e;
+                throw;
             }
         }
 
@@ -43,7 +43,7 @@ namespace DBLayer.DBRepository
             catch (Exception e)
             {
                 _logger.Error("Was unable to remove item {0} because of error {1}", item, e);
-                throw e;
+                throw;
             }
         }
 
@@ -56,7 +56,7 @@ namespace DBLayer.DBRepository
             catch (Exception e)
             {
                 _logger.Error("Was unable to get item with {0} because of error {1}", id, e);
-                throw e;
+                throw;
             }
         }
 
@@ -69,7 +69,7 @@ namespace DBLayer.DBRepository
             catch (Exception e)
             {
                 _logger.Error("Was unable to get all items because of error {0}", e);
-                throw e;
+                throw;
             }
         }
 
@@ -83,7 +83,7 @@ namespace DBLayer.DBRepository
             catch (Exception e)
             {
                 _logger.Error("Was unable to update item {0} cause error {1}", item, e);
-                throw e;
+                throw;
             }
         }
     }

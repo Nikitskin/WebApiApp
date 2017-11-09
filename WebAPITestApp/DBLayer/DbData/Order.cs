@@ -11,7 +11,6 @@ namespace DBLayer.DbData
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public DateTime OrderedDate { get; set; }
-        public int UserId { get; set; }
         public User User { get; set; }
         public ICollection<OrderProduct> OrderProduct { get; set; }
     }

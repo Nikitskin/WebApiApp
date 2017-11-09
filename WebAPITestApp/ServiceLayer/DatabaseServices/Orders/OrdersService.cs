@@ -54,8 +54,6 @@ namespace ServiceLayer.DatabaseServices.Orders
             if (user == order.UserFirstName)
             {
                 var dbOrder = Mapper.Map<OrderDto, Order>(order);
-                dbOrder.User = (await _unitOfWork.UsersRepository.GetAll()).
-                    FirstOrDefault(name => name.FirstName.Equals(order.UserFirstName));
                 _unitOfWork.OrdersRepository.Update(dbOrder);
                 await Save();
             }
