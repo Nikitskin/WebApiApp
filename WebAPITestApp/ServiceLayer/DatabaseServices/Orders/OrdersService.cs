@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DBLayer.UnitOfWork;
@@ -22,6 +23,7 @@ namespace ServiceLayer.DatabaseServices.Orders
             var dbOrder = Mapper.Map<OrderDto, Order>(order);
             var users = await _unitOfWork.UsersRepository.GetAll();
             dbOrder.User = users.FirstOrDefault(name => name.FirstName.Equals(order.UserName));
+            dbOrder.OrderedDate = DateTime.Today.ToUniversalTime();
             _unitOfWork.OrdersRepository.Create(dbOrder);
             await Save();
         }

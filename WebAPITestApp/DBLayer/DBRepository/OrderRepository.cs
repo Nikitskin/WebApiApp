@@ -23,15 +23,10 @@ namespace DBLayer.DBRepository
 
         public override async Task<List<Order>> GetAll()
         {
+            
             return await DbSet.Include(order => order.OrderProduct).
                 ThenInclude(product => product.Product)
                 .ToListAsync();
         }
-
-        public override async void Create(Order item)
-        {
-            
-        }
-
     }
 }

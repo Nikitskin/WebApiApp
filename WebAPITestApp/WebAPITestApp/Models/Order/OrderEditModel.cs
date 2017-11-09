@@ -2,8 +2,9 @@
 
 namespace WebAPITestApp.Models.Order
 {
-    public class OrderEditModel : OrderCoreModel
+    public class OrderEditModel
     {
+
         public ICollection<int> ProductIds { get; set; }
 
     }
