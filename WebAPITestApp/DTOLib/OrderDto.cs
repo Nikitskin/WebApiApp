@@ -9,7 +9,7 @@ namespace DTOLib
 
         public DateTime OrderedDate { get; set; }
 
-        public string UserName { get; set; }
+        public string UserFirstName { get; set; }
 
         public ICollection<ProductDto> ProductsDto { get; set; }
 

@@ -22,7 +22,7 @@ namespace ServiceLayer.DatabaseServices.Orders
         {
             var dbOrder = Mapper.Map<OrderDto, Order>(order);
             var users = await _unitOfWork.UsersRepository.GetAll();
-            dbOrder.User = users.FirstOrDefault(name => name.FirstName.Equals(order.UserName));
+            dbOrder.User = users.FirstOrDefault(name => name.FirstName.Equals(order.UserFirstName));
             dbOrder.OrderedDate = DateTime.Today.ToUniversalTime();
             _unitOfWork.OrdersRepository.Create(dbOrder);
             await Save();
@@ -50,9 +50,15 @@ namespace ServiceLayer.DatabaseServices.Orders
 
         public async Task Update(OrderDto order)
         {
-            var dbOrder = Mapper.Map<OrderDto, Order>(order);
-            _unitOfWork.OrdersRepository.Update(dbOrder);
-            await Save();
+            var user = (await GetOrder(order.Id)).UserFirstName;
+            if (user == order.UserFirstName)
+            {
+                var dbOrder = Mapper.Map<OrderDto, Order>(order);
+                dbOrder.User = (await _unitOfWork.UsersRepository.GetAll()).
+                    FirstOrDefault(name => name.FirstName.Equals(order.UserFirstName));
+                _unitOfWork.OrdersRepository.Update(dbOrder);
+                await Save();
+            }
         }
 
         private async Task Save()

@@ -43,7 +43,7 @@ namespace WebAPITestApp.Controllers
         public async Task Post([FromBody]OrderEditModel value)
         {
             var order = AutoMapper.Mapper.Map<OrderEditModel, OrderDto>(value);
-            order.UserName = User.Identity.Name;
+            order.UserFirstName = User.Identity.Name;
             await _service.AddOrder(order);
         }
 
@@ -53,7 +53,7 @@ namespace WebAPITestApp.Controllers
         public async Task Put(int id, [FromBody]OrderEditModel value)
         {
             var order = AutoMapper.Mapper.Map<OrderEditModel, OrderDto>(value);
-            order.UserName = User.Identity.Name;
+            order.UserFirstName = User.Identity.Name;
             order.Id = id;
             await _service.Update(order);
         }

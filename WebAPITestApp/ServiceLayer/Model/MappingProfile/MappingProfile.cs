@@ -11,14 +11,20 @@ namespace ServiceLayer.Model.MappingProfile
         {
             CreateMap<ProductDto, Product>();
             CreateMap<Product, ProductDto>();
-            CreateMap<int, OrderProduct>().ForMember(dst=> dst.ProductId, 
-                opt=> opt.ResolveUsing(x => x));
-            CreateMap<OrderDto, Order>().ForMember(dst => dst.OrderProduct,
-                opt => opt.ResolveUsing(s => s.ProductsDtoIds));
-            CreateMap<Order, OrderDto>().ForMember(dto => dto.ProductsDto,
-                opt => opt.MapFrom(
-                    x => x.OrderProduct.Select(
-                        y=> y.Product).ToList())); 
+            CreateMap<int, OrderProduct>().
+                ForMember(dst=> dst.ProductId, opt=> opt.
+                ResolveUsing(x => x));
+            CreateMap<OrderDto, Order>().
+                ForMember(dst => dst.
+                OrderProduct, opt => opt.
+                ResolveUsing(s => s.ProductsDtoIds));
+            CreateMap<Order, OrderDto>().
+                ForMember(dto => dto.
+                ProductsDto, opt => opt.
+                MapFrom(x => x.OrderProduct.
+                Select(y=> y.Product).ToList())).
+                        ForMember(dto => dto.UserFirstName, opt => opt.
+                        MapFrom(x => x.User.FirstName)); 
         }
     }
 }

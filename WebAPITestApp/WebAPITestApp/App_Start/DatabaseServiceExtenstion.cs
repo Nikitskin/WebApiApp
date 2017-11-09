@@ -20,7 +20,7 @@ namespace WebAPITestApp
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<DbContext, OrderContext>();
-            services.AddDbContext<OrderContext>(opt =>
+            services.AddDbContext< OrderContext>(opt =>
                 opt.UseSqlServer(sqlServerConnetcionString));
 
             services.AddScoped<IDbRepository<Order>, DbRepository<Order>>();
