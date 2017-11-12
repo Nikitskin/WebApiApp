@@ -30,11 +30,14 @@ namespace DBLayer.DBRepository
                 .ToListAsync();
         }
 
-        //todo fix if id has duplicates
+        //todo fis if orderid has duplicates
         public override void Update(Order item)
         {
             var order = DbSet.Include(ord => ord.OrderProduct).FirstOrDefault(ord => ord.Id == item.Id);
-            order.OrderProduct.Add(orderProduct);
+            foreach (var orderProduct in item.OrderProduct)
+            {
+                order.OrderProduct.Add(orderProduct);
+            }
             DbSet.Update(order);
         }
     }
