@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using NLogger;
 using WebAPITestApp.Infrastructure.Attributes;
 using WebAPITestApp.Infrastructure;
@@ -19,26 +18,25 @@ namespace WebAPITestApp.Controllers
         }
 
         //todo should i add authorization?
-        [HttpPost("/AddUser")]
+        [HttpPost("AddUser")]
         [ValidateModel]
         public async Task AddUser([FromForm]UserModel user)
         {
             await _userService.AddUser(user);
         }
 
-        [HttpPut("/UpdateUser/{id}")]
-        [ValidateModel]
+        [HttpPut("UpdateUser/{id}")]
         public async Task UpdateUser(string id, [Bind("Password")]UserModel user)
         {
             user.Id = id;
             await _userService.UpdateUser(user);
         }
 
-        [HttpPost("/token")]
+        [HttpPost("token")]
         [ValidateModel]
-        public async Task Token([FromForm]UserModel userModel)
+        public async Task<string> Token([FromForm]UserModel userModel)
         {
-             await _userService.GetToken(userModel);
+             return await _userService.GetToken(userModel);
         }
     }
 }

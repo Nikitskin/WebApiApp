@@ -50,14 +50,15 @@ namespace ServiceLayer.DatabaseServices.Orders
 
         public async Task Update(OrderDto order)
         {
-            //var user = (await GetOrder(order.Id)).UserFirstName;
-            //if (user == order.UserFirstName)
-            //{
+            var user = (await GetOrder(order.Id)).UserFirstName;
+            if (user == order.UserFirstName)
+            {
                 var dbOrder = Mapper.Map<OrderDto, Order>(order);
                 dbOrder.OrderedDate = DateTime.Today.ToUniversalTime();
+                dbOrder.OrderProduct.ToList().ForEach(op => op.OrderId = order.Id);
                 _unitOfWork.OrdersRepository.Update(dbOrder);
                 await Save();
-            //}
+            }
         }
 
         private async Task Save()

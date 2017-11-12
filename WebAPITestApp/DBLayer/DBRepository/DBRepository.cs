@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DBLayer.Contexts;
 using NLogger;
 
 namespace DBLayer.DBRepository
@@ -9,11 +10,11 @@ namespace DBLayer.DBRepository
     public class DbRepository<T> : IDbRepository<T>
         where T : class, new()
     {
-        protected DbContext Context;
+        protected OrderContext Context;
         protected DbSet<T> DbSet;
         private readonly ILoggerService _logger;
 
-        public DbRepository(DbContext context, ILoggerService logger)
+        public DbRepository(OrderContext context, ILoggerService logger)
         {
             Context = context;
             DbSet = Context.Set<T>();
@@ -78,7 +79,9 @@ namespace DBLayer.DBRepository
             try
             {
                 //TODO No async?
-                DbSet.Update(item);
+                //DbSet.Update(item);
+                DbSet.Attach(item);
+                Context.Entry(item).State = EntityState.Modified;
             }
             catch (Exception e)
             {

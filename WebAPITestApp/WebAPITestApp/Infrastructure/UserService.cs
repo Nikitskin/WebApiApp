@@ -30,8 +30,8 @@ namespace WebAPITestApp.Infrastructure
             var person = list.FirstOrDefault(user => user.UserName == userModel.UserName && user.Password == userModel.Password);
 
             if (person != null)
-                return userModel.LastPasswordChangedDate.AddMinutes(1) < DateTime.Now
-                    ? string.Format("User {0} has expired password", userModel.UserName)
+                return person.LastPasswordChangedDate.AddDays(10) < DateTime.Now
+                    ? string.Format("User {0} has expired password", person.UserName)
                     : GetIdentity(userModel);
 
             _logger.Info(string.Format("{0} is not exists", userModel.UserName));

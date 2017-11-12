@@ -1,7 +1,8 @@
 ﻿
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using DBLayer.Contexts;
 using DBLayer.DbData;
 using Microsoft.EntityFrameworkCore;
 using NLogger;
@@ -10,7 +11,7 @@ namespace DBLayer.DBRepository
 {
     public class OrderRepository : DbRepository<Order>
     {
-        public OrderRepository(DbContext context, ILoggerService logger) : base(context, logger)
+        public OrderRepository(OrderContext context, ILoggerService logger) : base(context, logger)
         {
 
         }
@@ -29,12 +30,12 @@ namespace DBLayer.DBRepository
                 .ToListAsync();
         }
 
-        //public override async void Update(Order item)
-        //{
-        //    var z = await DbSet.Include(order => order.OrderProduct).FirstAsync(i => i.Id == item.Id);
-        //    z.OrderProduct = item.OrderProduct;
-        //    DbSet.Update(z);
-
-        //}
+        //todo fix if id has duplicates
+        public override void Update(Order item)
+        {
+            var order = DbSet.Include(ord => ord.OrderProduct).FirstOrDefault(ord => ord.Id == item.Id);
+            order.OrderProduct.Add(orderProduct);
+            DbSet.Update(order);
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace WebAPITestApp.Models.AuthModels
 {
     public class UserModel : IUser
     {
+        [JsonIgnore]
         public string Id { get; set; }
 
         public string UserName { get; set; }

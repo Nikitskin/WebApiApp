@@ -19,14 +19,13 @@ namespace WebAPITestApp
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUserService, UserService>();
 
-            services.AddScoped<DbContext, OrderContext>();
-            services.AddDbContext< OrderContext>(opt =>
+            services.AddDbContext<OrderContext>(opt =>
                 opt.UseSqlServer(sqlServerConnetcionString));
 
             services.AddScoped<IDbRepository<Order>, DbRepository<Order>>();
             services.AddScoped<IDbRepository<Product>, DbRepository<Product>>();
             services.AddScoped<IDbRepository<User>, DbRepository<User>>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
     }
 }

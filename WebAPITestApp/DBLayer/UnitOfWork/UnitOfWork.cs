@@ -1,8 +1,8 @@
 ﻿using DBLayer.DbData;
 using DBLayer.DBRepository;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using DBLayer.Contexts;
 using NLogger;
 
 namespace DBLayer.UnitOfWork
@@ -11,13 +11,13 @@ namespace DBLayer.UnitOfWork
     {
         private readonly ILoggerService _logger;
 
-        public UnitOfWork(DbContext db, ILoggerService logger)
+        public UnitOfWork(OrderContext db, ILoggerService logger)
         {
             _db = db;
             _logger = logger;
         }
 
-        private readonly DbContext _db;
+        private readonly OrderContext _db;
         private Lazy<IDbRepository<Order>> _orders;
         private Lazy<IDbRepository<Product>> _products;
         private Lazy<IDbRepository<User>> _users;
@@ -66,16 +66,14 @@ namespace DBLayer.UnitOfWork
             }
         }
 
-        public void Dispose(bool disposing)
+        public virtual void Dispose(bool disposing)
         {
-            if (!_disposed)
+            if (_disposed) return;
+            if (disposing)
             {
-                if (disposing)
-                {
-                    _db.Dispose();
-                }
-                _disposed = true;
+                _db.Dispose();
             }
+            _disposed = true;
         }
        
         public void Dispose()
