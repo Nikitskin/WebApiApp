@@ -8,10 +8,11 @@ using Microsoft.IdentityModel.Tokens;
 using NLogger;
 using WebAPITestApp.Models.AuthModels;
 using System.Threading.Tasks;
+using DBLayer.DbData;
 
 namespace WebAPITestApp.Infrastructure
 {
-    public class UserService : IUserService
+    public class UserService :  IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -23,53 +24,49 @@ namespace WebAPITestApp.Infrastructure
             _logger = logger;
         }
 
-        public async Task<TokenResponse> GetToken(string firstName, string password)
+        public async Task<string> GetToken(UserModel userModel)
         {
-            var identity = await GetIdentity(firstName, password);
+            var list = await _unitOfWork.UsersRepository.GetAll();
+            var person = list.FirstOrDefault(user => user.UserName == userModel.UserName && user.Password == userModel.Password);
 
-            if (identity == null)
-            {
-                _logger.Info("User inputed incorrect credentials");
-                return new TokenResponse
-                {
-                    StatusCode = 200,
-                    AccessToken = "Invalid username or password."
-                };
-            }
+            if (person != null)
+                return userModel.LastPasswordChangedDate.AddMinutes(1) < DateTime.Now
+                    ? string.Format("User {0} has expired password", userModel.UserName)
+                    : GetIdentity(userModel);
 
-            var now = DateTime.UtcNow;
-            var jwt = new JwtSecurityToken(
-                notBefore: now,
-                claims: identity.Claims,
-                expires: now.Add(TimeSpan.FromHours(AuthOptions.LIFETIME)),
-                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            _logger.Trace(string.Format("Authorization for {0}, passed ", firstName));
-            return new TokenResponse
-            {
-                StatusCode = 200,
-                AccessToken = new JwtSecurityTokenHandler().WriteToken(jwt)
-            };
+            _logger.Info(string.Format("{0} is not exists", userModel.UserName));
+            return "Incorrect user credetials";
         }
 
-        private async Task<ClaimsIdentity> GetIdentity(string firstName, string password)
+        public async Task AddUser(UserModel userModel)
+        {
+            _unitOfWork.UsersRepository.Create(AutoMapper.Mapper.Map<User>(userModel));
+            await _unitOfWork.Save();
+        }
+
+        public async Task UpdateUser(UserModel user)
+        {
+            _unitOfWork.UsersRepository.Update(AutoMapper.Mapper.Map<User>(user));
+            await _unitOfWork.Save();
+        }
+
+        private string GetIdentity(UserModel userModel)
         {
             // TODO Your password in db should be encoded, so in this case you can't just compare password User entered and password from db.
             // You can either use EF identity db context to store users or find some nuget package and encode password by yourself.
-            var list = await _unitOfWork.UsersRepository.GetAll();
-            var person = list.FirstOrDefault(user => user.FirstName == firstName && user.Password == password);
-            if (person == null)
-            {
-                _logger.Info(string.Format("{0} is not exists", firstName));
-                return null;
-            }
+            var claimsIdentity = new ClaimsIdentity(new List<Claim>
+                {
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.UserName),
+                }, "Token", ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, person.FirstName),
-            };
-            var claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
-            return claimsIdentity;
+            var jwt = new JwtSecurityToken(
+                notBefore: DateTime.UtcNow,
+                claims: claimsIdentity.Claims,
+                expires: DateTime.UtcNow.Add(TimeSpan.FromHours(AuthOptions.LIFETIME)),
+                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            
+            return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
     }
 }

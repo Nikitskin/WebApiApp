@@ -1,13 +1,18 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace WebAPITestApp.Models.AuthModels
 {
     public class UserModel : IUser
     {
-        public string Id { get; }
+        public string Id { get; set; }
 
         public string UserName { get; set; }
 
         public string Password { get; set; }
+
+        [JsonIgnore]
+        public DateTime LastPasswordChangedDate { get; set; }
     }
 }

@@ -17,14 +17,14 @@ namespace ServiceLayer.Model.MappingProfile
             CreateMap<OrderDto, Order>().
                 ForMember(dst => dst.
                 OrderProduct, opt => opt.
-                ResolveUsing(s => s.ProductsDtoIds));
+                ResolveUsing(s => s.ProductsIds));
             CreateMap<Order, OrderDto>().
                 ForMember(dto => dto.
-                ProductsDto, opt => opt.
+                Products, opt => opt.
                 MapFrom(x => x.OrderProduct.
                 Select(y=> y.Product).ToList())).
                         ForMember(dto => dto.UserFirstName, opt => opt.
-                        MapFrom(x => x.User.FirstName)); 
+                        MapFrom(x => x.User.UserName)); 
         }
     }
 }

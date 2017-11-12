@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DBLayer.DbData;
@@ -23,10 +24,17 @@ namespace DBLayer.DBRepository
 
         public override async Task<List<Order>> GetAll()
         {
-            
             return await DbSet.Include(order => order.OrderProduct).
                 ThenInclude(product => product.Product)
                 .ToListAsync();
         }
+
+        //public override async void Update(Order item)
+        //{
+        //    var z = await DbSet.Include(order => order.OrderProduct).FirstAsync(i => i.Id == item.Id);
+        //    z.OrderProduct = item.OrderProduct;
+        //    DbSet.Update(z);
+
+        //}
     }
 }

@@ -5,6 +5,10 @@ namespace WebAPITestApp.Infrastructure
 {
     public interface IUserService
     {
-        Task<TokenResponse> GetToken(string userName, string password);
+        Task<string> GetToken(UserModel user);
+
+        Task AddUser(UserModel user);
+
+        Task UpdateUser(UserModel user);
     }
 }

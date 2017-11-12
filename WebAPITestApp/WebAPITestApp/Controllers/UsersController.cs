@@ -8,6 +8,7 @@ using WebAPITestApp.Models.AuthModels;
 
 namespace WebAPITestApp.Controllers
 {
+    [Route("api/[controller]")]
     public class UsersController : Controller
     {
         private readonly IUserService _userService;
@@ -17,13 +18,27 @@ namespace WebAPITestApp.Controllers
             _userService = userService;
         }
 
+        //todo should i add authorization?
+        [HttpPost("/AddUser")]
+        [ValidateModel]
+        public async Task AddUser([FromForm]UserModel user)
+        {
+            await _userService.AddUser(user);
+        }
+
+        [HttpPut("/UpdateUser/{id}")]
+        [ValidateModel]
+        public async Task UpdateUser(string id, [Bind("Password")]UserModel user)
+        {
+            user.Id = id;
+            await _userService.UpdateUser(user);
+        }
+
         [HttpPost("/token")]
         [ValidateModel]
         public async Task Token([FromForm]UserModel userModel)
         {
-            var tokenResponse = await _userService.GetToken(userModel.UserName, userModel.Password);
-            Response.StatusCode = tokenResponse.StatusCode;
-            await Response.WriteAsync(tokenResponse.AccessToken);
+             await _userService.GetToken(userModel);
         }
     }
 }
