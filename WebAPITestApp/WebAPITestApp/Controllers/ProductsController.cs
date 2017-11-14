@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DatabaseServices.Products;
@@ -7,7 +6,6 @@ using System.Threading.Tasks;
 using DTOLib;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using WebAPITestApp.Infrastructure.Attributes;
-using WebAPITestApp.Infrastructure.Middleware;
 using WebAPITestApp.Models.Product;
 
 namespace WebAPITestApp.Controllers

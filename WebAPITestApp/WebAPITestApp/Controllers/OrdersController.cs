@@ -36,9 +36,7 @@ namespace WebAPITestApp.Controllers
         public async Task<OrderResponseModel> Get(int id)
         {
             var order = await _service.GetOrder(id);
-            return order == null ? 
-                throw new ErrorHandlerMiddleware.HttpStatusCodeException(HttpStatusCode.NotFound) : 
-                AutoMapper.Mapper.Map<OrderDto, OrderResponseModel>(order);
+            return AutoMapper.Mapper.Map<OrderDto, OrderResponseModel>(order);
 
         }
 

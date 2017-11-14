@@ -2,21 +2,12 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPITestApp.Infrastructure.Middleware
 {
     public class ErrorHandlerMiddleware
     {
-        public class HttpStatusCodeException : Exception
-        {
-            public HttpStatusCode StatusCode { get; set; }
-
-            public HttpStatusCodeException(HttpStatusCode statusCode)
-            {
-                StatusCode = statusCode;
-            }
-        }
-
         private readonly RequestDelegate _next;
 
         public ErrorHandlerMiddleware(RequestDelegate next)
@@ -30,15 +21,19 @@ namespace WebAPITestApp.Infrastructure.Middleware
             {
                 await _next(context);
             }
+            catch (DbUpdateConcurrencyException dbException)
+            {
+                await context.Response.WriteAsync(string.Format("No match found. Error : {0}", dbException.Message));
+            }
             catch (InvalidOperationException invslidException)
             {
-                context.Response.StatusCode = (int)exception.StatusCode;
-                context.Response.Headers.Clear();
-                await context.Response.WriteAsync("Error. No sequence found.");
+                await context.Response.WriteAsync(string.Format("No match found. Error : {0}", invslidException.Message));
             }
-            catch (ArgumentNullException nullException)
-            { }
-
+            catch (NullReferenceException nullException)
+            {
+               
+                await context.Response.WriteAsync(string.Format("No match found. Error : {0}", nullException.Message));
+            }
         }
     }
 }
