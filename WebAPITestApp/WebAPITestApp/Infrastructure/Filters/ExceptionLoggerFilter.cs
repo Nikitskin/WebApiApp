@@ -14,7 +14,7 @@ namespace WebAPITestApp.Infrastructure.Filters
 
         public void OnException(ExceptionContext context)
         {
-            _logger.Error("Global error appeared during execution ", context.Exception);
+            _logger.Error("Global error appeared during execution {0}", context.Exception);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace WebAPITestApp.Infrastructure.Attributes
         {
             if (actionContext.ModelState.IsValid == false)
             {
-                await actionContext.HttpContext.Response.WriteAsync(string.Format("Model state invalid. Bad request {0}", 
+                await actionContext.HttpContext.Response.WriteAsync(string.Format("Model state invalid. Bad request with error message = {0}", 
                     actionContext.ModelState.Values.SelectMany(e=>e.Errors).FirstOrDefault().ErrorMessage)); 
             }
         }

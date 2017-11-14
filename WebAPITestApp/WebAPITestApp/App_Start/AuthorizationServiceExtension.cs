@@ -28,10 +28,10 @@ namespace WebAPITestApp
                     };
 
                     options.IncludeErrorDetails = true;
-                    options.Events = new JwtBearerEvents
-                    {
-                        OnAuthenticationFailed = f => f.Response.WriteAsync(f.Exception.ToString())
-                    };
+                    //options.Events = new JwtBearerEvents
+                    //{
+                    //    OnAuthenticationFailed = f => f.Response.WriteAsync(f.Exception.ToString())
+                    //};
                 });
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using DTOLib;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using NLogger;
 using ServiceLayer.DatabaseServices.Orders;
 using WebAPITestApp.Infrastructure.Attributes;
+using WebAPITestApp.Infrastructure.Middleware;
 using WebAPITestApp.Models.Order;
 
 namespace WebAPITestApp.Controllers
@@ -34,7 +36,10 @@ namespace WebAPITestApp.Controllers
         public async Task<OrderResponseModel> Get(int id)
         {
             var order = await _service.GetOrder(id);
-            return AutoMapper.Mapper.Map<OrderDto, OrderResponseModel>(order);
+            return order == null ? 
+                throw new ErrorHandlerMiddleware.HttpStatusCodeException(HttpStatusCode.NotFound) : 
+                AutoMapper.Mapper.Map<OrderDto, OrderResponseModel>(order);
+
         }
 
         [HttpPost]

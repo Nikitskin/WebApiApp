@@ -16,7 +16,7 @@ namespace DBLayer.DBRepository
         {
             return await DbSet.Include(product => product.OrderProduct).
                 ThenInclude(order => order.Order).
-                FirstAsync(p => p.Id == id);
+                FirstOrDefaultAsync(p => p.Id == id);
         }
     }
 }

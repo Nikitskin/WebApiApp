@@ -11,6 +11,7 @@ using NLog.Web;
 using NLogger;
 using WebAPITestApp.Infrastructure.Attributes;
 using WebAPITestApp.Infrastructure.Filters;
+using WebAPITestApp.Infrastructure.Middleware;
 
 namespace WebAPITestApp
 {
@@ -48,6 +49,7 @@ namespace WebAPITestApp
             env.ConfigureNLog("../NLogger/nlog.config");
             app.UseStaticFiles();
             app.UseDefaultFiles();
+            app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseAuthentication();
             app.UseMvc();
         }

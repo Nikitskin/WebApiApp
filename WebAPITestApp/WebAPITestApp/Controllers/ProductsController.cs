@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.DatabaseServices.Products;
 using System.Threading.Tasks;
 using DTOLib;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using WebAPITestApp.Infrastructure.Attributes;
+using WebAPITestApp.Infrastructure.Middleware;
 using WebAPITestApp.Models.Product;
 
 namespace WebAPITestApp.Controllers
@@ -27,12 +30,12 @@ namespace WebAPITestApp.Controllers
             return AutoMapper.Mapper.Map<List<ProductDto>, List<ProductFullModel>>(list);
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{id}")]
         public async Task<ProductCoreModel> Get(int id)
         {
             var product = await _service.GetProduct(id);
-            return AutoMapper.Mapper.Map<ProductDto, ProductCoreModel> (product);
+            return AutoMapper.Mapper.Map<ProductDto, ProductCoreModel>(product);
         }
 
         [Authorize]
