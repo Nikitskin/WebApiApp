@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebAPITestApp.Infrastructure.Middleware
@@ -23,15 +24,17 @@ namespace WebAPITestApp.Infrastructure.Middleware
             }
             catch (DbUpdateConcurrencyException dbException)
             {
+                context.Response.StatusCode = (int) HttpStatusCode.NotFound;
                 await context.Response.WriteAsync(string.Format("No match found. Error : {0}", dbException.Message));
             }
             catch (InvalidOperationException invslidException)
             {
+                context.Response.StatusCode = (int) HttpStatusCode.NotFound;
                 await context.Response.WriteAsync(string.Format("No match found. Error : {0}", invslidException.Message));
             }
             catch (NullReferenceException nullException)
             {
-               
+                context.Response.StatusCode = (int) HttpStatusCode.NotFound;
                 await context.Response.WriteAsync(string.Format("No match found. Error : {0}", nullException.Message));
             }
         }

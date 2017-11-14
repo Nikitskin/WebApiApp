@@ -33,6 +33,7 @@ namespace WebAPITestApp
                 options.Filters.Add(typeof(GlobalNLogExceptionFilter));
                 options.Filters.Add(typeof(ActionMethodNLogFilter));
                 options.Filters.Add(typeof(ValidateModelAttribute));
+                
             }).AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
@@ -44,6 +45,7 @@ namespace WebAPITestApp
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            
             loggerFactory.AddNLog();
             app.AddNLogWeb();
             env.ConfigureNLog("../NLogger/nlog.config");

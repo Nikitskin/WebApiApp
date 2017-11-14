@@ -20,7 +20,7 @@ namespace DBLayer.DBRepository
             return await DbSet.Include(order => order.OrderProduct).
                 ThenInclude(product => product.Product).
                 Include(order => order.User).
-                FirstOrDefaultAsync(p => p.Id == id);
+                FirstAsync(p => p.Id == id);
         }
 
         public override async Task<List<Order>> GetAll()
