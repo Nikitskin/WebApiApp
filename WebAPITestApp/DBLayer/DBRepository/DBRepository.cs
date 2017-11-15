@@ -38,7 +38,6 @@ namespace DBLayer.DBRepository
         {
             try
             {
-                //TODO no async?
                 DbSet.Remove(item);
             }
             catch (Exception e)
@@ -78,8 +77,6 @@ namespace DBLayer.DBRepository
         {
             try
             {
-                //TODO No async?
-                //DbSet.Update(item);
                 DbSet.Attach(item);
                 Context.Entry(item).State = EntityState.Modified;
             }
