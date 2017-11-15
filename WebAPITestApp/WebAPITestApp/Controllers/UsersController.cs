@@ -18,14 +18,14 @@ namespace WebAPITestApp.Controllers
         }
 
         //todo should i add authorization?
-        [HttpPost("AddUser")]
+        [HttpPost]
         [ValidateModel]
         public async Task AddUser([FromForm]UserModel user)
         {
             await _userService.AddUser(user);
         }
 
-        [HttpPut("UpdateUser/{id}")]
+        [HttpPut("{id}")]
         public async Task UpdateUser(string id, [Bind("Password")]UserModel user)
         {
             user.Id = id;

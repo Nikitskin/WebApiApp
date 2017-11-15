@@ -9,7 +9,6 @@ using NLogger;
 using WebAPITestApp.Models.AuthModels;
 using System.Threading.Tasks;
 using DBLayer.DbData;
-using DevOne.Security.Cryptography.BCrypt;
 
 namespace WebAPITestApp.Infrastructure
 {
