@@ -14,9 +14,11 @@ namespace WebAPITestApp.Models.AuthModels
         public string UserName { get; set; }
 
         [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [JsonIgnore]
         public DateTime LastPasswordChangedDate { get; set; }
+
     }
 }

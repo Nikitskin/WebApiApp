@@ -1,5 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using DBLayer.DbData;
+using DevOne.Security.Cryptography.BCrypt;
 using DTOLib;
 using WebAPITestApp.Models.AuthModels;
 using WebAPITestApp.Models.Order;
@@ -9,13 +11,19 @@ namespace WebAPITestApp.Infrastructure.MappingProfilers
 {
     public class MappingProfile : Profile
     {
+        private const string _salt = "$2a$10$rBV2JDeWW3.vKyeQcM8fFO";
+
         public MappingProfile()
         {
             CreateMap<ProductDto, ProductFullModel>();
             CreateMap<ProductDto, ProductCoreModel>();
             CreateMap<ProductCoreModel, ProductDto>();
             CreateMap<ProductFullModel, ProductDto>();
-            CreateMap<UserModel, User>();
+            
+            CreateMap<UserModel, User>().ForMember(dst => dst.Password , 
+                opt => opt.MapFrom(src => BCryptHelper.
+                HashPassword(src.Password, _salt))).
+                ForMember(dst => dst.LastPasswordChangedDate, opt => opt.MapFrom(src => DateTime.Now.ToShortDateString()));
 
             //CreateMap<OrderDto, OrderCoreModel>();
             CreateMap<OrderDto, OrderResponseModel>().ForMember(dst => dst.ProductModels,
@@ -26,3 +34,4 @@ namespace WebAPITestApp.Infrastructure.MappingProfilers
         }
     }
 }
+

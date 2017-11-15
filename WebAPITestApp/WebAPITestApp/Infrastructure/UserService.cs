@@ -9,6 +9,7 @@ using NLogger;
 using WebAPITestApp.Models.AuthModels;
 using System.Threading.Tasks;
 using DBLayer.DbData;
+using DevOne.Security.Cryptography.BCrypt;
 
 namespace WebAPITestApp.Infrastructure
 {
@@ -27,7 +28,8 @@ namespace WebAPITestApp.Infrastructure
         public async Task<string> GetToken(UserModel userModel)
         {
             var list = await _unitOfWork.UsersRepository.GetAll();
-            var person = list.FirstOrDefault(user => user.UserName == userModel.UserName && user.Password == userModel.Password);
+            var user = AutoMapper.Mapper.Map<User>(userModel);
+            var person = list.FirstOrDefault(u => u.UserName == userModel.UserName && u.Password == user.Password);
 
             if (person != null)
                 return person.LastPasswordChangedDate.AddDays(10) < DateTime.Now
