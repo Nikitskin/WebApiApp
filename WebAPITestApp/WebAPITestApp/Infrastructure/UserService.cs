@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using DBLayer.UnitOfWork;
-using Microsoft.IdentityModel.Tokens;
-using NLogger;
-using WebAPITestApp.Models.AuthModels;
 using System.Threading.Tasks;
-using DBLayer.DbData;
+using Microsoft.IdentityModel.Tokens;
+using WebAPITestApp.DBLayer.DbData;
+using WebAPITestApp.DBLayer.UnitOfWork;
+using WebAPITestApp.NLogger;
+using WebAPITestApp.Web.Models.AuthModels;
 
-namespace WebAPITestApp.Infrastructure
+namespace WebAPITestApp.Web.Infrastructure
 {
     public class UserService :  IUserService
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebAPITestApp.Models.Product;
+using WebAPITestApp.Web.Models.Product;
 
-namespace WebAPITestApp.Models.Order
+namespace WebAPITestApp.Web.Models.Order
 {
     public class OrderResponseModel
     {

@@ -1,11 +1,10 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DBLayer.Contexts;
-using NLogger;
+using Microsoft.EntityFrameworkCore;
+using WebAPITestApp.DBLayer.Contexts;
+using WebAPITestApp.NLogger;
 
-namespace DBLayer.DBRepository
+namespace WebAPITestApp.DBLayer.DBRepository
 {
     public class DbRepository<T> : IDbRepository<T>
         where T : class, new()

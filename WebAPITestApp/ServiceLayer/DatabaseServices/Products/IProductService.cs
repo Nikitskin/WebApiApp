@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DTOLib;
+using WebAPITestApp.DTOLib;
 
-namespace ServiceLayer.DatabaseServices.Products
+namespace WebAPITestApp.ServiceLayer.DatabaseServices.Products
 {
     public interface IProductService
     {

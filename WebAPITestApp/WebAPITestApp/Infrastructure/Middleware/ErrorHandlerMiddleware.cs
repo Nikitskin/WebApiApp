@@ -2,10 +2,9 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebAPITestApp.Infrastructure.Middleware
+namespace WebAPITestApp.Web.Infrastructure.Middleware
 {
     public class ErrorHandlerMiddleware
     {

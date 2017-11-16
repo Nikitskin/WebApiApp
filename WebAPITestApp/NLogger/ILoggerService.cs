@@ -1,4 +1,4 @@
-﻿namespace NLogger
+﻿namespace WebAPITestApp.NLogger
 {
     public interface ILoggerService
     {
