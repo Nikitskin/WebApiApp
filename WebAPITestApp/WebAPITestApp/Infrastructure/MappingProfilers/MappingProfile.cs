@@ -1,13 +1,13 @@
 ﻿using System;
 using AutoMapper;
-using DBLayer.DbData;
 using DevOne.Security.Cryptography.BCrypt;
-using DTOLib;
-using WebAPITestApp.Models.AuthModels;
-using WebAPITestApp.Models.Order;
-using WebAPITestApp.Models.Product;
+using WebAPITestApp.DBLayer.DbData;
+using WebAPITestApp.DTOLib;
+using WebAPITestApp.Web.Models.AuthModels;
+using WebAPITestApp.Web.Models.Order;
+using WebAPITestApp.Web.Models.Product;
 
-namespace WebAPITestApp.Infrastructure.MappingProfilers
+namespace WebAPITestApp.Web.Infrastructure.MappingProfilers
 {
     public class MappingProfile : Profile
     {

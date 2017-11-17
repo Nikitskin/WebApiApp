@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using AutoMapper;
-using DBLayer.DbData;
-using DTOLib;
+using WebAPITestApp.DBLayer.DbData;
+using WebAPITestApp.DTOLib;
 
-namespace ServiceLayer.Model.MappingProfile
+namespace WebAPITestApp.ServiceLayer.Model.MappingProfile
 {
     public class MappingProfile : Profile 
     {

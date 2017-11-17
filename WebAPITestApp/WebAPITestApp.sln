@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPITestApp", "WebAPITestApp\WebAPITestApp.csproj", "{3EC83A4B-E5AC-466F-8FDB-BD4756BA10E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPITestApp.Web", "WebAPITestApp\WebAPITestApp.Web.csproj", "{3EC83A4B-E5AC-466F-8FDB-BD4756BA10E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBLayer", "DBLayer\DBLayer.csproj", "{17C07A28-403B-4079-8CE6-1AD31781416A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPITestApp.DBLayer", "DBLayer\WebAPITestApp.DBLayer.csproj", "{17C07A28-403B-4079-8CE6-1AD31781416A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceLayer", "ServiceLayer\ServiceLayer.csproj", "{F698479C-96D5-4DEA-9260-41BA57D0513A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPITestApp.ServiceLayer", "ServiceLayer\WebAPITestApp.ServiceLayer.csproj", "{F698479C-96D5-4DEA-9260-41BA57D0513A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTOLib", "DTOLib\DTOLib.csproj", "{978A7F02-9353-48B0-892C-F4EFF9ED3C92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPITestApp.DTOLib", "DTOLib\WebAPITestApp.DTOLib.csproj", "{978A7F02-9353-48B0-892C-F4EFF9ED3C92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{8F02C946-BA77-4325-8DC7-5F7D44672C9A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPITestApp.UnitTests", "UnitTests\WebAPITestApp.UnitTests.csproj", "{8F02C946-BA77-4325-8DC7-5F7D44672C9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLogger", "NLogger\NLogger.csproj", "{8319F9DC-0103-4FDA-A47D-9678B358E4F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPITestApp.NLogger", "NLogger\WebAPITestApp.NLogger.csproj", "{8319F9DC-0103-4FDA-A47D-9678B358E4F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

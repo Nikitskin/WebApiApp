@@ -1,13 +1,12 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DBLayer.Contexts;
-using DBLayer.DbData;
 using Microsoft.EntityFrameworkCore;
-using NLogger;
+using WebAPITestApp.DBLayer.Contexts;
+using WebAPITestApp.DBLayer.DbData;
+using WebAPITestApp.NLogger;
 
-namespace DBLayer.DBRepository
+namespace WebAPITestApp.DBLayer.DBRepository
 {
     public class OrderRepository : DbRepository<Order>
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebAPITestApp.Models.Order
+namespace WebAPITestApp.Web.Models.Order
 {
     public class OrderEditModel
     {

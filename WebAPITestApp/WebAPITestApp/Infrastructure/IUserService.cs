@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using WebAPITestApp.Models.AuthModels;
+using WebAPITestApp.Web.Models.AuthModels;
 
-namespace WebAPITestApp.Infrastructure
+namespace WebAPITestApp.Web.Infrastructure
 {
     public interface IUserService
     {

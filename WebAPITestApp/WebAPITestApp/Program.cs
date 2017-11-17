@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace WebAPITestApp
+namespace WebAPITestApp.Web
 {
     public class Program
     {
