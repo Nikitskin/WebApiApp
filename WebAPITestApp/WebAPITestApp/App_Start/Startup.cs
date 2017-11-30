@@ -44,7 +44,7 @@ namespace WebAPITestApp
             services.AddSingleton<ILoggerService, LoggerService>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "Web api test solution API", Version = "v1" });
             });
         }
 
