@@ -21,11 +21,13 @@ namespace WebAPITestApp.DBLayer.Contexts
             modelBuilder.Entity<OrderProduct>()
                 .HasOne(pt => pt.Product)
                 .WithMany(p => p.OrderProduct)
-                .HasForeignKey(pt => pt.ProductId);
+                .HasForeignKey(pt => pt.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<OrderProduct>()
                 .HasOne(pt => pt.Order)
                 .WithMany(t => t.OrderProduct)
-                .HasForeignKey(pt => pt.OrderId);
+                .HasForeignKey(pt => pt.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

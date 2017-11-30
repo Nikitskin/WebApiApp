@@ -44,21 +44,19 @@ namespace WebAPITestApp.ServiceLayer.DatabaseServices.Orders
 
         public async Task<List<OrderDto>> GetAllOrders()
         {
-            var list = await _unitOfWork.OrdersRepository.GetAll(); 
+            var list = await _unitOfWork.OrdersRepository.GetAll();
             return Mapper.Map<List<Order>, List<OrderDto>>(list);
         }
 
         public async Task Update(OrderDto order)
         {
-            var user = (await GetOrder(order.Id)).UserFirstName;
-            if (user == order.UserFirstName)
-            {
-                var dbOrder = Mapper.Map<OrderDto, Order>(order);
-                dbOrder.OrderedDate = DateTime.Today.ToUniversalTime();
-                dbOrder.OrderProduct.ToList().ForEach(op => op.OrderId = order.Id);
-                _unitOfWork.OrdersRepository.Update(dbOrder);
-                await Save();
-            }
+            //var user = (await GetOrder(order.Id)).UserFirstName;
+            //if (user != order.UserFirstName) { throw new UnauthorizedAccessException(); }
+            var dbOrder = Mapper.Map<OrderDto, Order>(order);
+            dbOrder.OrderedDate = DateTime.Today.ToUniversalTime();
+            dbOrder.OrderProduct.ToList().ForEach(op => op.OrderId = order.Id);
+            _unitOfWork.OrdersRepository.Update(dbOrder);
+            await Save();
         }
 
         private async Task Save()

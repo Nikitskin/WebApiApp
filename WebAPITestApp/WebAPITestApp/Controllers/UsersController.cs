@@ -25,10 +25,9 @@ namespace WebAPITestApp.Web.Controllers
             await _userService.AddUser(user);
         }
 
-        [HttpPut("{id}")]
-        public async Task UpdateUser(string id, [Bind("Password")]UserModel user)
+        [HttpPut]
+        public async Task UpdateUser(UserModel user)
         {
-            user.Id = id;
             await _userService.UpdateUser(user);
         }
 

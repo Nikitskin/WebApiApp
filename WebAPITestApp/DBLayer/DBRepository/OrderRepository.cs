@@ -29,15 +29,15 @@ namespace WebAPITestApp.DBLayer.DBRepository
                 .ToListAsync();
         }
 
-        //todo fis if orderid has duplicates
         public override void Update(Order item)
         {
-            var order = DbSet.Include(ord => ord.OrderProduct).FirstOrDefault(ord => ord.Id == item.Id);
-            foreach (var orderProduct in item.OrderProduct)
-            {
-                order.OrderProduct.Add(orderProduct);
-            }
-            DbSet.Update(order);
+            var order = Context.Orders.Include(ord => ord.OrderProduct).First(ord => ord.Id == item.Id);
+            order.OrderProduct = 
+                (from orderProduct 
+                 in item.OrderProduct
+                 let temp = order.OrderProduct.FirstOrDefault(a => a.OrderId == orderProduct.OrderId && a.ProductId == orderProduct.ProductId)
+                 select temp ?? orderProduct).ToList();
+            base.Update(order);
         }
     }
 }
