@@ -9,6 +9,7 @@ using Newtonsoft.Json.Serialization;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using NLogger;
+using Swashbuckle.AspNetCore.Swagger;
 using WebAPITestApp.Infrastructure.Attributes;
 using WebAPITestApp.Infrastructure.Filters;
 using WebAPITestApp.Infrastructure.Middleware;
@@ -41,6 +42,10 @@ namespace WebAPITestApp
             });
             services.AddAutoMapper();
             services.AddSingleton<ILoggerService, LoggerService>();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -54,6 +59,11 @@ namespace WebAPITestApp
             app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseAuthentication();
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
         }
     }
 }
