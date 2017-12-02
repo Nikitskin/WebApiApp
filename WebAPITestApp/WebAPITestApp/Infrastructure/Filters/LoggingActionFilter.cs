@@ -18,8 +18,8 @@ namespace WebAPITestApp.Infrastructure.Filters
         {
             if (context.ActionDescriptor is ControllerActionDescriptor controllerActionDescriptor)
             {
-                _logger.Trace(string.Format("Action finished for controller {0} started with method {1} at {2}", context.Controller,
-                    controllerActionDescriptor.MethodInfo.Name, DateTime.Now.ToShortDateString()));
+                _logger.Trace("Action finished for controller {0} started with method {1} at {2}", context.Controller,
+                    controllerActionDescriptor.MethodInfo.Name, DateTime.Now.ToShortDateString());
             }
         }
 
@@ -27,8 +27,8 @@ namespace WebAPITestApp.Infrastructure.Filters
         {
             if (context.ActionDescriptor is ControllerActionDescriptor controllerActionDescriptor)
             {
-                _logger.Trace(string.Format("Controller {0} started for user {1} with method {2} ", context.Controller,
-                    context.HttpContext.User.Identity.Name ?? "anonymous", controllerActionDescriptor.MethodInfo.Name));
+                _logger.Trace("Controller {0} started for user {1} with method {2} ", context.Controller,
+                    context.HttpContext.User.Identity.Name ?? "anonymous", controllerActionDescriptor.MethodInfo.Name);
             }
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using NLogger;
 using WebAPITestApp.Infrastructure.Attributes;
 using WebAPITestApp.Infrastructure;
 using WebAPITestApp.Models.AuthModels;
@@ -12,7 +11,7 @@ namespace WebAPITestApp.Controllers
     {
         private readonly IUserService _userService;
 
-        public UsersController(IUserService userService, ILoggerService logger)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
         }
