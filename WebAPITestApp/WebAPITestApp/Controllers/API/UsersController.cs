@@ -4,7 +4,7 @@ using WebAPITestApp.Infrastructure.Attributes;
 using WebAPITestApp.Infrastructure;
 using WebAPITestApp.Models.AuthModels;
 
-namespace WebAPITestApp.Controllers
+namespace WebAPITestApp.Controllers.API
 {
     [Route("api/[controller]")]
     public class UsersController : Controller

@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.DatabaseServices.Products;
 using System.Threading.Tasks;
 using DTOLib;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using ServiceLayer.DatabaseServices.Products;
 using WebAPITestApp.Infrastructure.Attributes;
 using WebAPITestApp.Models.Product;
 
-namespace WebAPITestApp.Controllers
+namespace WebAPITestApp.Controllers.API
 {
     [Route("api/[controller]")]
     public class ProductsController : Controller

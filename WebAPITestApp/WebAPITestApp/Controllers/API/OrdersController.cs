@@ -1,17 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using DTOLib;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using NLogger;
 using ServiceLayer.DatabaseServices.Orders;
 using WebAPITestApp.Infrastructure.Attributes;
 using WebAPITestApp.Models.Order;
 
-namespace WebAPITestApp.Controllers
+namespace WebAPITestApp.Controllers.API
 {
     [Route("api/[controller]")]
     public class OrdersController : Controller

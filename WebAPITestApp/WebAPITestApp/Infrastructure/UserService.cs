@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using DBLayer.UnitOfWork;
 using Microsoft.IdentityModel.Tokens;
 using NLogger;
 using WebAPITestApp.Models.AuthModels;
 using System.Threading.Tasks;
 using DBLayer.DbData;
-using DevOne.Security.Cryptography.BCrypt;
 
 namespace WebAPITestApp.Infrastructure
 {
-    public class UserService :  IUserService
+    public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -25,19 +25,27 @@ namespace WebAPITestApp.Infrastructure
             _logger = logger;
         }
 
+        //TODO remove later
         public async Task<string> GetToken(UserModel userModel)
         {
-            var list = await _unitOfWork.UsersRepository.GetAll();
-            var user = AutoMapper.Mapper.Map<User>(userModel);
-            var person = list.FirstOrDefault(u => u.UserName == userModel.UserName && u.Password == user.Password);
+            //var list = await _unitOfWork.UsersRepository.GetAll();
+            //var user = AutoMapper.Mapper.Map<User>(userModel);
+            //var person = list.FirstOrDefault(u => u.UserName == userModel.UserName && u.Password == user.Password);
 
-            if (person != null)
-                return person.LastPasswordChangedDate.AddDays(10) < DateTime.Now
-                    ? string.Format("User {0} has expired password", person.UserName)
-                    : GetIdentity(userModel);
+            //if (person != null)
+            //    return person.LastPasswordChangedDate.AddDays(10) < DateTime.Now
+            //        ? string.Format("User {0} has expired password", person.UserName)
+            //        : GetIdentity(userModel);
 
             _logger.Info(string.Format("{0} is not exists", userModel.UserName));
-            return "Incorrect user credetials";
+
+            return await Task.Factory.StartNew(() =>
+            {
+                Thread.Sleep(5000);
+                return "Incorrect credentials";
+            });
+
+
         }
 
         public async Task AddUser(UserModel userModel)
@@ -67,7 +75,7 @@ namespace WebAPITestApp.Infrastructure
                 claims: claimsIdentity.Claims,
                 expires: DateTime.UtcNow.Add(TimeSpan.FromHours(AuthOptions.LIFETIME)),
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            
+
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
     }
