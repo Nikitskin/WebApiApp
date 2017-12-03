@@ -28,22 +28,17 @@ namespace WebAPITestApp.Infrastructure
         //TODO remove later
         public async Task<string> GetToken(UserModel userModel)
         {
-            //var list = await _unitOfWork.UsersRepository.GetAll();
-            //var user = AutoMapper.Mapper.Map<User>(userModel);
-            //var person = list.FirstOrDefault(u => u.UserName == userModel.UserName && u.Password == user.Password);
+            var list = await _unitOfWork.UsersRepository.GetAll();
+            var user = AutoMapper.Mapper.Map<User>(userModel);
+            var person = list.FirstOrDefault(u => u.UserName == userModel.UserName && u.Password == user.Password);
 
-            //if (person != null)
-            //    return person.LastPasswordChangedDate.AddDays(10) < DateTime.Now
-            //        ? string.Format("User {0} has expired password", person.UserName)
-            //        : GetIdentity(userModel);
+            if (person != null)
+                return person.LastPasswordChangedDate.AddDays(10) < DateTime.Now
+                    ? string.Format("User {0} has expired password", person.UserName)
+                    : GetIdentity(userModel);
 
             _logger.Info(string.Format("{0} is not exists", userModel.UserName));
-
-            return await Task.Factory.StartNew(() =>
-            {
-                Thread.Sleep(5000);
-                return "Incorrect credentials";
-            });
+            return await Task.Factory.StartNew(() => "Incorrect credentials");
 
 
         }
