@@ -35,7 +35,8 @@ namespace WebAPITestApp.Controllers.API
         [ValidateModel]
         public async Task<string> Token([FromForm]UserModel userModel)
         {
-             return await _userService.GetToken(userModel);
+            var result = await _userService.GetToken(userModel);
+            return result == null ? "Incorrect credetionals entered" : result;
         }
     }
 }

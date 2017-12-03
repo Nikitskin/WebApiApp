@@ -25,7 +25,6 @@ namespace WebAPITestApp.Infrastructure
             _logger = logger;
         }
 
-        //TODO remove later
         public async Task<string> GetToken(UserModel userModel)
         {
             var list = await _unitOfWork.UsersRepository.GetAll();
@@ -38,9 +37,7 @@ namespace WebAPITestApp.Infrastructure
                     : GetIdentity(userModel);
 
             _logger.Info(string.Format("{0} is not exists", userModel.UserName));
-            return await Task.Factory.StartNew(() => "Incorrect credentials");
-
-
+            return null;
         }
 
         public async Task AddUser(UserModel userModel)

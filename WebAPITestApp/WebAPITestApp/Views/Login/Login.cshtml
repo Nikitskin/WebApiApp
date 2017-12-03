@@ -9,6 +9,13 @@
 <label>Please enter login</label>
 @using (Html.BeginForm("Login", "Login", FormMethod.Post))  
 {  
+    if (@ViewBag.Message != null)  
+    {  
+  
+        <div style="border:1px solid red">  
+            @ViewBag.Message  
+        </div>  
+    }   
     <table>
         <tr>
             <td>@Html.LabelFor(a => a.UserName)</td>

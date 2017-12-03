@@ -27,6 +27,7 @@ namespace WebAPITestApp.Controllers.View
             {
                 return RedirectToAction("AfterLogin", new { result });
             }
+            ViewBag.Message = "Wrong username or password";
             return View(user);
         }
 
