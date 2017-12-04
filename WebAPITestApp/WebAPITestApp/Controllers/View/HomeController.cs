@@ -3,24 +3,25 @@ using Microsoft.AspNetCore.Mvc;
 using WebAPITestApp.Infrastructure;
 using WebAPITestApp.Models.AuthModels;
 
-
 namespace WebAPITestApp.Controllers.View
 {
-    [Route("[controller]")]
-    public class LoginController : Controller
+    public class HomeController : Controller
     {
         private IUserService _userService;
 
-        public LoginController(IUserService userService)
+        public HomeController(IUserService userService)
         {
             _userService = userService;
         }
 
-        public IActionResult Login() => View();
+        public ActionResult Index()
+        {
+            return View();
+        } 
 
         //TODO is it right?
         [HttpPost]
-        public async Task<IActionResult> Login(UserModel user)
+        public async Task<ActionResult> Index(UserModel user)
         {
             var result = await _userService.GetToken(user);
             if (result != null)
