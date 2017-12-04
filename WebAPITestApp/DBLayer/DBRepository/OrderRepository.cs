@@ -32,11 +32,14 @@ namespace WebAPITestApp.DBLayer.DBRepository
         public override void Update(Order item)
         {
             var order = Context.Orders.Include(ord => ord.OrderProduct).First(ord => ord.Id == item.Id);
+            List<OrderProduct> list = new List<OrderProduct>();
+            foreach (var orderProduct in item.OrderProduct)
+            {
+                OrderProduct temp = order.OrderProduct.FirstOrDefault(a => a.OrderId == orderProduct.OrderId && a.ProductId == orderProduct.ProductId);
+                list.Add(temp ?? orderProduct);
+            }
             order.OrderProduct = 
-                (from orderProduct 
-                 in item.OrderProduct
-                 let temp = order.OrderProduct.FirstOrDefault(a => a.OrderId == orderProduct.OrderId && a.ProductId == orderProduct.ProductId)
-                 select temp ?? orderProduct).ToList();
+                list;
             base.Update(order);
         }
     }
