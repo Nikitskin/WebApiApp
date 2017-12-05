@@ -14,14 +14,14 @@ namespace WebAPITestApp.Controllers.View
             _userService = userService;
         }
 
-        public ActionResult Index()
+        public ActionResult Login()
         {
             return View();
         } 
 
         //TODO is it right?
         [HttpPost]
-        public async Task<ActionResult> Index(UserModel user)
+        public async Task<ActionResult> Login(UserModel user)
         {
             var result = await _userService.GetToken(user);
             if (result != null)
@@ -31,6 +31,7 @@ namespace WebAPITestApp.Controllers.View
             ViewBag.Message = "Wrong username or password";
             return View(user);
         }
+
 
         
         [Route("AfterLogin")]
