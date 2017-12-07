@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace DBLayer.DbData
+﻿namespace WebAPITestApp.DBLayer.DbData
 {
     public class OrderProduct
     {

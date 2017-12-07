@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DBLayer.Migrations
+namespace WebAPITestApp.DBLayer.Migrations
 {
     public partial class UpdatedUserLastPassword : Migration
     {

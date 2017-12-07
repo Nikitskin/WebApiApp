@@ -1,14 +1,14 @@
-﻿using DBLayer.Contexts;
-using DBLayer.DbData;
-using DBLayer.DBRepository;
-using DBLayer.UnitOfWork;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ServiceLayer.DatabaseServices.Orders;
-using ServiceLayer.DatabaseServices.Products;
-using WebAPITestApp.Infrastructure;
+using WebAPITestApp.DBLayer.Contexts;
+using WebAPITestApp.DBLayer.DbData;
+using WebAPITestApp.DBLayer.DBRepository;
+using WebAPITestApp.DBLayer.UnitOfWork;
+using WebAPITestApp.ServiceLayer.DatabaseServices.Orders;
+using WebAPITestApp.ServiceLayer.DatabaseServices.Products;
+using WebAPITestApp.Web.Infrastructure;
 
-namespace WebAPITestApp
+namespace WebAPITestApp.Web
 {
     public static class DatabaseServiceExtenstion
     {

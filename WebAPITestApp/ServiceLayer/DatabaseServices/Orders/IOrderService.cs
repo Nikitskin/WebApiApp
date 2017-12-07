@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using System.Collections.Generic;
-using DTOLib;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using WebAPITestApp.DTOLib;
 
-namespace ServiceLayer.DatabaseServices.Orders
+namespace WebAPITestApp.ServiceLayer.DatabaseServices.Orders
 {
     public interface IOrdersService
     {

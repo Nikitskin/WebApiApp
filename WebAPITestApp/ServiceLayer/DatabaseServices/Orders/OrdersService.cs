@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DBLayer.UnitOfWork;
-using DBLayer.DbData;
 using AutoMapper;
-using DTOLib;
+using WebAPITestApp.DBLayer.DbData;
+using WebAPITestApp.DBLayer.UnitOfWork;
+using WebAPITestApp.DTOLib;
 
-namespace ServiceLayer.DatabaseServices.Orders
+namespace WebAPITestApp.ServiceLayer.DatabaseServices.Orders
 {
     public class OrdersService : IOrdersService
     {

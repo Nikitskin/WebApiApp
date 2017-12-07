@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
-using NLogger;
+using WebAPITestApp.NLogger;
 
-namespace WebAPITestApp.Infrastructure.Filters
+namespace WebAPITestApp.Web.Infrastructure.Filters
 {
     public class ActionMethodNLogFilter : IActionFilter
     {

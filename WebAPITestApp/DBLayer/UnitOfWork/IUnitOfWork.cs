@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using DBLayer.DbData;
-using DBLayer.DBRepository;
+using WebAPITestApp.DBLayer.DbData;
+using WebAPITestApp.DBLayer.DBRepository;
 
-namespace DBLayer.UnitOfWork
+namespace WebAPITestApp.DBLayer.UnitOfWork
 {
     public interface IUnitOfWork
     {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace DTOLib
+﻿namespace WebAPITestApp.DTOLib
 {
     public class ProductDto
     {

@@ -1,11 +1,11 @@
-﻿using DBLayer.DbData;
-using DBLayer.DBRepository;
-using System;
+﻿using System;
 using System.Threading.Tasks;
-using DBLayer.Contexts;
-using NLogger;
+using WebAPITestApp.DBLayer.Contexts;
+using WebAPITestApp.DBLayer.DbData;
+using WebAPITestApp.DBLayer.DBRepository;
+using WebAPITestApp.NLogger;
 
-namespace DBLayer.UnitOfWork
+namespace WebAPITestApp.DBLayer.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

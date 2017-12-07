@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DBLayer.DbData;
-using DBLayer.UnitOfWork;
 using AutoMapper;
-using DTOLib;
+using WebAPITestApp.DBLayer.DbData;
+using WebAPITestApp.DBLayer.UnitOfWork;
+using WebAPITestApp.DTOLib;
 
-namespace ServiceLayer.DatabaseServices.Products
+namespace WebAPITestApp.ServiceLayer.DatabaseServices.Products
 {
     public class ProductService : IProductService
     {

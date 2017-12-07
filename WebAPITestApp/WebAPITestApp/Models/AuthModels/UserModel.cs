@@ -1,9 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 
-namespace WebAPITestApp.Models.AuthModels
+namespace WebAPITestApp.Web.Models.AuthModels
 {
     public class UserModel : IUser
     {
@@ -16,9 +15,6 @@ namespace WebAPITestApp.Models.AuthModels
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        [JsonIgnore]
-        public DateTime LastPasswordChangedDate { get; set; }
 
     }
 }
