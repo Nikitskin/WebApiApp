@@ -8,11 +8,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NLog.Extensions.Logging;
 using NLog.Web;
-using NLogger;
 using Swashbuckle.AspNetCore.Swagger;
-using WebAPITestApp.Infrastructure.Attributes;
-using WebAPITestApp.Infrastructure.Filters;
-using WebAPITestApp.Infrastructure.Middleware;
+using WebAPITestApp.NLogger;
+using WebAPITestApp.Web.Infrastructure.Attributes;
+using WebAPITestApp.Web.Infrastructure.Filters;
+using WebAPITestApp.Web.Infrastructure.Middleware;
 
 namespace WebAPITestApp.Web
 {
