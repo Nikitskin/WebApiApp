@@ -14,7 +14,7 @@ using WebAPITestApp.Infrastructure.Attributes;
 using WebAPITestApp.Infrastructure.Filters;
 using WebAPITestApp.Infrastructure.Middleware;
 
-namespace WebAPITestApp
+namespace WebAPITestApp.Web
 {
     public class Startup
     {

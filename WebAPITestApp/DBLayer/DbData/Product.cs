@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DBLayer.DbData
+namespace WebAPITestApp.DBLayer.DbData
 {
     public class Product
     {

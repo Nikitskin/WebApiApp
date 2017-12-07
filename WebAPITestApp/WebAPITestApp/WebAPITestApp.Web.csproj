@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
-    <StartupObject>WebAPITestApp.Program</StartupObject>
+    <StartupObject>WebAPITestApp.Web.Program</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -50,9 +50,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DTOLib\DTOLib.csproj" />
-    <ProjectReference Include="..\NLogger\NLogger.csproj" />
-    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
+    <ProjectReference Include="..\DTOLib\WebAPITestApp.DTOLib.csproj" />
+    <ProjectReference Include="..\NLogger\WebAPITestApp.NLogger.csproj" />
+    <ProjectReference Include="..\ServiceLayer\WebAPITestApp.ServiceLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
-namespace DBLayer.Migrations
+namespace WebAPITestApp.DBLayer.Migrations
 {
     public partial class removeId : Migration
     {

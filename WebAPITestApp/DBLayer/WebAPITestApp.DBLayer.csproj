@@ -12,8 +12,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DBLayer</RootNamespace>
-    <AssemblyName>DBLayer</AssemblyName>
+    <RootNamespace>WebAPITestApp.DBLayer</RootNamespace>
+    <AssemblyName>WebAPITestApp.DBLayer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -182,9 +182,9 @@
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NLogger\NLogger.csproj">
+    <ProjectReference Include="..\NLogger\WebAPITestApp.NLogger.csproj">
       <Project>{8319f9dc-0103-4fda-a47d-9678b358e4f5}</Project>
-      <Name>NLogger</Name>
+      <Name>WebAPITestApp.NLogger</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

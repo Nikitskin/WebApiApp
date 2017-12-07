@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using DBLayer.UnitOfWork;
-using Microsoft.IdentityModel.Tokens;
-using NLogger;
-using WebAPITestApp.Models.AuthModels;
 using System.Threading.Tasks;
-using DBLayer.DbData;
-using DevOne.Security.Cryptography.BCrypt;
+using Microsoft.IdentityModel.Tokens;
+using WebAPITestApp.DBLayer.DbData;
+using WebAPITestApp.DBLayer.UnitOfWork;
+using WebAPITestApp.NLogger;
+using WebAPITestApp.Web.Models.AuthModels;
 
-namespace WebAPITestApp.Infrastructure
+namespace WebAPITestApp.Web.Infrastructure
 {
     public class UserService :  IUserService
     {
@@ -54,8 +53,6 @@ namespace WebAPITestApp.Infrastructure
 
         private string GetIdentity(UserModel userModel)
         {
-            // TODO Your password in db should be encoded, so in this case you can't just compare password User entered and password from db.
-            // You can either use EF identity db context to store users or find some nuget package and encode password by yourself.
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.UserName),

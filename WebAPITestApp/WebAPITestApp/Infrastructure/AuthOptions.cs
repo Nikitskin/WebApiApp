@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace WebAPITestApp.Infrastructure
+namespace WebAPITestApp.Web.Infrastructure
 {
     public class AuthOptions
     {

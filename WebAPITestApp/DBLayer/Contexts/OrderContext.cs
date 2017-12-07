@@ -1,7 +1,7 @@
-﻿using DBLayer.DbData;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using WebAPITestApp.DBLayer.DbData;
 
-namespace DBLayer.Contexts
+namespace WebAPITestApp.DBLayer.Contexts
 {
     public class OrderContext : DbContext
     {

@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace WebAPITestApp.Models.Product
+namespace WebAPITestApp.Web.Models.Product
 {
     public class ProductCoreModel
     {

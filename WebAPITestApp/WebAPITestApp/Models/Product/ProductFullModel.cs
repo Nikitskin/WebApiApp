@@ -1,5 +1,5 @@
 ﻿
-namespace WebAPITestApp.Models.Product
+namespace WebAPITestApp.Web.Models.Product
 {
     public class ProductFullModel : ProductCoreModel
     {

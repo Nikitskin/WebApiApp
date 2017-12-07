@@ -7,8 +7,8 @@
     <ProjectGuid>{8F02C946-BA77-4325-8DC7-5F7D44672C9A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTests</RootNamespace>
-    <AssemblyName>UnitTests</AssemblyName>
+    <RootNamespace>WebAPITestApp.UnitTests</RootNamespace>
+    <AssemblyName>WebAPITestApp.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -69,25 +69,25 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DBLayer\DBLayer.csproj">
+    <ProjectReference Include="..\DBLayer\WebAPITestApp.DBLayer.csproj">
       <Project>{17c07a28-403b-4079-8ce6-1ad31781416a}</Project>
-      <Name>DBLayer</Name>
+      <Name>WebAPITestApp.DBLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DTOLib\DTOLib.csproj">
+    <ProjectReference Include="..\DTOLib\WebAPITestApp.DTOLib.csproj">
       <Project>{978a7f02-9353-48b0-892c-f4eff9ed3c92}</Project>
-      <Name>DTOLib</Name>
+      <Name>WebAPITestApp.DTOLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NLogger\NLogger.csproj">
+    <ProjectReference Include="..\NLogger\WebAPITestApp.NLogger.csproj">
       <Project>{8319f9dc-0103-4fda-a47d-9678b358e4f5}</Project>
-      <Name>NLogger</Name>
+      <Name>WebAPITestApp.NLogger</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj">
+    <ProjectReference Include="..\ServiceLayer\WebAPITestApp.ServiceLayer.csproj">
       <Project>{f698479c-96d5-4dea-9260-41ba57d0513a}</Project>
-      <Name>ServiceLayer</Name>
+      <Name>WebAPITestApp.ServiceLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebAPITestApp\WebAPITestApp.csproj">
+    <ProjectReference Include="..\WebAPITestApp\WebAPITestApp.Web.csproj">
       <Project>{3ec83a4b-e5ac-466f-8fdb-bd4756ba10e2}</Project>
-      <Name>WebAPITestApp</Name>
+      <Name>WebAPITestApp.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -1,9 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 
-namespace WebAPITestApp.Models.AuthModels
+namespace WebAPITestApp.Web.Models.AuthModels
 {
     /// <inheritdoc />
     /// <summary>

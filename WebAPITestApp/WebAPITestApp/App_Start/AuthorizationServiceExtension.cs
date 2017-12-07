@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
-using WebAPITestApp.Infrastructure;
+using WebAPITestApp.Web.Infrastructure;
 
-namespace WebAPITestApp
+namespace WebAPITestApp.Web
 {
     public static class AuthorizationServiceExtension
     {

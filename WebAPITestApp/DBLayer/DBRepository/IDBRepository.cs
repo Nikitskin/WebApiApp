@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DBLayer.DBRepository
+namespace WebAPITestApp.DBLayer.DBRepository
 {                      
     public interface IDbRepository<T> 
         where T : class

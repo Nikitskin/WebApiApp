@@ -1,9 +1,9 @@
-﻿using DBLayer.DbData;
-using DBLayer.UnitOfWork;
-using Moq;
-using NLogger;
+﻿using Moq;
 using NUnit.Framework;
-using WebAPITestApp.Infrastructure;
+using WebAPITestApp.DBLayer.DbData;
+using WebAPITestApp.DBLayer.UnitOfWork;
+using WebAPITestApp.NLogger;
+using WebAPITestApp.Web.Infrastructure;
 
 namespace UnitTests
 {
