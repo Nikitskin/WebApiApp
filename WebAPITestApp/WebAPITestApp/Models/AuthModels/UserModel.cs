@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 
 namespace WebAPITestApp.Web.Models.AuthModels
 {
-    public class UserModel : IUser
+    public class UserModel 
     {
         [JsonIgnore]
         public string Id { get; set; }
