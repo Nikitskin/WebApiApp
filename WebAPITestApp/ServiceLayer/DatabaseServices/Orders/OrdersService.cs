@@ -23,7 +23,7 @@ namespace WebAPITestApp.ServiceLayer.DatabaseServices.Orders
             var dbOrder = Mapper.Map<OrderDto, Order>(order);
             var users = await _unitOfWork.UsersRepository.GetAll();
             dbOrder.User = users.FirstOrDefault(name => name.UserName.Equals(order.UserFirstName));
-            dbOrder.OrderedDate = DateTime.Today.ToUniversalTime();
+            dbOrder.OrderedDate = DateTime.UtcNow;
             _unitOfWork.OrdersRepository.Create(dbOrder);
             await Save();
         }
@@ -53,7 +53,7 @@ namespace WebAPITestApp.ServiceLayer.DatabaseServices.Orders
             //var user = (await GetOrder(order.Id)).UserFirstName;
             //if (user != order.UserFirstName) { throw new UnauthorizedAccessException(); }
             var dbOrder = Mapper.Map<OrderDto, Order>(order);
-            dbOrder.OrderedDate = DateTime.Today.ToUniversalTime();
+            dbOrder.OrderedDate = DateTime.UtcNow;
             dbOrder.OrderProduct.ToList().ForEach(op => op.OrderId = order.Id);
             _unitOfWork.OrdersRepository.Update(dbOrder);
             await Save();
