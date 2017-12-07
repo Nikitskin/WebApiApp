@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WebAPITestApp.Infrastructure;
-using WebAPITestApp.Models.AuthModels;
+using WebAPITestApp.Web.Infrastructure;
+using WebAPITestApp.Web.Models.AuthModels;
 
-namespace WebAPITestApp.Controllers.View
+namespace WebAPITestApp.Web.Controllers.View
 {
     public class HomeController : Controller
     {

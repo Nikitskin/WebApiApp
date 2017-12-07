@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WebAPITestApp.NLogger;
 using WebAPITestApp.Web.Infrastructure;
 using WebAPITestApp.Web.Infrastructure.Attributes;
 using WebAPITestApp.Web.Models.AuthModels;
 
-namespace WebAPITestApp.Web.Controllers
+namespace WebAPITestApp.Web.Controllers.API
 {
     [Route("api/[controller]")]
     public class UsersController : Controller

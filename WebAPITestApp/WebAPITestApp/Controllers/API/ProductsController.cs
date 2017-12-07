@@ -8,7 +8,7 @@ using WebAPITestApp.ServiceLayer.DatabaseServices.Products;
 using WebAPITestApp.Web.Infrastructure.Attributes;
 using WebAPITestApp.Web.Models.Product;
 
-namespace WebAPITestApp.Web.Controllers
+namespace WebAPITestApp.Web.Controllers.API
 {
     [Route("api/[controller]")]
     public class ProductsController : Controller

@@ -9,7 +9,7 @@ using WebAPITestApp.ServiceLayer.DatabaseServices.Orders;
 using WebAPITestApp.Web.Infrastructure.Attributes;
 using WebAPITestApp.Web.Models.Order;
 
-namespace WebAPITestApp.Web.Controllers
+namespace WebAPITestApp.Web.Controllers.API
 {
     [Route("api/[controller]")]
     public class OrdersController : Controller
