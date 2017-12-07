@@ -1,12 +1,26 @@
-﻿<!DOCTYPE html>
-
+﻿@model WebAPITestApp.Models.AuthModels.UserModel
+<!DOCTYPE html>
 <html>
 <head>
     <title>Edit user page</title>
 </head>
 <body>
-<div>
-    <h2>Updating user</h2>
-</div>
+    <div>
+        <h2>Updating user</h2>
+        @using (Html.BeginForm("UserView", "Edit", FormMethod.Post))
+        {
+            <table>
+                <tr>
+                    <td>@Html.NameFor(a => a.Password);</td>
+                </tr>
+                <tr>
+                    <td>@Html.PasswordFor(a => a.Password);</td>
+                </tr>
+                <tr>
+                    <input type="submit" value="Edit" />
+                </tr>
+            </table>
+        }
+    </div>
 </body>
 </html>

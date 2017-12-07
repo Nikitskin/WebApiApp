@@ -1,10 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebAPITestApp.Infrastructure;
+using WebAPITestApp.Models.AuthModels;
 
 namespace WebAPITestApp.Controllers.View
 {
     public class UserViewController : Controller
     {
+        private IUserService _userService;
+
+        public UserViewController(IUserService userService)
+        {
+            _userService = userService;
+        }
         // GET: User
         public ActionResult Index()
         {
@@ -17,45 +24,39 @@ namespace WebAPITestApp.Controllers.View
             return View();
         }
 
-        // POST: User/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(UserModel userModel)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var task = _userService.AddUser(userModel);
+            //TODO Should it be refactored?
+            task.Wait();
+            RedirectToAction("ResultPage", new { task.IsFaulted });
+            return View();
         }
 
-        // GET: User/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: User/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(UserModel userModel)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            //TODO redo with identity
+            var task = _userService.UpdateUser(userModel);
+            //TODO Should it be refactored?
+            task.Wait();
+            RedirectToAction("ResultPage", new { task.IsFaulted });
+            return View();
         }
 
+        public ActionResult ResultPage(bool isFaulted)
+        {
+            var result = isFaulted ? "Success" : "Failure";
+            ViewBag.Result = result;
+            return View();
+        }
     }
 }
