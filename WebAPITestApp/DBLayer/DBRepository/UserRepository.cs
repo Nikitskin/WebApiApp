@@ -14,9 +14,7 @@ namespace WebAPITestApp.DBLayer.DBRepository
 
         public override void Update(User item)
         {
-            var user = Context.Users.First(u => u.UserName == item.UserName);
-            user.Password = item.Password;
-            base.Update(user);
+            base.Update(item);
         }
     }
 }

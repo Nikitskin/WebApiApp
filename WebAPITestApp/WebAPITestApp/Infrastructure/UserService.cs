@@ -45,10 +45,17 @@ namespace WebAPITestApp.Web.Infrastructure
             await _unitOfWork.Save();
         }
 
-        public async Task UpdateUser(UserModel user)
+        public async Task UpdateUser(UserModel userModel)
         {
-            _unitOfWork.UsersRepository.Update(AutoMapper.Mapper.Map<User>(user));
-            await _unitOfWork.Save();
+            var user = AutoMapper.Mapper.Map<User>(userModel);
+            var list = await _unitOfWork.UsersRepository.GetAll();
+            var person = list.FirstOrDefault(u => u.UserName == user.UserName);
+            if (person == null)
+            {
+                person.Password = user.Password;
+                _unitOfWork.UsersRepository.Update(person);
+                await _unitOfWork.Save();
+            }
         }
 
         private string GetIdentity(UserModel userModel)
