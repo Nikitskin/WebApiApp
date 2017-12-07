@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebAPITestApp.DBLayer.DbData;
 
 namespace WebAPITestApp.DBLayer.Contexts
 {
-    public class OrderContext : DbContext
+    public class OrderContext : IdentityDbContext<User>
     {
         public OrderContext(DbContextOptions<OrderContext> options)
             : base(options)

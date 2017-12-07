@@ -28,7 +28,7 @@ namespace WebAPITestApp.Web.Infrastructure
         {
             var list = await _unitOfWork.UsersRepository.GetAll();
             var user = AutoMapper.Mapper.Map<User>(userModel);
-            var person = list.FirstOrDefault(u => u.UserName == userModel.UserName && u.Password == user.Password);
+            var person = list.FirstOrDefault(u => u.UserName == userModel.UserName && u.PasswordHash == user.PasswordHash);
 
             if (person != null)
                 return person.LastPasswordChangedDate.AddDays(10) < DateTime.Now

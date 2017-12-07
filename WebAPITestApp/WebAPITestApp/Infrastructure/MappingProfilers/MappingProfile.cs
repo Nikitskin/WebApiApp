@@ -20,7 +20,7 @@ namespace WebAPITestApp.Web.Infrastructure.MappingProfilers
             CreateMap<ProductCoreModel, ProductDto>();
             CreateMap<ProductFullModel, ProductDto>();
             
-            CreateMap<UserModel, User>().ForMember(dst => dst.Password , 
+            CreateMap<UserModel, User>().ForMember(dst => dst.PasswordHash , 
                 opt => opt.MapFrom(src => BCryptHelper.
                 HashPassword(src.Password, _salt))).
                 ForMember(dst => dst.LastPasswordChangedDate, opt => opt.MapFrom(src => DateTime.Now.ToShortDateString()));
