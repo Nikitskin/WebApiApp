@@ -12,6 +12,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using WebAPITestApp.NLogger;
 using WebAPITestApp.Web.Infrastructure.Attributes;
 using WebAPITestApp.Web.Infrastructure.Filters;
+using WebAPITestApp.Web.Infrastructure.MappingProfilers;
 using WebAPITestApp.Web.Infrastructure.Middleware;
 
 namespace WebAPITestApp.Web
@@ -40,6 +41,7 @@ namespace WebAPITestApp.Web
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
+            services.AddTransient<IMap, Infrastructure.MappingProfilers.Mapper>();
             services.AddAutoMapper();
             services.AddSingleton<ILoggerService, LoggerService>();
             services.AddSwaggerGen(c =>

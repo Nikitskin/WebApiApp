@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebAPITestApp.DTOLib;
 using WebAPITestApp.ServiceLayer.DatabaseServices.Products;
 using WebAPITestApp.Web.Infrastructure.Attributes;
+using WebAPITestApp.Web.Infrastructure.MappingProfilers;
 using WebAPITestApp.Web.Models.Product;
 
 namespace WebAPITestApp.Web.Controllers
@@ -14,10 +15,12 @@ namespace WebAPITestApp.Web.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService _service;
+        private readonly IMap _mapper;
 
-        public ProductsController(IProductService service)
+        public ProductsController(IProductService service, IMap mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -25,7 +28,7 @@ namespace WebAPITestApp.Web.Controllers
         public async Task<List<ProductFullModel>> Get()
         {
             var list = await _service.GetAllProducts();
-            return AutoMapper.Mapper.Map<List<ProductDto>, List<ProductFullModel>>(list);
+            return _mapper.Map<List<ProductDto>, List<ProductFullModel>>(list);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -33,7 +36,7 @@ namespace WebAPITestApp.Web.Controllers
         public async Task<ProductCoreModel> Get(int id)
         {
             var product = await _service.GetProduct(id);
-            return AutoMapper.Mapper.Map<ProductDto, ProductCoreModel>(product);
+            return _mapper.Map<ProductDto, ProductCoreModel>(product);
         }
 
         [Authorize]
@@ -41,7 +44,7 @@ namespace WebAPITestApp.Web.Controllers
         [ValidateModel]
         public async Task Post([FromBody]ProductCoreModel value)
         {
-            await _service.AddProduct(AutoMapper.Mapper.Map<ProductCoreModel, ProductDto>(value));
+            await _service.AddProduct(_mapper.Map<ProductCoreModel, ProductDto>(value));
         }
 
         [Authorize]
@@ -49,7 +52,7 @@ namespace WebAPITestApp.Web.Controllers
         [ValidateModel]
         public async Task Put(int id, [FromBody]ProductCoreModel value)
         {
-            var product = AutoMapper.Mapper.Map<ProductCoreModel, ProductDto>(value);
+            var product = _mapper.Map<ProductCoreModel, ProductDto>(value);
             product.Id = id;
             await _service.Update(product);
         }

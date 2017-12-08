@@ -7,6 +7,7 @@ using WebAPITestApp.DTOLib;
 using WebAPITestApp.NLogger;
 using WebAPITestApp.ServiceLayer.DatabaseServices.Orders;
 using WebAPITestApp.Web.Infrastructure.Attributes;
+using WebAPITestApp.Web.Infrastructure.MappingProfilers;
 using WebAPITestApp.Web.Models.Order;
 
 namespace WebAPITestApp.Web.Controllers
@@ -15,10 +16,12 @@ namespace WebAPITestApp.Web.Controllers
     public class OrdersController : Controller
     {
         private readonly IOrdersService _service;
+        private readonly IMap _mapper;
 
-        public OrdersController(IOrdersService service, ILoggerService logger)
+        public OrdersController(IOrdersService service, ILoggerService logger, IMap mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -26,7 +29,7 @@ namespace WebAPITestApp.Web.Controllers
         public async Task<List<OrderResponseModel>> Get()
         {
             var list = await _service.GetAllOrders();
-            return AutoMapper.Mapper.Map<List<OrderDto>, List<OrderResponseModel>>(list);
+            return _mapper.Map<List<OrderDto>, List<OrderResponseModel>>(list);
         }
 
         [HttpGet("{id}")]
@@ -34,7 +37,7 @@ namespace WebAPITestApp.Web.Controllers
         public async Task<OrderResponseModel> Get(int id)
         {
             var order = await _service.GetOrder(id);
-            return AutoMapper.Mapper.Map<OrderDto, OrderResponseModel>(order);
+            return _mapper.Map<OrderDto, OrderResponseModel>(order);
 
         }
 
@@ -43,7 +46,7 @@ namespace WebAPITestApp.Web.Controllers
         [ValidateModel]
         public async Task Post([FromBody]OrderEditModel value)
         {
-            var order = AutoMapper.Mapper.Map<OrderEditModel, OrderDto>(value);
+            var order = _mapper.Map<OrderEditModel, OrderDto>(value);
             order.UserFirstName = User.Identity.Name;
             await _service.AddOrder(order);
         }
@@ -53,7 +56,7 @@ namespace WebAPITestApp.Web.Controllers
         [ValidateModel]
         public async Task Put(int id, [FromBody]OrderEditModel value)
         {
-            var order = AutoMapper.Mapper.Map<OrderEditModel, OrderDto>(value);
+            var order = _mapper.Map<OrderEditModel, OrderDto>(value);
             order.UserFirstName = User.Identity.Name;
             order.Id = id;
             await _service.Update(order);

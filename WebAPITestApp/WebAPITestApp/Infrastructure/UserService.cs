@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using WebAPITestApp.DBLayer.DbData;
 using WebAPITestApp.DBLayer.UnitOfWork;
 using WebAPITestApp.NLogger;
+using WebAPITestApp.Web.Infrastructure.MappingProfilers;
 using WebAPITestApp.Web.Models.AuthModels;
 
 namespace WebAPITestApp.Web.Infrastructure
@@ -17,17 +18,19 @@ namespace WebAPITestApp.Web.Infrastructure
         private readonly IUnitOfWork _unitOfWork;
 
         private readonly ILoggerService _logger;
+        private readonly IMap _mapper;
 
-        public UserService(IUnitOfWork unitOfWork, ILoggerService logger)
+        public UserService(IUnitOfWork unitOfWork, ILoggerService logger, IMap mapper)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _mapper = mapper;
         }
 
         public async Task<string> GetToken(UserModel userModel)
         {
             var list = await _unitOfWork.UsersRepository.GetAll();
-            var user = AutoMapper.Mapper.Map<User>(userModel);
+            var user = _mapper.Map<UserModel, User>(userModel);
             var person = list.FirstOrDefault(u => u.UserName == userModel.UserName && u.Password == user.Password);
 
             if (person != null)
@@ -41,13 +44,13 @@ namespace WebAPITestApp.Web.Infrastructure
 
         public async Task AddUser(UserModel userModel)
         {
-            _unitOfWork.UsersRepository.Create(AutoMapper.Mapper.Map<User>(userModel));
+            _unitOfWork.UsersRepository.Create(_mapper.Map<UserModel, User>(userModel));
             await _unitOfWork.Save();
         }
 
-        public async Task UpdateUser(UserModel user)
+        public async Task UpdateUser(UserModel userModel)
         {
-            _unitOfWork.UsersRepository.Update(AutoMapper.Mapper.Map<User>(user));
+            _unitOfWork.UsersRepository.Update(_mapper.Map<UserModel, User>(userModel));
             await _unitOfWork.Save();
         }
 
