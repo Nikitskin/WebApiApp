@@ -17,6 +17,7 @@ namespace WebAPITestApp.DBLayer.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<OrderProduct>()
                 .HasKey(x => new { x.OrderId, x.ProductId});
             modelBuilder.Entity<OrderProduct>()
@@ -27,6 +28,7 @@ namespace WebAPITestApp.DBLayer.Contexts
                 .HasOne(pt => pt.Order)
                 .WithMany(t => t.OrderProduct)
                 .HasForeignKey(pt => pt.OrderId);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

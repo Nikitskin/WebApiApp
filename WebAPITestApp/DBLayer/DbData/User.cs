@@ -9,9 +9,9 @@ namespace WebAPITestApp.DBLayer.DbData
     public class User : IdentityUser
     {
 
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        //public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public override string Id { get; set; }
 
         public override string UserName { get; set; }
 

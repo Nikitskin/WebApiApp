@@ -275,6 +275,10 @@
     <Compile Include="Migrations\20171112164210_UpdatedUserLastPassword.designer.cs">
       <DependentUpon>20171112164210_UpdatedUserLastPassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20171208145703_updateUser.cs" />
+    <Compile Include="Migrations\20171208145703_updateUser.designer.cs">
+      <DependentUpon>20171208145703_updateUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\OrderContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />

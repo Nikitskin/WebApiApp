@@ -17,7 +17,7 @@ namespace WebAPITestApp.Web.Controllers.API
         }
 
         //todo should i add authorization?
-        [HttpPost]
+        [HttpPost("AddUser")]
         [ValidateModel]
         public async Task AddUser([FromForm]UserModel user)
         {
