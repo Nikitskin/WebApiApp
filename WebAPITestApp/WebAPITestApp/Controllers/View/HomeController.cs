@@ -1,4 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPITestApp.Web.Infrastructure;
 using WebAPITestApp.Web.Infrastructure.Attributes;
@@ -27,7 +30,8 @@ namespace WebAPITestApp.Web.Controllers.View
             var result = await _userService.Login(user);
             if (result.Succeeded)
             {
-                return RedirectToAction("AfterLogin");
+                await _userService.SignIn(user);
+                return RedirectToAction("AfterLogin", new { user });
             }
             ModelState.AddModelError("", "Wrong username or password");
             ViewBag.Message = "Wrong username or password";
@@ -35,7 +39,8 @@ namespace WebAPITestApp.Web.Controllers.View
         }
         
         [Route("AfterLogin")]
-        public ActionResult AfterLogin()
+        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        public async Task<ActionResult> AfterLogin(UserModel model)
         {
             return View();
         }
