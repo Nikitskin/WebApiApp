@@ -14,25 +14,24 @@ namespace WebAPITestApp.Web.Controllers.View
             _userService = userService;
         }
 
-        public ActionResult Login()
+        public ActionResult Index()
         {
             return View();
-        } 
+
+        }
 
         //TODO is it right?
         [HttpPost]
         public async Task<ActionResult> Login(UserModel user)
         {
-            var result = await _userService.GetToken(user);
-            if (result != null)
-            {
-                return RedirectToAction("AfterLogin", new { result });
-            }
+            //var result = await _userService.SignIn(user);
+            //if (result)
+            //{
+            //    return RedirectToAction("AfterLogin", new { result });
+            //}
             ViewBag.Message = "Wrong username or password";
-            return View(user);
+            return RedirectToAction("Index");
         }
-
-
         
         [Route("AfterLogin")]
         public ActionResult AfterLogin(string result)
@@ -40,5 +39,6 @@ namespace WebAPITestApp.Web.Controllers.View
             ViewBag.Result = result;
             return View();
         }
+
     }
 }

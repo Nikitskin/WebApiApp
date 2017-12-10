@@ -251,33 +251,9 @@
     <Compile Include="DBRepository\UserRepository.cs" />
     <Compile Include="DBRepository\ProductRepository.cs" />
     <Compile Include="DBRepository\OrderRepository.cs" />
-    <Compile Include="Migrations\20171008155103_Initial.cs" />
-    <Compile Include="Migrations\20171008155103_Initial.designer.cs">
-      <DependentUpon>20171008155103_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171012143346_Relationships.cs" />
-    <Compile Include="Migrations\20171012143346_Relationships.designer.cs">
-      <DependentUpon>20171012143346_Relationships.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171026141633_refactoredBase.cs" />
-    <Compile Include="Migrations\20171026141633_refactoredBase.designer.cs">
-      <DependentUpon>20171026141633_refactoredBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171026184532_removeId.cs" />
-    <Compile Include="Migrations\20171026184532_removeId.designer.cs">
-      <DependentUpon>20171026184532_removeId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171112162048_UpdatedUser.cs" />
-    <Compile Include="Migrations\20171112162048_UpdatedUser.designer.cs">
-      <DependentUpon>20171112162048_UpdatedUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171112164210_UpdatedUserLastPassword.cs" />
-    <Compile Include="Migrations\20171112164210_UpdatedUserLastPassword.designer.cs">
-      <DependentUpon>20171112164210_UpdatedUserLastPassword.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20171208145703_updateUser.cs" />
-    <Compile Include="Migrations\20171208145703_updateUser.designer.cs">
-      <DependentUpon>20171208145703_updateUser.cs</DependentUpon>
+    <Compile Include="Migrations\20171209161719_Initial.cs" />
+    <Compile Include="Migrations\20171209161719_Initial.designer.cs">
+      <DependentUpon>20171209161719_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\OrderContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -290,6 +266,7 @@
       <Name>WebAPITestApp.NLogger</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -319,8 +296,6 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

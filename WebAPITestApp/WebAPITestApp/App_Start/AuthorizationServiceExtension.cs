@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
+using WebAPITestApp.DBLayer.DbData;
 using WebAPITestApp.Web.Infrastructure;
 
 namespace WebAPITestApp.Web
@@ -32,6 +34,8 @@ namespace WebAPITestApp.Web
                     //    OnAuthenticationFailed = f => f.Response.WriteAsync(f.Exception.ToString())
                     //};
                 });
+            services.AddTransient<UserManager<User>>();
+            services.AddTransient<SignInManager<User>>();
         }
     }
 }

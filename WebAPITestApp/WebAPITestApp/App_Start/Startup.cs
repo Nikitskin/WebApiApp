@@ -53,7 +53,7 @@ namespace WebAPITestApp.Web
         {
             app.UseMvc(routes =>
             {
-                routes.MapRoute("default", "{controller?}/{action?}", new { controller = "home", action = "login" });
+                routes.MapRoute("default", "{controller?}/{action?}", new { controller = "home", action = "index" });
             });
 
             loggerFactory.AddNLog();

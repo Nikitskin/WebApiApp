@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using WebAPITestApp.Web.Models.AuthModels;
 
 namespace WebAPITestApp.Web.Infrastructure
@@ -7,8 +8,11 @@ namespace WebAPITestApp.Web.Infrastructure
     {
         Task<string> GetToken(UserModel user);
 
-        Task AddUser(UserModel user);
+        Task<IdentityResult> AddUser(UserModel user);
+
+        Task SignIn(UserModel user);
 
         Task UpdateUser(UserModel user);
+
     }
 }

@@ -8,7 +8,6 @@ namespace WebAPITestApp.DBLayer.DbData
 {
     public class User : IdentityUser
     {
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override string Id { get; set; }

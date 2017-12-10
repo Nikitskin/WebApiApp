@@ -20,7 +20,7 @@ namespace UnitTests
             _unitOfWorkMock = new Mock<IUnitOfWork>();
             _logger = new Mock<ILoggerService>();
             _unitOfWorkMock.Setup(db => db.UsersRepository.Create(It.IsAny<User>())).Verifiable();
-            _service = new UserService(_unitOfWorkMock.Object, _logger.Object);
+            //_service = new UserService(_unitOfWorkMock.Object, _logger.Object, n);
             //todo implement tests
             //_service.GetToken(null);
             _unitOfWorkMock.VerifyAll();

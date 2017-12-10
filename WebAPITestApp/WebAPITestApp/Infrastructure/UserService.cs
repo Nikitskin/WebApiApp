@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using WebAPITestApp.DBLayer.DbData;
 using WebAPITestApp.DBLayer.UnitOfWork;
@@ -15,13 +16,16 @@ namespace WebAPITestApp.Web.Infrastructure
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
-
         private readonly ILoggerService _logger;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserService(IUnitOfWork unitOfWork, ILoggerService logger)
+        public UserService(IUnitOfWork unitOfWork, ILoggerService logger, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<string> GetToken(UserModel userModel)
@@ -39,12 +43,20 @@ namespace WebAPITestApp.Web.Infrastructure
             return null;
         }
 
-        public async Task AddUser(UserModel userModel)
+        public async Task<IdentityResult> AddUser(UserModel userModel)
         {
-            _unitOfWork.UsersRepository.Create(AutoMapper.Mapper.Map<User>(userModel));
+            var result = await _userManager.CreateAsync(AutoMapper.Mapper.Map<User>(userModel), userModel.Password);
+            //_unitOfWork.UsersRepository.Create(AutoMapper.Mapper.Map<User>(userModel));
             await _unitOfWork.Save();
+            return result;
         }
 
+        public async Task SignIn(UserModel user)
+        {
+            await _signInManager.SignInAsync(AutoMapper.Mapper.Map<User>(user), false);
+        }
+
+        //todo change update according to manager
         public async Task UpdateUser(UserModel user)
         {
             _unitOfWork.UsersRepository.Update(AutoMapper.Mapper.Map<User>(user));
