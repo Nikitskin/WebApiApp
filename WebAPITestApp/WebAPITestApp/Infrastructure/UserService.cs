@@ -79,5 +79,15 @@ namespace WebAPITestApp.Web.Infrastructure
 
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
+
+        public async Task<SignInResult> Login(UserModel model)
+        {
+            return await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
+        }
+
+        public async Task LogOff()
+        {
+            await _signInManager.SignOutAsync();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebAPITestApp.Web.Infrastructure;
+using WebAPITestApp.Web.Infrastructure.Attributes;
 using WebAPITestApp.Web.Models.AuthModels;
 
 namespace WebAPITestApp.Web.Controllers.View
@@ -11,7 +12,7 @@ namespace WebAPITestApp.Web.Controllers.View
 
         public AccountController(IUserService userService)
         {
-            _userService= userService;
+            _userService = userService;
         }
 
 
@@ -32,21 +33,19 @@ namespace WebAPITestApp.Web.Controllers.View
         }
 
         [HttpPost]
+        [ValidateModel]
         public async Task<IActionResult> Register(UserModel model)
         {
-            if (ModelState.IsValid)
+            var result = await _userService.AddUser(model);
+            if (result.Succeeded)
             {
-                var result = await _userService.AddUser(model);
-                if (result.Succeeded)
-                {
-                    _userService.SignIn(model);
-                    return RedirectToAction("Index", "Home");
-                }
-                foreach (var error in result.Errors)
-                {
-                    ViewBag.Errors = error.Description + "\n";
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                await _userService.SignIn(model);
+                return RedirectToAction("Index", "Home");
+            }
+            foreach (var error in result.Errors)
+            {
+                ViewBag.Errors = error.Description + "\n";
+                ModelState.AddModelError(string.Empty, error.Description);
             }
             return View(model);
         }

@@ -6,6 +6,19 @@
 <h2>After Login</h2>
 </head>
 <body>
-<label>Welcome, user '@ViewBag.Result'</label>
+@if (User.Identity.IsAuthenticated)
+{
+    <label>Welcome, user @User.Identity.Name</label>
+    <form method="post" asp-controller="Home" asp-action="LogOff">
+        <input type="submit" value="Exit" />
+    </form>
+}
+else
+{
+    <a asp-controller="Home" asp-action="Login">Login</a>
+    <a asp-controller="Account" asp-action="Register">Register</a>
+}
+
+
 </body>
 </html>

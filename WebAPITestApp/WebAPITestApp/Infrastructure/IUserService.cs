@@ -14,5 +14,8 @@ namespace WebAPITestApp.Web.Infrastructure
 
         Task UpdateUser(UserModel user);
 
+        Task<SignInResult> Login(UserModel model);
+
+        Task LogOff();
     }
 }

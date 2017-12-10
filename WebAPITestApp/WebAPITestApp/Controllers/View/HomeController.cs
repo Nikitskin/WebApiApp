@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebAPITestApp.Web.Infrastructure;
+using WebAPITestApp.Web.Infrastructure.Attributes;
 using WebAPITestApp.Web.Models.AuthModels;
 
 namespace WebAPITestApp.Web.Controllers.View
@@ -17,27 +18,32 @@ namespace WebAPITestApp.Web.Controllers.View
         public ActionResult Index()
         {
             return View();
-
         }
 
-        //TODO is it right?
         [HttpPost]
-        public async Task<ActionResult> Login(UserModel user)
+        [ValidateModel]
+        public async Task<ActionResult> Index(UserModel user)
         {
-            //var result = await _userService.SignIn(user);
-            //if (result)
-            //{
-            //    return RedirectToAction("AfterLogin", new { result });
-            //}
+            var result = await _userService.Login(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("AfterLogin");
+            }
+            ModelState.AddModelError("", "Wrong username or password");
             ViewBag.Message = "Wrong username or password";
-            return RedirectToAction("Index");
+            return View(user);
         }
         
         [Route("AfterLogin")]
-        public ActionResult AfterLogin(string result)
+        public ActionResult AfterLogin()
         {
-            ViewBag.Result = result;
             return View();
+        }
+
+        public async Task<ActionResult> LogOff()
+        {
+            await _userService.LogOff();
+            return RedirectToAction("Index");
         }
 
     }
