@@ -10,7 +10,7 @@ namespace WebAPITestApp.Web.Infrastructure
 
         Task<IdentityResult> AddUser(UserModel user);
 
-        //Task SignIn(UserModel user);
+        Task SignIn(UserModel user);
 
         Task UpdateUser(UserModel user);
 

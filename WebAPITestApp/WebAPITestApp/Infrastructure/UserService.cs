@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -47,6 +48,10 @@ namespace WebAPITestApp.Web.Infrastructure
         {
             var user = AutoMapper.Mapper.Map<User>(userModel);
             var result = await _userManager.CreateAsync(user, userModel.Password);
+            if (result.Succeeded)
+            {
+                await _signInManager.SignInAsync(user, false);
+            }
             //todo add claims?
             //await _userManager.claim(user);
             //_unitOfWork.UsersRepository.Create(AutoMapper.Mapper.Map<User>(userModel));
@@ -54,18 +59,11 @@ namespace WebAPITestApp.Web.Infrastructure
             return result;
         }
 
-        //public async Task SignIn(UserModel model)
-        //{
-        //    //    var claims = new List<Claim>
-        //    //    {
-        //    //        new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
-        //    //    };
-        //    //    ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-        //    var user = AutoMapper.Mapper.Map<User>(model);
-        //    await _signInManager.ClaimsFactory.CreateAsync(user);
-        //    //user.SecurityStamp = RandomNumberGenerator.Create().ToString();
-        //    await _signInManager.SignInAsync(user, false);
-        //}
+        public async Task SignIn(UserModel model)
+        {
+            var user = AutoMapper.Mapper.Map<User>(model);
+            await _signInManager.SignInAsync(user, false);
+        }
 
         //todo change update according to manager
         public async Task UpdateUser(UserModel user)

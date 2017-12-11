@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -9,8 +8,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NLog.Extensions.Logging;
 using NLog.Web;
-using WebAPITestApp.DBLayer.Contexts;
-using WebAPITestApp.DBLayer.DbData;
 using WebAPITestApp.NLogger;
 using WebAPITestApp.Web.Infrastructure.Attributes;
 using WebAPITestApp.Web.Infrastructure.Filters;
@@ -44,9 +41,6 @@ namespace WebAPITestApp.Web
             });
             services.AddAutoMapper();
             services.AddSingleton<ILoggerService, LoggerService>();
-            services.AddIdentity<User, IdentityRole>().
-                AddEntityFrameworkStores<OrderContext>().
-                AddDefaultTokenProviders();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

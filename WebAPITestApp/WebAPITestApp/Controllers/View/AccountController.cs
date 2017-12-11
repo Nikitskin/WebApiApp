@@ -15,7 +15,6 @@ namespace WebAPITestApp.Web.Controllers.View
             _userService = userService;
         }
 
-
         public IActionResult Index()
         {
             return View();

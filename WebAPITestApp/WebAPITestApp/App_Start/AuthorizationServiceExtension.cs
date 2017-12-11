@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Microsoft.IdentityModel.Tokens;
+using WebAPITestApp.DBLayer.Contexts;
 using WebAPITestApp.DBLayer.DbData;
-using WebAPITestApp.Web.Infrastructure;
 
 namespace WebAPITestApp.Web
 {
@@ -19,7 +17,27 @@ namespace WebAPITestApp.Web
                 {
                     opt.LoginPath = PathString.FromUriComponent("/Home/Index");
                 });
-            services.AddAuthorization();
+            services.AddIdentity<User, IdentityRole>().
+                AddEntityFrameworkStores<OrderContext>().
+                AddDefaultTokenProviders();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 3;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequiredUniqueChars = 3;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Expiration = TimeSpan.FromDays(150);
+                options.LoginPath = "/Home/Index"; 
+                options.LogoutPath = "/Home/Index"; 
+                options.SlidingExpiration = true;
+            });
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //    .AddJwtBearer(options =>
             //    {
