@@ -19,6 +19,7 @@ namespace WebAPITestApp.Web
                 {
                     opt.LoginPath = PathString.FromUriComponent("/Home/Index");
                 });
+            services.AddAuthorization();
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //    .AddJwtBearer(options =>
             //    {

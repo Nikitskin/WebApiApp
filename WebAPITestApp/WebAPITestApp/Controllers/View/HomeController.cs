@@ -27,10 +27,9 @@ namespace WebAPITestApp.Web.Controllers.View
         [ValidateModel]
         public async Task<ActionResult> Index(UserModel user)
         {
-            var result = await _userService.Login(user);
+            var result = await _userService.Authenticate(user);
             if (result.Succeeded)
             {
-                await _userService.SignIn(user);
                 return RedirectToAction("AfterLogin", new { user });
             }
             ModelState.AddModelError("", "Wrong username or password");
@@ -40,7 +39,7 @@ namespace WebAPITestApp.Web.Controllers.View
         
         [Route("AfterLogin")]
         [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> AfterLogin(UserModel model)
+        public ActionResult AfterLogin(UserModel model)
         {
             return View();
         }

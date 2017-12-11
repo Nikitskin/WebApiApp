@@ -45,16 +45,27 @@ namespace WebAPITestApp.Web.Infrastructure
 
         public async Task<IdentityResult> AddUser(UserModel userModel)
         {
-            var result = await _userManager.CreateAsync(AutoMapper.Mapper.Map<User>(userModel), userModel.Password);
+            var user = AutoMapper.Mapper.Map<User>(userModel);
+            var result = await _userManager.CreateAsync(user, userModel.Password);
+            //todo add claims?
+            //await _userManager.claim(user);
             //_unitOfWork.UsersRepository.Create(AutoMapper.Mapper.Map<User>(userModel));
             await _unitOfWork.Save();
             return result;
         }
 
-        public async Task SignIn(UserModel user)
-        {
-            await _signInManager.SignInAsync(AutoMapper.Mapper.Map<User>(user), false);
-        }
+        //public async Task SignIn(UserModel model)
+        //{
+        //    //    var claims = new List<Claim>
+        //    //    {
+        //    //        new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
+        //    //    };
+        //    //    ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+        //    var user = AutoMapper.Mapper.Map<User>(model);
+        //    await _signInManager.ClaimsFactory.CreateAsync(user);
+        //    //user.SecurityStamp = RandomNumberGenerator.Create().ToString();
+        //    await _signInManager.SignInAsync(user, false);
+        //}
 
         //todo change update according to manager
         public async Task UpdateUser(UserModel user)
@@ -80,7 +91,7 @@ namespace WebAPITestApp.Web.Infrastructure
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
 
-        public async Task<SignInResult> Login(UserModel model)
+        public async Task<SignInResult> Authenticate(UserModel model)
         {
             return await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
         }
