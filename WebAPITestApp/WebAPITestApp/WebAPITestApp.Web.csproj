@@ -3,6 +3,11 @@
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <StartupObject>WebAPITestApp.Web.Program</StartupObject>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>1</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>

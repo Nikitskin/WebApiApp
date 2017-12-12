@@ -19,11 +19,16 @@ namespace WebAPITestApp.Web.Infrastructure.MappingProfilers
             CreateMap<ProductDto, ProductCoreModel>();
             CreateMap<ProductCoreModel, ProductDto>();
             CreateMap<ProductFullModel, ProductDto>();
+
+            //todo make it clear
+            CreateMap<UserModel, User>().ForMember(dst => dst.Id, opt => 
+                opt.MapFrom(src => Guid.NewGuid()));
             
-            CreateMap<UserModel, User>().ForMember(dst => dst.PasswordHash , 
-                opt => opt.MapFrom(src => BCryptHelper.
-                HashPassword(src.Password, _salt))).
-                ForMember(dst => dst.LastPasswordChangedDate, opt => opt.MapFrom(src => DateTime.Now.ToShortDateString()));
+                //todo remove if normalized
+            //CreateMap<UserModel, User>().ForMember(dst => dst.PasswordHash , 
+            //    opt => opt.MapFrom(src => BCryptHelper.
+            //    HashPassword(src.Password, _salt))).
+            //    ForMember(dst => dst.LastPasswordChangedDate, opt => opt.MapFrom(src => DateTime.Now.ToShortDateString()));
 
             //CreateMap<OrderDto, OrderCoreModel>();
             CreateMap<OrderDto, OrderResponseModel>().ForMember(dst => dst.ProductModels,

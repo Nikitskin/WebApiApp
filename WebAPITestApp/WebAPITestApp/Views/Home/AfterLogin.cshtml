@@ -6,20 +6,17 @@
     <h2>After Login</h2>
 </head>
 <body>
-    <label>Welcome, user @User.Identity.Name</label>
-    <form method="post" asp-controller="Home" asp-action="LogOff">
-        <input type="submit" value="Exit" />
-    </form>
-    @*@if (User.Identity.IsAuthenticated)
-        {
-
-        }*@
-    @*else
-    {*@
-    @*<a asp-controller="Home" asp-action="Login">Login</a>
-    <a asp-controller="Account" asp-action="Register">Register</a>*@
-    @*}*@
-
-
+    @if (User.Identity.IsAuthenticated)
+    {
+        <label>Welcome, user @User.Identity.Name</label>
+            <form method="post" asp-controller="Home" asp-action="LogOff">
+                <input type="submit" value="Exit" />
+            </form>
+    }
+    else
+    {
+        @Html.ActionLink("Login", "Index", "Home")
+        @Html.ActionLink("Register", "Register", "Account")
+    }
 </body>
 </html>

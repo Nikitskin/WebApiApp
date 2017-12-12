@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPITestApp.Web.Infrastructure;
 using WebAPITestApp.Web.Infrastructure.Attributes;
@@ -9,7 +8,7 @@ namespace WebAPITestApp.Web.Controllers.View
 {
     public class HomeController : Controller
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
 
         public HomeController(IUserService userService)
         {
@@ -28,17 +27,16 @@ namespace WebAPITestApp.Web.Controllers.View
             var result = await _userService.Authenticate(user);
             if (result.Succeeded)
             {
-                await _userService.Authenticate(user);
-                return RedirectToAction("AfterLogin", user);
+                return RedirectToAction("AfterLogin", "Home");
             }
             ModelState.AddModelError("", "Wrong username or password");
             ViewBag.Message = "Wrong username or password";
             return View(user);
         }
         
-        [Route("AfterLogin")]
-        [Authorize]
-        public ActionResult AfterLogin(UserModel model)
+        //[Route("AfterLogin")]
+        //[Authorize]
+        public ActionResult AfterLogin()
         {
             return View();
         }

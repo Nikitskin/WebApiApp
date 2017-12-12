@@ -53,10 +53,10 @@ namespace WebAPITestApp.Web
             loggerFactory.AddNLog();
             app.AddNLogWeb();
             env.ConfigureNLog("../NLogger/nlog.config");
-            app.UseDefaultFiles();
+            //app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseAuthentication();
+            app.UseMiddleware<ErrorHandlerMiddleware>();
         }
     }
 }

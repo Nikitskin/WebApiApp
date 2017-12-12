@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -47,22 +46,16 @@ namespace WebAPITestApp.Web.Infrastructure
         public async Task<IdentityResult> AddUser(UserModel userModel)
         {
             var user = AutoMapper.Mapper.Map<User>(userModel);
+            //todo remove
             var result = await _userManager.CreateAsync(user, userModel.Password);
-            if (result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, false);
-            }
+            if (!result.Succeeded) return result;
+            //await _userManager.AddClaimAsync(user, new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.UserName));
+            await _signInManager.SignInAsync(user, true);
             //todo add claims?
             //await _userManager.claim(user);
             //_unitOfWork.UsersRepository.Create(AutoMapper.Mapper.Map<User>(userModel));
-            await _unitOfWork.Save();
+            //await _unitOfWork.Save();
             return result;
-        }
-
-        public async Task SignIn(UserModel model)
-        {
-            var user = AutoMapper.Mapper.Map<User>(model);
-            await _signInManager.SignInAsync(user, false);
         }
 
         //todo change update according to manager
@@ -91,7 +84,12 @@ namespace WebAPITestApp.Web.Infrastructure
 
         public async Task<SignInResult> Authenticate(UserModel model)
         {
-            return await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, true, false);
+            if (!result.Succeeded) return result;
+            var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(AutoMapper.Mapper.Map<User>(model));
+            var user = await _userManager.FindByNameAsync(claimsPrincipal.Identity.Name);
+            await _signInManager.RefreshSignInAsync(user);
+            return result;
         }
 
         public async Task LogOff()

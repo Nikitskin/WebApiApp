@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebAPITestApp.DBLayer.DbData;
 
 namespace WebAPITestApp.DBLayer.Contexts
 {
-    public class OrderContext : IdentityDbContext<User>
+    public class OrderContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
     {
         public OrderContext(DbContextOptions<OrderContext> options)
             : base(options)
