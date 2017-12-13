@@ -17,14 +17,12 @@ namespace WebAPITestApp.Web.Infrastructure
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILoggerService _logger;
-        private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
-        public UserService(IUnitOfWork unitOfWork, ILoggerService logger, UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserService(IUnitOfWork unitOfWork, ILoggerService logger, SignInManager<User> signInManager)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
-            _userManager = userManager;
             _signInManager = signInManager;
         }
 
@@ -37,7 +35,7 @@ namespace WebAPITestApp.Web.Infrastructure
             if (person != null)
                 return person.LastPasswordChangedDate.AddDays(10) < DateTime.Now
                     ? string.Format("User {0} has expired password", person.UserName)
-                    : GetIdentity(userModel);
+                    : GetJwtSecurityToken(userModel);
 
             _logger.Info(string.Format("{0} is not exists", userModel.UserName));
             return null;
@@ -46,16 +44,13 @@ namespace WebAPITestApp.Web.Infrastructure
         public async Task<IdentityResult> AddUser(UserModel userModel)
         {
             var user = AutoMapper.Mapper.Map<User>(userModel);
-            //todo remove
-            var result = await _userManager.CreateAsync(user, userModel.Password);
+            var result = await _signInManager.UserManager.CreateAsync(user, userModel.Password);
             if (!result.Succeeded) return result;
-            //await _userManager.AddClaimAsync(user, new Claim(ClaimsIdentity.DefaultNameClaimType, userModel.UserName));
-            await _signInManager.SignInAsync(user, true);
-            //todo add claims?
-            //await _userManager.claim(user);
-            //_unitOfWork.UsersRepository.Create(AutoMapper.Mapper.Map<User>(userModel));
-            //await _unitOfWork.Save();
-            return result;
+            await _signInManager.UserManager.AddClaimAsync(user, new Claim(ClaimsIdentity.DefaultNameClaimType,
+                userModel.UserName));
+
+            await _signInManager.SignInAsync(user, false);
+            return result; 
         }
 
         //todo change update according to manager
@@ -65,7 +60,7 @@ namespace WebAPITestApp.Web.Infrastructure
             await _unitOfWork.Save();
         }
 
-        private string GetIdentity(UserModel userModel)
+        private string GetJwtSecurityToken(UserModel userModel)
         {
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
                 {
@@ -82,14 +77,13 @@ namespace WebAPITestApp.Web.Infrastructure
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
 
-        public async Task<SignInResult> Authenticate(UserModel model)
+        public async Task<ClaimsPrincipal> Authenticate(UserModel model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, true, false);
-            if (!result.Succeeded) return result;
-            var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(AutoMapper.Mapper.Map<User>(model));
-            var user = await _userManager.FindByNameAsync(claimsPrincipal.Identity.Name);
+            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
+            if (!result.Succeeded) return null;
+            var user = await _signInManager.UserManager.FindByNameAsync(model.UserName);
             await _signInManager.RefreshSignInAsync(user);
-            return result;
+            return await _signInManager.ClaimsFactory.CreateAsync(user);
         }
 
         public async Task LogOff()

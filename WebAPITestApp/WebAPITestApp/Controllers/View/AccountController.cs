@@ -38,7 +38,6 @@ namespace WebAPITestApp.Web.Controllers.View
             var result = await _userService.AddUser(model);
             if (result.Succeeded)
             {
-                await _userService.Authenticate(model);
                 return RedirectToAction("Index", "Home");
             }
             foreach (var error in result.Errors)

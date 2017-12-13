@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebAPITestApp.Web.Infrastructure;
 using WebAPITestApp.Web.Infrastructure.Attributes;
@@ -27,7 +28,7 @@ namespace WebAPITestApp.Web.Controllers.API
         [HttpPut("{id}")]
         public async Task UpdateUser(string id, [Bind("Password")]UserModel user)
         {
-            user.Id = id;
+            user.Id = Guid.Parse(id);
             await _userService.UpdateUser(user);
         }
 

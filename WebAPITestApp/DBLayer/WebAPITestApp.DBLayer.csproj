@@ -251,9 +251,9 @@
     <Compile Include="DBRepository\UserRepository.cs" />
     <Compile Include="DBRepository\ProductRepository.cs" />
     <Compile Include="DBRepository\OrderRepository.cs" />
-    <Compile Include="Migrations\20171209161719_Initial.cs" />
-    <Compile Include="Migrations\20171209161719_Initial.designer.cs">
-      <DependentUpon>20171209161719_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\20171213143317_Initialization.cs" />
+    <Compile Include="Migrations\20171213143317_Initialization.designer.cs">
+      <DependentUpon>20171213143317_Initialization.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\OrderContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -38,6 +39,9 @@ namespace WebAPITestApp.Web
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            }).AddRazorPagesOptions(opt =>
+            {
+                opt.Conventions.AuthorizePage("/Home/Index");
             });
             services.AddAutoMapper();
             services.AddSingleton<ILoggerService, LoggerService>();
@@ -55,6 +59,7 @@ namespace WebAPITestApp.Web
             env.ConfigureNLog("../NLogger/nlog.config");
             //app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseOwin();
             app.UseAuthentication();
             app.UseMiddleware<ErrorHandlerMiddleware>();
         }

@@ -21,8 +21,7 @@ namespace WebAPITestApp.Web.Infrastructure.MappingProfilers
             CreateMap<ProductFullModel, ProductDto>();
 
             //todo make it clear
-            CreateMap<UserModel, User>().ForMember(dst => dst.Id, opt => 
-                opt.MapFrom(src => Guid.NewGuid()));
+            CreateMap<UserModel, User>();
             
                 //todo remove if normalized
             //CreateMap<UserModel, User>().ForMember(dst => dst.PasswordHash , 

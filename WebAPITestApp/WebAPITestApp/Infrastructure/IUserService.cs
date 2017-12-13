@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using WebAPITestApp.Web.Models.AuthModels;
 
@@ -12,7 +13,7 @@ namespace WebAPITestApp.Web.Infrastructure
 
         Task UpdateUser(UserModel user);
 
-        Task<SignInResult> Authenticate(UserModel model);
+        Task<ClaimsPrincipal> Authenticate(UserModel model);
 
         Task LogOff();
     }

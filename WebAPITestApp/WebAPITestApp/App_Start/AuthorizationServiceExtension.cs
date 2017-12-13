@@ -1,8 +1,15 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
 using WebAPITestApp.DBLayer.Contexts;
 using WebAPITestApp.DBLayer.DbData;
+using WebAPITestApp.Web.Infrastructure;
 
 namespace WebAPITestApp.Web
 {
@@ -10,11 +17,8 @@ namespace WebAPITestApp.Web
     {
         public static void RegisterAuthorization(this IServiceCollection services)
         {
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //    .AddCookie(opt =>
-            //    {
-            //        opt.LoginPath = PathString.FromUriComponent("/Home/Index");
-            //    });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+            services.AddAuthorization();
             services.AddIdentity<User, IdentityRole<Guid>>(options =>
                 {
                     options.Password.RequireDigit = false;
@@ -24,34 +28,28 @@ namespace WebAPITestApp.Web
                     options.Password.RequireLowercase = false;
                 }).
                 AddEntityFrameworkStores<OrderContext>().
-                AddDefaultTokenProviders();
+                AddDefaultTokenProviders().
+                AddUserStore<UserStore<User, IdentityRole<Guid>, OrderContext, Guid>>().
+                AddRoleStore<RoleStore<IdentityRole<Guid>, OrderContext, Guid>>();
 
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.Cookie.Name = "TestingCookies";
-                options.LoginPath = "/Home/Index"; 
-                options.LogoutPath = "/Home/Index"; 
-                options.SlidingExpiration = true;
-            });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Configuration = new OpenIdConnectConfiguration();
+                    options.RequireHttpsMetadata = false;
+                    options.Audience = AuthOptions.AUDIENCE;
+                    options.Authority = AuthOptions.AUDIENCE;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false,
+                        ValidateIssuer = false,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true
+                    };
 
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.Configuration = new OpenIdConnectConfiguration();
-            //        options.RequireHttpsMetadata = false;
-            //        options.Audience = AuthOptions.AUDIENCE;
-            //        options.Authority = AuthOptions.AUDIENCE;
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateAudience = false,
-            //            ValidateIssuer = false,
-            //            ValidateLifetime = true,
-            //            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-            //            ValidateIssuerSigningKey = true
-            //        };
-
-            //        options.IncludeErrorDetails = true;
-            //    });
+                    options.IncludeErrorDetails = true;
+                });
         }
     }
 }

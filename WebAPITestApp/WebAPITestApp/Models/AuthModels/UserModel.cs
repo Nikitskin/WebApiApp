@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace WebAPITestApp.Web.Models.AuthModels
@@ -6,7 +7,7 @@ namespace WebAPITestApp.Web.Models.AuthModels
     public class UserModel 
     {
         [JsonIgnore]
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string UserName { get; set; }
